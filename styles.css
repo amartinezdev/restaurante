@@ -34,22 +34,16 @@ body {
 }
 
 /* CLIENTE */
-.mesa {
+.card-mesa {
   transition: transform 0.3s ease;
   font-size: 12px;
 }
 
-.mesa:hover {
+.card-mesa:hover {
   transform: scale(1.1);
 }
 
 .card-mesa img {
   max-height: 90px;
   object-fit: contain;
-}
-
-@media (min-width: 576px) {
-  .mesa {
-    font-size: 1rem; /* tamaño normal de texto */
-  }
 }

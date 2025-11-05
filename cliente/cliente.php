@@ -1,6 +1,13 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["usuario"])) {
+    header("LOCATION: ../index.php");
+    exit;
+}
 include("../components/conexion.php");
+$navbar1 = "/restaurante/cliente/cliente.php";
+$active = "mesas";
 ?>
 
 <!DOCTYPE html>
@@ -9,24 +16,10 @@ include("../components/conexion.php");
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EQP - Cliente</title>
-
-    <!-- Bootstrap CSS -->
+    <title>El Quinto Pino - Cliente</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Tu hoja de estilos (mantiene tu identidad visual) -->
     <link rel="stylesheet" href="../styles.css" />
-
-    <!--
-      Notas de estilo (ajústalo a tu guía):
-      - Usa variables CSS en styles.css para colores de marca, ej.: 
-          :root { --brand: #7c3aed; --brand-contrast: #fff; }
-      - La clase .btn-brand incluida abajo usa esas variables.
-    -->
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -59,12 +52,12 @@ include("../components/conexion.php");
 
 
                             echo '<div class="row g-3 g-sm-4">';
-
+                            // pinto todas las mesas que hayan, por si se borran o se añaden.
                             while ($row = mysqli_fetch_array($result)) {
                                 $mesa = $row['numMesa'];
                                 $disponible = $row['estado'];
 
-
+                                // si esta disponible, la pintamos de verde, sino, de rojo y desactivo el botón
                                 if ($disponible == 1) {
                                     echo '<div class="col-6 col-sm-4 col-md-4 col-lg-4 d-flex">';
                                     echo ' <article class="card mesa card-mesa shadow-sm w-100 border-success">';
@@ -98,14 +91,9 @@ include("../components/conexion.php");
                 </div>
             </div>
         </main>
-
-        <!-- FOOTER -->
-        <footer class="container py-4">
-            <div class="text-center text-body-secondary small">&copy; <?php echo date('Y'); ?> EQP</div>
-        </footer>
     </div>
 
-    <!-- Bootstrap JS (una sola vez, ruta correcta) -->
+
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 

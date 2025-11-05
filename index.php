@@ -12,9 +12,9 @@ include("components/conexion.php");
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>El Quinto Pino</title>
-  <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -82,7 +82,7 @@ include("components/conexion.php");
             <label for="pw">Contraseña</label>
           </div>
           <div class="d-grid">
-            <button type="submit" class="btn btn-light fw-bold lead">Entrar</button>
+            <button type="submit" class="btn btn-light fw-bold lead"><i class="bi bi-box-arrow-in-right"></i> Entrar</button>
           </div>
 
           <div class="text-center mt-4 text-warning">
