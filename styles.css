@@ -1,0 +1,55 @@
+/* ESTILOS GENERALES */
+@font-face {
+  font-family: Adumu;
+  src: url(/restaurante/fonts/Adumu.ttf);
+}
+
+h1 {
+  font-family: Adumu, Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-image: url(/restaurante/img/background02.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ESTILOS POR PÁGINA */
+
+/* index.html */
+.login {
+  box-shadow: 0px 0px 150px 50px black;
+}
+
+.video-fondo {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* CLIENTE */
+.mesa {
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.mesa:hover {
+  transform: scale(1.1);
+}
+
+.card-mesa img {
+  max-height: 90px;
+  object-fit: contain;
+}
+
+@media (min-width: 576px) {
+  .mesa {
+    font-size: 1rem; /* tamaño normal de texto */
+  }
+}
