@@ -39,6 +39,7 @@ include("components/conexion.php");
 
         $_SESSION["usuario"] = $row2["nombre"];
         $_SESSION["dni"] = $dni;
+        $_SESSION["rol"] = $row2["rol"];
 
 
         if ($row2["rol"] == 0) {
