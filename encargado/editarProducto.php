@@ -75,12 +75,14 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
                                             id="bloqueado">
 
                                             <?php
+                                            // si está bloqueado, que aparezca que NO de primeras
                                             if ($row["estado"] == 1) {
                                             ?>
                                                 <option value="no" selected>No</option>
                                                 <option value="si">Si</option>
                                             <?php
                                             } else {
+                                                // si está desbloqueado, que aparezca que SI
                                             ?>
                                                 <option value="si" selected>Si</option>
                                                 <option value="no">No</option>
@@ -99,6 +101,7 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
                                             name="cat"
                                             id="cat">
                                             <?php
+                                            // consulta a las categorías para añadir dinamismo
                                             $consultaCat = "SELECT nombre FROM categoria";
                                             $resultCat = mysqli_query($conn, $consultaCat);
 

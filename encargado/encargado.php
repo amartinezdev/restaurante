@@ -56,6 +56,7 @@ $active = "productos";
                                     </thead>
                                     <tbody>
                                         <?php
+                                        // realizo una tabla con todos los productos de la base de datos.
                                         $consulta = "SELECT * FROM producto";
 
                                         $result = mysqli_query($conn, $consulta);

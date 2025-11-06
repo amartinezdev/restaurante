@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// actualizar la base de datos con el producto actualizado.
 if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
     header("LOCATION: ../index.php");
     exit;

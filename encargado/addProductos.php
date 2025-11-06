@@ -78,6 +78,7 @@ $active = "addproductos";
                                             name="cat"
                                             id="cat">
                                             <?php
+                                            // select de categorías para añadir dinamismo
                                             $consultaCat = "SELECT nombre FROM categoria";
                                             $resultCat = mysqli_query($conn, $consultaCat);
 

@@ -8,6 +8,7 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
     exit;
 }
 
+// funcionalidad para añadir el producto a la base de datos
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombre = $_POST["nombre"];
     $precio = $_POST["precio"];
