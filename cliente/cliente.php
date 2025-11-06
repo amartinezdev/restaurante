@@ -31,7 +31,7 @@ $active = "mesas";
         <?php
         include("../components/header.php");
         include("../components/navbar.php");
-        $usuario = isset($_SESSION["usuario"]) ? $_SESSION["usuario"] : "";
+        $usuario = $_SESSION["usuario"];
         ?>
 
         <!-- CONTENIDO PRINCIPAL -->
