@@ -49,8 +49,8 @@ include("components/conexion.php");
           header("LOCATION: camarero/camarero.php");
           $mensaje = "Soy rol 1";
         } else if ($row2["rol"] == 2) {
-          // header("LOCATION: encargado/encargado.php");
-          $mensaje = "Soy rol 2";
+          header("LOCATION: encargado/encargado.php");
+          $mensaje = $row2['rol'];
         }
       } else if ($row == 0) {
         $mensaje = "Usuario o contraseña incorrectos.";
