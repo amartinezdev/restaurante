@@ -5,8 +5,11 @@ if (!isset($_SESSION["usuario"])) {
     header("LOCATION: ../index.php");
     exit;
 }
+
 include("../components/conexion.php");
 $navbar1 = "/restaurante/cliente/cliente.php";
+$navbar2 = "/restaurante/cliente/pedidos.php";
+$navbar3 = "/restaurante/cliente/perfil.php";
 $active = "mesas";
 ?>
 

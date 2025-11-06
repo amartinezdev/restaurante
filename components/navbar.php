@@ -4,7 +4,6 @@ $navbar1 = $navbar1 ?? '#';
 $navbar2 = $navbar2 ?? '#';
 $navbar3 = $navbar3 ?? '#';
 
-// Página activa opcional para estilos (por ejemplo: 'mesas', 'pedidos', 'perfil')
 $active  = $active  ?? '';
 ?>
 <div class="row">
@@ -19,20 +18,20 @@ $active  = $active  ?? '';
         <div class="collapse navbar-collapse justify-content-center" id="navbarMain">
             <ul class="navbar-nav mb-2 mb-lg-0 text-center">
                 <li class="nav-item mx-3">
-                    <a class="nav-link <?= $active === 'mesas' ? 'text-secondary' : 'text-light' ?>"
-                        href="<?= htmlspecialchars($navbar1, ENT_QUOTES) ?>">
+                    <a class="nav-link <?php echo $active === 'mesas' ? 'text-secondary' : 'text-light' ?>"
+                        href="<?php echo $navbar1 ?>">
                         <i class="bi bi-house"></i> Mesas
                     </a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link <?= $active === 'pedidos' ? 'text-secondary' : 'text-light' ?>"
-                        href="<?= htmlspecialchars($navbar2, ENT_QUOTES) ?>">
+                    <a class="nav-link <?php echo $active === 'pedidos' ? 'text-secondary' : 'text-light' ?>"
+                        href="<?php echo $navbar2 ?>">
                         <i class="bi bi-grid"></i> Pedidos
                     </a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link <?= $active === 'perfil' ? 'text-secondary' : 'text-light' ?>"
-                        href="<?= htmlspecialchars($navbar3, ENT_QUOTES) ?>">
+                    <a class="nav-link <?php echo $active === 'perfil' ? 'text-secondary' : 'text-light' ?>"
+                        href="<?php echo $navbar3 ?>">
                         <i class="bi bi-person"></i> Perfil
                     </a>
                 </li>
