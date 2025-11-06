@@ -3,14 +3,12 @@ session_start();
 
 include("../components/conexion.php");
 
-if (!isset($_SESSION["usuario"]) && $_SESION["rol"] == 2) {
+if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
     header("LOCATION: ../index.php");
     exit;
 }
 
 $active = "productos";
-
-
 ?>
 
 <!DOCTYPE html>

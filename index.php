@@ -32,10 +32,7 @@ include("components/conexion.php");
       $row = mysqli_num_rows($result);
       $row2 = mysqli_fetch_array($result);
 
-      $mensaje = "";
-
       if ($row == 1) {
-        $mensaje .= "1";
 
         $_SESSION["usuario"] = $row2["nombre"];
         $_SESSION["dni"] = $dni;
