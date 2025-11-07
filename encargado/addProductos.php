@@ -8,7 +8,7 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
     exit;
 }
 
-$active = "addproductos";
+$active = "productos";
 
 ?>
 
