@@ -54,7 +54,7 @@ $active = "mesas";
 
 
 
-                            echo '<div class="row g-3 g-sm-4">';
+                            echo '<div class="row g-3 g-sm-4 justify-content-around">';
                             // pinto todas las mesas que hayan, por si se borran o se añaden.
                             while ($row = mysqli_fetch_array($result)) {
                                 $mesa = $row['numMesa'];
@@ -62,7 +62,7 @@ $active = "mesas";
 
                                 // si esta disponible, la pintamos de verde, sino, de rojo y desactivo el botón
                                 if ($disponible == 1) {
-                                    echo '<div class="col-6 col-sm-4 col-md-4 col-lg-4 d-flex">';
+                                    echo '<div class="col-12 col-md-6 col-lg-4 d-flex">';
                                     echo ' <article class="card mesa card-mesa shadow-sm w-100 border-success">';
                                     echo ' <div class="card-body text-center">';
                                     echo ' <img src="../img/mesa2.png" class="img-fluid mx-auto d-block mb-2" alt="Mesa ' . $mesa . '" loading="lazy">';
@@ -73,7 +73,7 @@ $active = "mesas";
                                     echo ' </article>';
                                     echo '</div>';
                                 } else {
-                                    echo '<div class="col-6 col-sm-4 col-md-4 col-lg-4 d-flex">';
+                                    echo '<div class="col-12 col-md-6 col-lg-4 d-flex">';
                                     echo ' <article class="card mesa card-mesa shadow-sm w-100 border-danger">';
                                     echo ' <div class="card-body text-center">';
                                     echo ' <img src="../img/mesa2.png" class="img-fluid mx-auto d-block mb-2" alt="Mesa ' . $mesa . '" loading="lazy">';
