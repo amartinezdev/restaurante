@@ -9,6 +9,13 @@ if (!isset($_SESSION["usuario"])) {
 include("../components/conexion.php");
 $dni = $_SESSION["dni"];
 
+// si el cliente ya ha puesto los comensales, vamos a la carta
+$result = mysqli_query($conn, "SELECT comensales FROM reserva WHERE dni = '$dni'");
+$row = mysqli_fetch_assoc($result);
+if ($row["comensales"] != 0) {
+    header("LOCATION: carta.php");
+}
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $comensales = $_POST["comensales"];
 

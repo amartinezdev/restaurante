@@ -11,9 +11,7 @@ include("../components/conexion.php");
 $dni = $_SESSION["dni"];
 
 $consulta = "SELECT * FROM reserva WHERE dni = $dni";
-
 $result = mysqli_query($conn, $consulta);
-
 $row = mysqli_num_rows($result);
 
 if ($row > 0) {
