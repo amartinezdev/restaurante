@@ -7,10 +7,19 @@ if (!isset($_SESSION["usuario"])) {
 }
 
 include("../components/conexion.php");
-$navbar1 = "/restaurante/cliente/cliente.php";
-$navbar2 = "/restaurante/cliente/pedidos.php";
-$navbar3 = "/restaurante/cliente/perfil.php";
-$active = "mesas";
+
+$dni = $_SESSION["dni"];
+
+$consulta = "SELECT * FROM reserva WHERE dni = $dni";
+
+$result = mysqli_query($conn, $consulta);
+
+$row = mysqli_num_rows($result);
+
+if ($row > 0) {
+    header("LOCATION: eligeComensales.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +39,10 @@ $active = "mesas";
         <!-- HEADER + NAV -->
         <?php
         include("../components/header.php");
-        include("../components/navbar.php");
+        include("navbar.php");
         $usuario = $_SESSION["usuario"];
+
+
         ?>
 
         <!-- CONTENIDO PRINCIPAL -->
@@ -68,7 +79,7 @@ $active = "mesas";
                                     echo ' <img src="../img/mesa2.png" class="img-fluid mx-auto d-block mb-2" alt="Mesa ' . $mesa . '" loading="lazy">';
                                     echo ' <h2 class="h6 mb-1">Mesa ' . $mesa . '</h2>';
                                     echo ' <p class="mb-3 text-success">Disponible</p>';
-                                    echo ' <a href="seleccionar_mesa.php?mesa=' . $mesa . '" class="btn btn-light btn-sm w-100" aria-label="Seleccionar mesa ' . $mesa . '">Elegir</a>';
+                                    echo ' <a href="reserva.php?mesa=' . $mesa . '" class="btn btn-light btn-sm w-100" aria-label="Seleccionar mesa ' . $mesa . '">Elegir</a>';
                                     echo ' </div>';
                                     echo ' </article>';
                                     echo '</div>';

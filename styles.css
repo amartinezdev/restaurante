@@ -15,6 +15,13 @@ body {
   background-position: center;
 }
 
+.infosuccess {
+  padding: 5px 15px;
+  background-color: #4dff3d1e;
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
 /* ESTILOS POR PÁGINA */
 
 /* index.html */

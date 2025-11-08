@@ -38,16 +38,19 @@ include("components/conexion.php");
         $_SESSION["dni"] = $dni;
         $_SESSION["rol"] = $row2["rol"];
 
-
-        if ($row2["rol"] == 0) {
-          header("LOCATION: cliente/cliente.php");
-          $mensaje = "Soy rol 0";
-        } else if ($row2["rol"] == 1) {
-          header("LOCATION: camarero/camarero.php");
-          $mensaje = "Soy rol 1";
-        } else if ($row2["rol"] == 2) {
-          header("LOCATION: encargado/encargado.php");
-          $mensaje = $row2['rol'];
+        if ($row2["estado"] == 1) {
+          $mensaje = "Has sido bloqueado.<br>Contacta con un administrador.";
+        } else {
+          if ($row2["rol"] == 0) {
+            header("LOCATION: cliente/cliente.php");
+            $mensaje = "Soy rol 0";
+          } else if ($row2["rol"] == 1) {
+            header("LOCATION: camarero/camarero.php");
+            $mensaje = "Soy rol 1";
+          } else if ($row2["rol"] == 2) {
+            header("LOCATION: encargado/encargado.php");
+            $mensaje = $row2['rol'];
+          }
         }
       } else if ($row == 0) {
         $mensaje = "Usuario o contraseña incorrectos.";

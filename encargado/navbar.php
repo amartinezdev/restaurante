@@ -1,8 +1,3 @@
-<?php
-// ************* NAVBAR DE ENCARGADO *************
-$active = $active ?? ''; // Ej: 'productos', 'pedidos', 'personal', 'perfil'
-?>
-
 <div class="row">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-top justify-content-end w-100">
         <!-- Botón hamburguesa -->
@@ -17,8 +12,7 @@ $active = $active ?? ''; // Ej: 'productos', 'pedidos', 'personal', 'perfil'
 
                 <!-- Productos (dropdown) -->
                 <li class="nav-item dropdown mx-3">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center 
-             <?php echo $active === 'productos' ? 'text-secondary' : 'text-light'; ?>"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center text-white"
                         href="#" id="dropdownProductos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-box me-2" viewBox="0 0 16 16" aria-hidden="true">
@@ -29,14 +23,13 @@ $active = $active ?? ''; // Ej: 'productos', 'pedidos', 'personal', 'perfil'
                     <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownProductos">
                         <li><a class="dropdown-item" href="/restaurante/encargado/encargado.php">Ver productos</a></li>
                         <li><a class="dropdown-item" href="/restaurante/encargado/addProductos.php">Añadir productos</a></li>
-                        <li><a class="dropdown-item" href="/restaurante/encargado/categorias.php">Categorías</a></li>
+                        <li><a class="dropdown-item" href="/restaurante/encargado/categorias.php">Ver categorías</a></li>
                     </ul>
                 </li>
 
                 <!-- Pedidos (dropdown) -->
                 <li class="nav-item dropdown mx-3">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center 
-             <?php echo $active === 'pedidos' ? 'text-secondary' : 'text-light'; ?>"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center text-white"
                         href="#" id="dropdownPedidos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
@@ -44,16 +37,14 @@ $active = $active ?? ''; // Ej: 'productos', 'pedidos', 'personal', 'perfil'
                         Pedidos
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownPedidos">
-                        <li><a class="dropdown-item" href="/restaurante/encargado/pedidos.php">Ver pedidos</a></li>
-                        <li><a class="dropdown-item" href="/restaurante/encargado/addPedido.php">Crear pedido</a></li>
+                        <li><a class="dropdown-item" href="/restaurante/encargado/pedidos.php">Ver pedidos pendientes</a></li>
                         <li><a class="dropdown-item" href="/restaurante/encargado/estadisticasPedidos.php">Estadísticas</a></li>
                     </ul>
                 </li>
 
                 <!-- Personal (dropdown) -->
                 <li class="nav-item dropdown mx-3">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center 
-             <?php echo $active === 'personal' ? 'text-secondary' : 'text-light'; ?>"
+                    <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center text-white"
                         href="#" id="dropdownPersonal" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-people me-2" viewBox="0 0 16 16" aria-hidden="true">
@@ -64,14 +55,12 @@ $active = $active ?? ''; // Ej: 'productos', 'pedidos', 'personal', 'perfil'
                     <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownPersonal">
                         <li><a class="dropdown-item" href="/restaurante/encargado/personal.php">Ver personal</a></li>
                         <li><a class="dropdown-item" href="/restaurante/encargado/addPersonal.php">Añadir personal</a></li>
-                        <li><a class="dropdown-item" href="/restaurante/encargado/rolesTurnos.php">Roles y turnos</a></li>
                     </ul>
                 </li>
 
                 <!-- Perfil -->
                 <li class="nav-item mx-3">
-                    <a class="nav-link d-flex align-items-center justify-content-center 
-             <?php echo $active === 'perfil' ? 'text-secondary' : 'text-light'; ?>"
+                    <a class="nav-link d-flex align-items-center justify-content-center text-white"
                         href="/restaurante/encargado/perfil.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-person me-2" viewBox="0 0 16 16" aria-hidden="true">

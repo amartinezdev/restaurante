@@ -30,7 +30,7 @@ $active = "pedidos";
         <!-- HEADER + NAV -->
         <?php
         include("../components/header.php");
-        include("../components/navbar.php");
+        include("navbar.php");
         $usuario = $_SESSION["usuario"];
         ?>
 
