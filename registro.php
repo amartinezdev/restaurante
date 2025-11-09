@@ -61,7 +61,7 @@ include("components/conexion.php");
 
                 $_SESSION["usuario"] = $_POST["nombre"];
                 $_SESSION["dni"] = $_POST["dni"];
-                header("LOCATION: cliente/cliente.php");
+                header("LOCATION: cliente/mesa.php");
                 exit;
             }
         }
