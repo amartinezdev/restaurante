@@ -148,6 +148,31 @@ if (isset($_GET['limpiar'])) {
                             <h2 class="display-6 m-0 text-center flex-grow-1">Carta</h2>
                         </header>
 
+                        <!-- FILTRO POR CATEGORÍA -->
+                        <form method="get" action="" class="mb-3">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-8">
+                                    <select name="categoria" class="form-select">
+                                        <?php
+                                        $categorias = mysqli_query($conn, "SELECT * FROM categoria");
+                                        while ($cat = mysqli_fetch_array($categorias)) {
+                                            $idCat = $cat["id"];
+                                            $nombreCat = $cat["nombre"];
+                                            if (isset($_GET["categoria"]) && $_GET["categoria"] == $idCat) {
+                                                print("<option value='$idCat' selected>$nombreCat</option>");
+                                            } else {
+                                                print("<option value='$idCat'>$nombreCat</option>");
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                                </div>
+                            </div>
+                        </form>
+
                         <div class="col-12 table-responsive align-items-center">
                             <table class="table text-start text-md-center table-hover table-striped align-middle">
                                 <thead>
@@ -161,8 +186,15 @@ if (isset($_GET['limpiar'])) {
                                 <tbody>
                                     <?php
                                     // realizo una tabla con todos los productos de la base de datos.
-                                    $consulta = "SELECT * FROM producto";
-                                    $result = mysqli_query($conn, $consulta);
+                                    if (isset($_GET["categoria"])) {
+                                        $cat = $_GET["categoria"];
+                                        $consulta = "SELECT * FROM producto WHERE categoria = '$cat'";
+                                        $result = mysqli_query($conn, $consulta);
+                                    } else {
+                                        $consulta = "SELECT * FROM producto";
+                                        $result = mysqli_query($conn, $consulta);
+                                    }
+
 
                                     while ($row = mysqli_fetch_array($result)) {
                                         $id = $row['id'];
@@ -250,7 +282,7 @@ if (isset($_GET['limpiar'])) {
                                                     value="<?php echo $cant ?>"
                                                     min="1" max="<?php echo $rowStock["stock"] ?>"
                                                     class="form-control text-center">
-                                                <p class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></p>
+                                                <!-- <p class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></p> -->
                                                 <?php
                                                 print("</td>");
                                                 print("<td>");
