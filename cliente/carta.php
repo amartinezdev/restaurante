@@ -79,10 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                    VALUES ('$idPedido', '$idProducto', '$cant', '$coment')";
             }
 
+            // restamos el stock de la cantidad
+            $stock = mysqli_query($conn, "SELECT stock FROM producto WHERE id = $idProducto");
+            $rowStock = mysqli_fetch_array($stock);
+            $stock = $rowStock["stock"] - $cant;
+            mysqli_query($conn, "UPDATE producto SET stock = '$stock' WHERE id = '$idProducto'");
+
             mysqli_query($conn, $productoPedido);
         }
 
-        // limpiamos el carrito de la sesión
+        // por último limpiamos el carrito de la sesión
         $_SESSION['carrito'] = [];
 
         header("LOCATION: pedidos.php");
@@ -282,7 +288,7 @@ if (isset($_GET['limpiar'])) {
                                                     value="<?php echo $cant ?>"
                                                     min="1" max="<?php echo $rowStock["stock"] ?>"
                                                     class="form-control text-center">
-                                                <!-- <p class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></p> -->
+                                                <small class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></small>
                                                 <?php
                                                 print("</td>");
                                                 print("<td>");
