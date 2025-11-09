@@ -42,7 +42,7 @@ include("components/conexion.php");
           $mensaje = "Has sido bloqueado.<br>Contacta con un administrador.";
         } else {
           if ($row2["rol"] == 0) {
-            header("LOCATION: cliente/cliente.php");
+            header("LOCATION: cliente/mesa.php");
             $mensaje = "Soy rol 0";
           } else if ($row2["rol"] == 1) {
             header("LOCATION: camarero/camarero.php");

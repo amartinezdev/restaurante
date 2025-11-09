@@ -15,6 +15,7 @@ $result = mysqli_query($conn, $consulta);
 $row = mysqli_num_rows($result);
 
 if ($row > 0) {
+    $_SESSION["haElegidoMesa"] = true;
     header("LOCATION: eligeComensales.php");
 }
 

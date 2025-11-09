@@ -1,16 +1,8 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["usuario"])) {
-    header("LOCATION: ../index.php");
-    exit;
-}
-
 include("../components/conexion.php");
-$navbar1 = "/restaurante/cliente/cliente.php";
-$navbar2 = "/restaurante/cliente/pedidos.php";
-$navbar3 = "/restaurante/cliente/perfil.php";
-$active = "pedidos";
+
+include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +28,17 @@ $active = "pedidos";
 
         <!-- CONTENIDO PRINCIPAL -->
         <main class="container my-4 flex-grow-1">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
+                        <header class="justify-content-between align-items-center">
+                            <h2 class="display-6 m-0 text-center flex-grow-1">Pedidos</h2>
+                        </header>
 
+
+                    </section>
+                </div>
+            </div>
         </main>
     </div>
 

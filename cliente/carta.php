@@ -2,11 +2,19 @@
 session_start();
 
 include("../components/conexion.php");
+include("seguridad.php");
 
-if (!isset($_SESSION["usuario"])) {
-    header("LOCATION: ../index.php");
-    exit;
-}
+// VARIABLES DE SESIÓN
+$usuario = $_SESSION["usuario"];
+$dni = $_SESSION["dni"];
+
+
+$result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
+$row = mysqli_fetch_assoc($result);
+
+$mesa = $row["numMesa"];
+$comensales = $row["comensales"];
+
 ?>
 
 <!DOCTYPE html>
@@ -27,8 +35,6 @@ if (!isset($_SESSION["usuario"])) {
         <?php
         include("../components/header.php");
         include("navbar.php");
-        $usuario = $_SESSION["usuario"];
-        $dni = $_SESSION["dni"];
 
         $consulta = "SELECT * FROM usuario WHERE dni = $dni";
         $result = mysqli_query($conn, $consulta);
@@ -38,9 +44,10 @@ if (!isset($_SESSION["usuario"])) {
         mysqli_close($conn);
 
         ?>
-
-        <!-- CONTENIDO PRINCIPAL -->
         <main class="container my-4 flex-grow-1">
+
+
+            <!-- CARTA -->
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8 col-xl-6">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
@@ -51,11 +58,15 @@ if (!isset($_SESSION["usuario"])) {
 
                     </section>
                 </div>
+
+
+
+                <!-- PEDIDO -->
                 <div class="col-12 col-md-10 col-lg-8 col-xl-6">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
                         <header class="justify-content-between align-items-center">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Pedido</h2>
-                            <p class="text-center text-muted small"><i>Mesa X - X comensales</i></p>
+                            <p class="text-center text-muted small"><i>Mesa <?php echo $mesa ?> - <?php echo $comensales ?> comensales</i></p>
                         </header>
 
 

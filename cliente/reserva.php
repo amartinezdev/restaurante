@@ -14,6 +14,7 @@ $usuario = $_SESSION["dni"];
 $m = $_GET["mesa"];
 
 $_SESSION["mesa"] = $m;
+$_SESSION["haElegidoMesa"] = true;
 
 $fechaAct = date("Y-m-d H:i:s");
 
