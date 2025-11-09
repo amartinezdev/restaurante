@@ -316,13 +316,14 @@ if (isset($_GET['limpiar'])) {
                                         </tfoot>
                                     </table>
                                 </div>
-                            <?php } ?>
 
-                            <div class="d-flex gap-2 justify-content-end">
-                                <a class="btn btn-outline-secondary" href="carta.php?limpiar=1">Vaciar</a>
-                                <button type="submit" class="btn btn-outline-primary">Actualizar cantidades</button>
-                                <button type="submit" name="pedir" value="1" class="btn btn-success">Pedir</button>
-                            </div>
+
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a class="btn btn-outline-secondary" href="carta.php?limpiar=1">Vaciar</a>
+                                    <button type="submit" class="btn btn-outline-primary">Actualizar cantidades</button>
+                                    <button type="submit" name="pedir" value="1" class="btn btn-success">Pedir</button>
+                                </div>
+                            <?php } ?>
                         </form>
                     </section>
                 </div>
