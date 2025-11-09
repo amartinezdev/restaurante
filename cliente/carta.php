@@ -8,13 +8,111 @@ include("seguridad.php");
 $usuario = $_SESSION["usuario"];
 $dni = $_SESSION["dni"];
 
-
 $result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
 $row = mysqli_fetch_assoc($result);
 
 $mesa = $row["numMesa"];
 $comensales = $row["comensales"];
 
+// si el carrito NO está inicializado, lo inicializamos
+if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [];
+}
+
+// agregamos la ID al carrito y recargamos la página
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    if (!isset($_SESSION['carrito'][$id])) {
+        $_SESSION['carrito'][$id] = 0;
+    }
+    $_SESSION['carrito'][$id] += 1;
+    header("LOCATION: carta.php");
+    exit;
+}
+/*
+    BUG 1: los pedidos no se actualizan correctamtne - OK
+    BUG 2: las cantidades de los pedidos?? donde están? - OK
+    BUG 3: es NECESARIO que los comentarios vayan por producto - OK
+    BUG 4: las inserciones no insertan - OK
+*/
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // si le damos a pedir, realizamos el insert en la base de datos
+    if (isset($_POST["pedir"])) {
+
+        // si vienen cantidades en el post, sincronizamos primero
+        if (isset($_POST['cantidades'])) {
+            foreach ($_POST['cantidades'] as $id => $cantidad) {
+                $_SESSION['carrito'][$id] = $cantidad;
+            }
+        }
+
+        // se realiza el insert del pedido
+        $pedido = "INSERT INTO pedido (usuario, estado, numMesa)
+                   VALUES('$dni', 0, '$mesa')";
+
+        mysqli_query($conn, $pedido);
+
+        // id del pedido recién insertado
+        $idPedido = mysqli_insert_id($conn);
+
+        // se realiza el insert de los productos del pedido
+        foreach ($_SESSION['carrito'] as $idProducto => $cant) {
+
+            // cantidad final tomada del formulario
+            if (isset($_POST['cantidades'][$idProducto])) {
+                $cant = $_POST['cantidades'][$idProducto];
+            }
+
+            // comentario por producto, IMPORTANTE!!!!!!!
+            $coment = "";
+            if (isset($_POST["comentario"][$idProducto]) && $_POST["comentario"][$idProducto] != "") {
+                $coment = $_POST["comentario"][$idProducto];
+            }
+
+            if ($coment == "") {
+                $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant)
+                                   VALUES ('$idPedido', '$idProducto', '$cant')";
+            } else {
+                $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
+                                   VALUES ('$idPedido', '$idProducto', '$cant', '$coment')";
+            }
+
+            mysqli_query($conn, $productoPedido);
+        }
+
+        // limpiamos el carrito de la sesión
+        $_SESSION['carrito'] = [];
+
+        header("LOCATION: pedidos.php");
+        exit;
+    }
+
+    // actualizamos las cantidades cuando pulsamos varias veces en 'Añadir' o el botón de actualizar
+    if (isset($_POST["cantidades"])) {
+        foreach ($_POST['cantidades'] as $id => $cantidad) {
+            $_SESSION['carrito'][$id] = $cantidad;
+        }
+        header("LOCATION: carta.php");
+        exit;
+    }
+}
+
+// si eliminamos UN ÚNICO producto en la lista de pedidos
+if (isset($_GET['remove'])) {
+    $id = $_GET['remove'];
+    unset($_SESSION['carrito'][$id]);
+    header("LOCATION: carta.php");
+    exit;
+}
+
+// si limpiamos TODOS los productos en la lista de pedidos
+if (isset($_GET['limpiar'])) {
+    $_SESSION['carrito'] = [];
+    header("LOCATION: carta.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,46 +134,163 @@ $comensales = $row["comensales"];
         include("../components/header.php");
         include("navbar.php");
 
-        $consulta = "SELECT * FROM usuario WHERE dni = $dni";
+        $consulta = "SELECT * FROM usuario WHERE dni = '$dni'";
         $result = mysqli_query($conn, $consulta);
-
         $row = mysqli_fetch_array($result);
-
-        mysqli_close($conn);
-
         ?>
+
         <main class="container my-4 flex-grow-1">
-
-
             <!-- CARTA -->
             <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                <div class="col-12 col-md-10 col-lg-5">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
-                        <header class="justify-content-between align-items-center">
+                        <header class="justify-content-between align-items-center mb-3">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Carta</h2>
                         </header>
 
+                        <div class="col-12 table-responsive align-items-center">
+                            <table class="table text-start text-md-center table-hover table-striped align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Categoria</th>
+                                        <th>Selección</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    // realizo una tabla con todos los productos de la base de datos.
+                                    $consulta = "SELECT * FROM producto";
+                                    $result = mysqli_query($conn, $consulta);
 
+                                    while ($row = mysqli_fetch_array($result)) {
+                                        $id = $row['id'];
+                                        $estado = $row['estado'];
+                                        $stock = $row['stock'];
+
+                                        if ($estado == 1 && $stock > 0) { // solo ponemos en la carta los disponibles.
+                                            print("<tr>");
+                                            print("<td>");
+                                            print($row['nombre']);
+                                            print("</td>");
+                                            print("<td>");
+                                            print($row['precio']);
+                                            print("</td>");
+                                            print("<td>");
+
+                                            $cat = $row["categoria"];
+                                            $consulta2 = "SELECT nombre FROM categoria WHERE id = '$cat'";
+                                            $result2 = mysqli_query($conn, $consulta2);
+                                            $row2 = mysqli_fetch_array($result2);
+                                            print($row2["nombre"]);
+
+                                            print("</td>");
+                                            print("<td>");
+                                            print("<a href='carta.php?id=$id' class='btn btn-primary'>Añadir</a>");
+                                            print("</td>");
+                                            print("</tr>");
+                                        }
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                 </div>
 
-
-
-                <!-- PEDIDO -->
-                <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+                <!-- PRODUCTOS -->
+                <div class="col-12 col-md-10 col-lg-7 order-first order-lg-2 mb-3">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
                         <header class="justify-content-between align-items-center">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Pedido</h2>
                             <p class="text-center text-muted small"><i>Mesa <?php echo $mesa ?> - <?php echo $comensales ?> comensales</i></p>
                         </header>
 
+                        <form action="" method="post">
+                            <?php if (empty($_SESSION['carrito'])) { ?>
+                                <p class="text-center text-muted">No hay productos en el pedido.</p>
+                            <?php } else { ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped align-middle align-items-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th class="text-center">Precio</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th class="text-center">Comentario</th>
+                                                <th class="text-center">Subtotal</th>
+                                                <th class="text-center">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $total = 0.0;
+                                            foreach ($_SESSION["carrito"] as $idProd => $cant) {
+                                                // se recupera nombre y precio del producto
+                                                $consulta2 = mysqli_query($conn, "SELECT nombre, precio FROM producto WHERE id = $idProd");
+                                                $producto = mysqli_fetch_assoc($consulta2);
 
+                                                $nombre = $producto['nombre'];
+                                                $precio = $producto['precio'];
+                                                $subtotal = $precio * $cant;
+                                                $total += $subtotal;
+
+                                                print("<tr>");
+                                                print("<td>$nombre</td>");
+                                                print("<td class='text-center'>" . number_format($precio, 2) . "€</td>");
+                                                print("<td class='text-center' style='max-width:120px;'>");
+
+                                                // para el máximo y evitar que no puedan pedir más del stock que haya:
+                                                $consulta = mysqli_query($conn, "SELECT stock FROM producto WHERE id = '$idProd'");
+                                                $rowStock = mysqli_fetch_array($consulta);
+                                            ?>
+                                                <input type="number"
+                                                    name="cantidades[<?php echo $idProd ?>]"
+                                                    value="<?php echo $cant ?>"
+                                                    min="1" max="<?php echo $rowStock["stock"] ?>"
+                                                    class="form-control text-center">
+                                                <p class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></p>
+                                                <?php
+                                                print("</td>");
+                                                print("<td>");
+                                                ?>
+                                                <textarea
+                                                    name="comentario[<?php echo $idProd; ?>]"
+                                                    class="form-control text-center"
+                                                    placeholder="Comentario... (Opcional)"></textarea>
+                                            <?php
+                                                print("</td>");
+                                                print("<td class='text-center'> " . number_format($subtotal, 2) . " €</td>");
+                                                print("<td class='text-center'>");
+                                                print("<a class='btn btn-sm btn-outline-danger' href='carta.php?remove=$idProd'>Eliminar</a>");
+                                                print("</td>");
+                                                print("</tr>");
+                                            }
+                                            ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="4" class="text-end">Total</th>
+                                                <th class="text-center"><?php echo number_format($total, 2) ?> €</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            <?php } ?>
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a class="btn btn-outline-secondary" href="carta.php?limpiar=1">Vaciar</a>
+                                <button type="submit" class="btn btn-outline-primary">Actualizar cantidades</button>
+                                <button type="submit" name="pedir" value="1" class="btn btn-success">Pedir</button>
+                            </div>
+                        </form>
                     </section>
                 </div>
             </div>
         </main>
     </div>
-
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
