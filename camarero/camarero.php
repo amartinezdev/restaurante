@@ -1,16 +1,9 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] == 0) {
-    header("LOCATION: ../index.php");
-    exit;
-}
+include("seguridad.php");
 
 include("../components/conexion.php");
-$navbar1 = "/restaurante/cliente/cliente.php";
-$navbar2 = "/restaurante/cliente/pedidos.php";
-$navbar3 = "/restaurante/cliente/perfil.php";
-$active = "mesas";
 ?>
 
 <!DOCTYPE html>
@@ -30,18 +23,42 @@ $active = "mesas";
         <!-- HEADER + NAV -->
         <?php
         include("../components/header.php");
-        include("../components/navbar.php");
+        include("navbar.php");
         $usuario = $_SESSION["usuario"];
+
+        $consulta = mysqli_query($conn, "SELECT * FROM pedido WHERE estado = 0");
+        $numPedidos = mysqli_num_rows($consulta);
         ?>
 
         <!-- CONTENIDO PRINCIPAL -->
         <main class="container my-4 flex-grow-1">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-12">
-                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
+                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 text-center">
                         <header class="text-center mb-3">
-                            <h4 class="h4 mb-1">Bienvenido, <?php echo $usuario . " Soy " . $_SESSION["rol"]; ?></h4>
+                            <h4 class="h4 mb-1">Bienvenido, <?php echo $usuario ?></h4>
                         </header>
+                        <?php
+                        if ($numPedidos == 0) {
+                        ?>
+                            <p class="display-6">Actualmente no hay pedidos sin servir. <br>¡Buen trabajo!</p>
+                        <?php
+                        } else if ($numPedidos == 1) {
+                        ?>
+                            <p class="display-6">Actualmente hay <?php echo $numPedidos ?> pedido sin servir</p>
+                        <?php
+                        } else {
+                        ?>
+                            <p class="display-6">Actualmente hay <?php echo $numPedidos ?> pedidos sin servir</p>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if ($numPedidos >= 1) {
+                            echo "<a href='pedidos.php' class='btn btn-primary mt-5'>Ir a pedidos</a>";
+                        }
+
+                        ?>
 
                     </section>
                 </div>
@@ -51,6 +68,15 @@ $active = "mesas";
 
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // recargamos la página por si hay pedidos, que aparezcan en el home
+        function refrescarPagina() {
+            location.reload();
+
+        }
+
+        setTimeout(refrescarPagina, 5000);
+    </script>
 </body>
 
 </html>

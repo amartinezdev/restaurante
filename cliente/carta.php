@@ -297,6 +297,7 @@ if (isset($_GET['limpiar'])) {
                                                     value="<?php echo $cant ?>"
                                                     min="1" max="<?php echo $rowStock["stock"] ?>"
                                                     class="form-control text-center">
+
                                                 <small class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></small>
                                                 <?php
                                                 print("</td>");
@@ -304,7 +305,7 @@ if (isset($_GET['limpiar'])) {
                                                 ?>
                                                 <textarea
                                                     name="comentario[<?php echo $idProd; ?>]"
-                                                    class="form-control text-center"
+                                                    class="form-control text-center" maxlength="15"
                                                     placeholder="Comentario... (Opcional)"></textarea>
                                             <?php
                                                 print("</td>");
