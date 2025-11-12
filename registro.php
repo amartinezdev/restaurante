@@ -110,7 +110,7 @@ include("components/conexion.php");
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="tel" name="tel" placeholder="Usuario" required />
+                        <input type="number" class="form-control" id="tel" name="tel" min="9" max="9" placeholder="Usuario" required />
                         <label for="tel">Teléfono</label>
                     </div>
                     <div class="form-floating mb-3">
