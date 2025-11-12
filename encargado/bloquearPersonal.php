@@ -2,12 +2,8 @@
 session_start();
 
 // funcionalidad para bloquear el producto
-if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
-    header("LOCATION: ../index.php");
-    exit;
-}
-
 include("../components/conexion.php");
+include("seguridad.php");
 
 $id = $_GET["id"];
 

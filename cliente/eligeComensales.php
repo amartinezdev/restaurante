@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("../components/conexion.php");
+include("seguridad.php");
 
 $dni = $_SESSION["dni"];
 

@@ -2,12 +2,8 @@
 
 session_start();
 
-if (!isset($_SESSION["usuario"])) {
-    header("LOCATION: ../index.php");
-    exit;
-}
-
 include("../components/conexion.php");
+include("seguridad.php");
 
 $usuario = $_SESSION["dni"];
 

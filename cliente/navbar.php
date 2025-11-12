@@ -1,3 +1,7 @@
+<?php
+include("seguridad.php");
+?>
+
 <div class="row">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-top justify-content-end w-100">
         <!-- Botón hamburguesa -->

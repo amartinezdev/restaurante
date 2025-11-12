@@ -3,10 +3,7 @@ session_start();
 
 include("../components/conexion.php");
 
-if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
-    header("LOCATION: ../index.php");
-    exit;
-}
+include("seguridad.php");
 
 ?>
 

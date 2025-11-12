@@ -3,10 +3,7 @@ session_start();
 
 include("../components/conexion.php");
 
-if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 2) {
-    header("LOCATION: ../index.php");
-    exit;
-}
+include("seguridad.php");
 
 // funcionalidad para añadir el producto a la base de datos
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
