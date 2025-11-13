@@ -2,10 +2,7 @@
 session_start();
 
 include("../components/conexion.php");
-if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 0) {
-    header("LOCATION: ../index.php");
-    exit;
-}
+include("seguridad.php");
 
 if (!isset($_SESSION["haElegidoMesa"])) {
     header("LOCATION: mesa.php");
@@ -16,6 +13,17 @@ if (!isset($_SESSION["haElegidoMesa"])) {
 // VARIABLES DE SESIÓN
 $usuario = $_SESSION["usuario"];
 $dni = $_SESSION["dni"];
+
+// si el usuario cierra sesión y vuelve a entrar
+if (!isset($_SESSION["mesa"])) {
+    $consulta = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
+    $row = mysqli_fetch_array($consulta);
+    $_SESSION["mesa"] = $row["numMesa"];
+} else {
+    $mesa = $_SESSION["mesa"];
+}
+
+
 
 $result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
 $row = mysqli_fetch_assoc($result);
@@ -49,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // si le damos a pedir, realizamos el insert en la base de datos
     if (isset($_POST["pedir"])) {
-
         // si vienen cantidades en el post, sincronizamos primero
         if (isset($_POST['cantidades'])) {
             foreach ($_POST['cantidades'] as $id => $cantidad) {
@@ -57,18 +64,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        // se realiza el insert del pedido
-        $pedido = "INSERT INTO pedido (usuario, estado, numMesa)
-                   VALUES('$dni', 0, '$mesa')";
+        // por si el usuario sale de la sesión, evitamos que pierda el pedido asignado
+        if (!isset($_SESSION['idPedido'])) {
+            $pedido = mysqli_query($conn, "SELECT * FROM pedido WHERE usuario = (SELECT dni FROM reserva WHERE dni = '$dni')");
 
-        mysqli_query($conn, $pedido);
+            $rowPedido = mysqli_num_rows($pedido);
+            // si ya existe un pedido con ese DNI y esa MESA
+            if ($rowPedido > 0) {
+                $rowPedido = mysqli_fetch_array($pedido);
+                $idPedido = $rowPedido["id"];
+                $_SESSION["idPedido"] = $idPedido;
+            } else {
+                $pedido = "INSERT INTO pedido (usuario, estado, numMesa)
+                        VALUES('$dni', 0, '$mesa')";
 
-        // id del pedido recién insertado
-        $idPedido = mysqli_insert_id($conn);
+                mysqli_query($conn, $pedido);
+
+                // guardamos el id del pedido en la sesión
+                $_SESSION['idPedido'] = mysqli_insert_id($conn);
+                $idPedido = $_SESSION["idPedido"];
+            }
+        } else {
+            $idPedido = $_SESSION["idPedido"];
+        }
+
+
 
         // se realiza el insert de los productos del pedido
         foreach ($_SESSION['carrito'] as $idProducto => $cant) {
-
             // cantidad final tomada del formulario
             if (isset($_POST['cantidades'][$idProducto])) {
                 $cant = $_POST['cantidades'][$idProducto];
@@ -80,13 +103,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $coment = $_POST["comentario"][$idProducto];
             }
 
-            if ($coment == "") {
-                $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant)
-                                   VALUES ('$idPedido', '$idProducto', '$cant')";
-            } else {
-                $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
-                                   VALUES ('$idPedido', '$idProducto', '$cant', '$coment')";
-            }
+            /*
+            esta consulta es gracias a chatgpt;
+            LO QUE HACE: si hay 1 pedido y 1 producto en el mismo pedido; le suma la cantidad al producto.
+            (mucho mejor que la opción de abajo comentada)
+            */
+            $productoPedido = " INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
+                                VALUES ('$idPedido', '$idProducto', '$cant', '$coment')
+                                    ON DUPLICATE KEY UPDATE
+                                        cant = cant + VALUES(cant),
+                                        comentario = VALUES(comentario)";
+
+            $updateEstado = mysqli_query($conn, "UPDATE pedido SET estado = 0 WHERE id   = '$idPedido'");
+
+            // reemplazo por la IA
+            // if ($coment == "") {
+            //     $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant)
+            //                        VALUES ('$idPedido', '$idProducto', '$cant')";
+            // } else {
+            //     $productoPedido = "INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
+            //                        VALUES ('$idPedido', '$idProducto', '$cant', '$coment')";
+            // }
 
             // restamos el stock de la cantidad
             $stock = mysqli_query($conn, "SELECT stock FROM producto WHERE id = $idProducto");
