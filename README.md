@@ -62,7 +62,68 @@ restaurante/
     └── cerrarSesion.php
 ```
 
-
+```
+restaurante/                             # carpeta raíz del proyecto
+├── .gitattributes                       # configuración de Git
+├── index.php                            # página principal de la aplicación
+├── README.md                            # documentación del proyecto
+├── registro.php                         # formulario de registro de nuevos usuarios
+├── styles.css                           # hoja de estilos principal
+├── bd/                                  # scripts SQL de la base de datos
+│   ├── restaurante.sql                  # copia de respaldo
+│   ├── restaurante_02.sql               
+│   ├── restaurante_03.sql
+|   └── restaurante_04.sql               # base de datos actual   
+|
+├── camarero/                            # módulo del rol camarero
+│   ├── camarero.php                     # página principal del camarero
+│   ├── cerrarSesion.php                 # cierre de sesión
+│   ├── editarPerfil.php                 # edición de perfil
+│   ├── navbar.php                       # barra de navegación
+│   ├── pedidos.php                      # lista de pedidos
+│   ├── perfil.php                       # página de perfil
+│   ├── productoServido.php              # marcar productos como servidos
+│   └── seguridad.php                    # control de acceso
+|
+├── cliente/                             # módulo del rol cliente
+│   ├── addProductos.php                 # añadir productos al pedido
+│   ├── carta.php                        # ver la carta del restaurante
+│   ├── cerrarSesion.php                 # cierre de sesión
+│   ├── editarPerfil.php                 # editar perfil del cliente
+│   ├── eligeComensales.php              # selección de número de comensales
+│   ├── mesa.php                         # asignación o selección de mesa
+│   ├── navbar.php                       # barra de navegación del cliente
+│   ├── pedidos.php                      # ver pedidos del cliente
+│   ├── perfil.php                       # perfil del cliente
+│   ├── reserva.php                      # realizar reserva
+│   └── seguridad.php                    # control de acceso
+|
+├── components/                          # componentes comunes
+│   ├── conexion.php                     # conexión a la base de datos
+│   ├── header.php                       # cabecera HTML reutilizable
+│   └── navbar.php                       # barra de navegación general
+|
+└── encargado/                           # módulo del rol encargado
+    ├── addPersonal.php                  # añadir empleados
+    ├── addProductos.php                 # añadir nuevos productos
+    ├── addProductos02.php               # versión alternativa de añadir productos
+    ├── bloquearPersonal.php             # bloquear empleados
+    ├── bloquearProducto.php             # bloquear productos
+    ├── categorias.php                   # gestión de categorías
+    ├── cerrarSesion.php                 # cierre de sesión
+    ├── desbloquearPersonal.php          # desbloquear empleados
+    ├── desbloquearProducto.php          # desbloquear productos
+    ├── editarCategoria.php              # editar categorías
+    ├── editarPerfil.php                 # editar perfil del encargado
+    ├── editarPersonal.php               # editar información del personal
+    ├── editarPersonal02.php             # versión alternativa de edición de personal
+    ├── editarProducto.php               # editar productos existentes
+    ├── editarProducto02.php             # versión alternativa de edición de productos
+    ├── encargado.php                    # página principal del encargado
+    ├── navbar.php                       # barra de navegación del encargado
+    ├── perfil.php                       # perfil del encargado
+    └── seguridad.php                    # control de acceso
+```
 
 ---
 
