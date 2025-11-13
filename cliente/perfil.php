@@ -27,7 +27,7 @@ include("seguridad.php");
         $usuario = $_SESSION["usuario"];
         $dni = $_SESSION["dni"];
 
-        $consulta = "SELECT * FROM usuario WHERE dni = $dni";
+        $consulta = "SELECT * FROM usuario WHERE dni = '$dni'";
         $result = mysqli_query($conn, $consulta);
 
         $row = mysqli_fetch_array($result);

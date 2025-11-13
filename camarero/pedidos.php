@@ -104,6 +104,7 @@ include("../components/conexion.php");
 
                                                 echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required /></td>";
 
+                                                // prueba02 de envio pedido estado 1, de momento comentada
                                                 // if ($servido == 0) {
                                                 //     // le paso 2 variables por método get, así es más fácil
                                                 //     echo "<td><a href='productoServido.php?idPro=$idProducto&idPed=$idPedido' class='btn btn-outline-warning' required>Servido</a></td>";
@@ -122,20 +123,15 @@ include("../components/conexion.php");
                                         <td colspan="2"></td>
 
                                         <?php
-
                                         echo "<td colspan='2' class='text-end'><button class='btn btn-warning'>Pedido servido</button></td>"
 
-
-                                        // prueba 02 de envio pedido estado 1, de momento comentada
+                                        // prueba02 de envio pedido estado 1, de momento comentada
 
                                         // if ($contaRows == $lineasPedido) {
                                         // echo "<td colspan='1'><button class='btn btn-warning'>Pedido servido</button></td>";
                                         // } else {
                                         //     echo "<td colspan='1'><button class='btn btn-outline-warning'>Pedido servido</button></td>";
                                         // }
-
-
-
 
                                         ?>
 
