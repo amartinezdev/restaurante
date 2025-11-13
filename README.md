@@ -61,7 +61,11 @@ restaurante/
     ├── navbar.php
     └── cerrarSesion.php
 ```
+---
 
+📅 **Sprint 1** –– 9 – Noviembre 2025
+
+## 🎯 Objetivo del Sprint 2
 ```
 restaurante/                             # carpeta raíz del proyecto
 ├── .gitattributes                       # configuración de Git
@@ -125,6 +129,4 @@ restaurante/                             # carpeta raíz del proyecto
     └── seguridad.php                    # control de acceso
 ```
 
----
 
-📅 **Sprint 1** –– 9 – Noviembre 2025
