@@ -57,9 +57,9 @@ $dni = $_SESSION["dni"];
                             print("<div class='d-flex justify-content-between align-items-center mb-2'>");
                             print("<h5 class='m-0'>Pedido #$idPedido</h5>");
                             if ($estado == 2) {
-                                print("<span class='badge text-bg-warning'>Pagado</span>");
+                                print("<span class='badge text-bg-success'>Pagado</span>");
                             } else if ($estado == 1) {
-                                print("<span class='badge text-bg-success'>Enviado</span>");
+                                print("<span class='badge text-bg-warning'>Servido</span>");
                             } else {
                                 print("<span class='badge text-bg-secondary'>Pendiente</span>");
                             }

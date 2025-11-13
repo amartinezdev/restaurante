@@ -102,7 +102,12 @@ include("../components/conexion.php");
                                                     echo "<td>(Sin comentario)</td>";
                                                 }
 
-                                                echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required /></td>";
+                                                if ($servido == 1) {
+                                                    echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required checked /></td>";
+                                                } else {
+                                                    echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required /></td>";
+                                                }
+
 
                                                 // prueba02 de envio pedido estado 1, de momento comentada
                                                 // if ($servido == 0) {
@@ -114,9 +119,10 @@ include("../components/conexion.php");
 
                                                 echo "</tr>";
                                             }
+                                            // esto es de la prueba02
                                             // hago una consulta para verificar las líneas de servido 1, para poder enviar el pedido
-                                            $servidoLineas = mysqli_query($conn, "SELECT servido FROM producto_pedido WHERE servido = 1");
-                                            $contaRows = mysqli_num_rows($servidoLineas);
+                                            // $servidoLineas = mysqli_query($conn, "SELECT servido FROM producto_pedido WHERE servido = 1");
+                                            // $contaRows = mysqli_num_rows($servidoLineas);
 
                                             ?>
                                         </tbody>

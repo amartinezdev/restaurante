@@ -5,7 +5,7 @@ include("seguridad.php");
 
 $dni = $_SESSION["dni"];
 
-$result = mysqli_query($conn, "SELECT * FROM reserva");
+$result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
 $row = mysqli_fetch_assoc($result);
 
 if ($row["comensales"] != 0) {
