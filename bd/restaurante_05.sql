@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2025 a las 13:33:14
+-- Tiempo de generación: 13-11-2025 a las 17:29:50
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -66,8 +66,8 @@ CREATE TABLE `mesa` (
 
 INSERT INTO `mesa` (`numMesa`, `estado`) VALUES
 (1, 1),
-(2, 0),
-(3, 0),
+(2, 1),
+(3, 1),
 (4, 1),
 (5, 1),
 (6, 1),
@@ -305,7 +305,8 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `producto_pedido`
 --
 ALTER TABLE `producto_pedido`
-  ADD CONSTRAINT `producto_pedido_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `producto_pedido_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `producto_pedido_ibfk_3` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reserva`
