@@ -32,7 +32,7 @@ El objetivo de este sprint era **crear el sistema de autenticación y los roles 
 
 
 
-## Estructura del proyecto por ahora
+## Estructura del proyecto
 
 ```
 restaurante/
@@ -65,7 +65,50 @@ restaurante/
 
 📅 **Sprint 1** –– 9 – Noviembre 2025
 
-## 🎯 Objetivo del Sprint 2
+## 🎯 Objetivo del Sprint 2  
+**Gestión de Mesas y Toma de Pedidos**  
+El objetivo de este sprint era implementar todo el sistema relacionado con la selección de mesa, gestión del número de comensales, toma de pedidos, control de stock en tiempo real y nuevas rondas de pedido. Además, se amplió la funcionalidad del camarero y se añadió un buscador dentro de la carta.
+
+### Lo que se pedía en el Sprint 2  
+
+**Selección de mesa y número de comensales** ✅  
+Los clientes pueden seleccionar su mesa, indicar cuántos comensales son y comenzar su pedido, manteniendo la mesa bloqueada hasta que se pague.
+
+**Carta dinámica según stock** ✅  
+Si un producto no tiene stock, no aparece en la carta.
+
+**Realización de pedidos con stock sincronizado** ✅  
+Al confirmar un pedido:
+- El stock se descuenta automáticamente según la cantidad pedida.  
+- El sistema impide confirmar pedidos si no hay stock suficiente, mostrando un mensaje de advertencia.
+
+**Nuevas rondas de pedido (segunda, tercera, cuarta…)** ✅  
+Los clientes pueden seguir agregando productos a un pedido ya iniciado.  
+Cada nueva ronda se suma a las anteriores sin sobrescribir nada.
+
+**Notas en los productos** ✅  
+El cliente puede añadir una nota por producto (por ejemplo, “sin azúcar”, “extra picante”, etc.).
+
+**Buscador en la carta** ✅  
+Incluye un campo de búsqueda que filtra productos por nombre o palabra clave dentro de las categorías.
+
+**Gestión de mesas por parte del camarero** ✅  
+El camarero puede visualizar todas las mesas y marcar los productos como *servidos*.
+
+**Envío y cancelación de productos antes de cocina** ✅  
+Los productos pueden cancelarse mientras estén pendientes.  
+Una vez enviados a cocina dejan de ser modificables.
+
+**Persistencia de mesa tras cierre de sesión** ✅  
+Si el cliente cierra sesión y vuelve a entrar, no puede seleccionar otra mesa mientras la mesa actual siga pendiente de pago.
+
+**Documentación del sprint** ✅ 
+En la carpeta de memoria
+
+📅 **Sprint 2 — 16 de noviembre de 2025**
+
+## Estructura del proyecto
+
 ```
 restaurante/                             # carpeta raíz del proyecto
 ├── .gitattributes                       # configuración de Git
