@@ -87,7 +87,6 @@ include("components/conexion.php");
                 }
 
                 ?>
-
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="dni" name="dni" pattern="[0-9]{2,8}[A-Za-z]{1}" placeholder="Usuario" required />
