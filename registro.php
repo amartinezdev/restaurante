@@ -89,7 +89,7 @@ include("components/conexion.php");
                 ?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="dni" name="dni" pattern="[0-9]{2,8}[A-Za-z]{1}" placeholder="Usuario" required />
+                        <input type="text" class="form-control" id="dni" name="dni" maxlength="9" placeholder="Usuario" required />
                         <label for="dni">DNI</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -110,7 +110,7 @@ include("components/conexion.php");
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="tel" name="tel" pattern="[0-9]{9}" placeholder=" Usuario" required />
+                        <input type="text" class="form-control" id="tel" name="tel" maxlength="9" placeholder=" Usuario" required />
                         <label for="tel">Teléfono</label>
                     </div>
                     <div class="form-floating mb-3">
