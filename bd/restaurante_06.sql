@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2025 a las 16:32:07
+-- Tiempo de generación: 14-11-2025 a las 16:57:20
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -33,20 +33,21 @@ USE `restaurante`;
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL
+  `nombre` varchar(255) NOT NULL,
+  `estado` tinyint(1) NOT NULL COMMENT '0- bloqueado 1- activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`id`, `nombre`) VALUES
-(1, 'Bebidas'),
-(2, 'Aperitivo'),
-(3, 'Primero'),
-(4, 'Segundo'),
-(5, 'Postres'),
-(6, 'Cafés');
+INSERT INTO `categoria` (`id`, `nombre`, `estado`) VALUES
+(1, 'Bebidas', 1),
+(2, 'Aperitivo', 1),
+(3, 'Primero', 1),
+(4, 'Segundo', 1),
+(5, 'Postres', 1),
+(6, 'Cafés', 1);
 
 -- --------------------------------------------------------
 

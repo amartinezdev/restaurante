@@ -242,12 +242,11 @@ if (isset($_GET['limpiar'])) {
                                         $consulta = "SELECT * FROM producto WHERE categoria = '$cat'";
                                         $result = mysqli_query($conn, $consulta);
                                     } else {
-                                        // realizo una tabla con todos los productos de la base de datos.
                                         $consulta = "SELECT * FROM producto";
                                         $result = mysqli_query($conn, $consulta);
                                     }
 
-
+                                    // realizo una tabla con todos los productos de la base de datos.
                                     while ($row = mysqli_fetch_array($result)) {
                                         $id = $row['id'];
                                         $estado = $row['estado'];
