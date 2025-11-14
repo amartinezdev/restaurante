@@ -89,32 +89,32 @@ include("components/conexion.php");
                 ?>
                 <form action="" method="post" enctype="multipart/form-data">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="dni" name="dni" maxlength="9" placeholder="Usuario" required />
+                        <input type="text" class="form-control" id="dni" name="dni" maxlength="9" placeholder="Usuario" value="<?php if (isset($_POST['dni'])) echo $_POST["dni"] ?>" required />
                         <label for="dni">DNI</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="pw" name="pw" placeholder="Usuario" required />
+                        <input type="password" class="form-control" id="pw" name="pw" placeholder="Usuario" value="<?php if (isset($_POST['pw'])) echo $_POST["pw"] ?>" required />
                         <label for="pw">Contraseña</label>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Usuario" required />
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Usuario" value="<?php if (isset($_POST['nombre'])) echo $_POST["nombre"] ?>" required />
                         <label for="nombre">Nombre</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Usuario" required />
+                        <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Usuario" value="<?php if (isset($_POST['apellido'])) echo $_POST["apellido"] ?>" required />
                         <label for="apellido">Apellido</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Usuario" required />
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Usuario" value="<?php if (isset($_POST['email'])) echo $_POST["email"] ?>" required />
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="tel" name="tel" maxlength="9" placeholder=" Usuario" required />
+                        <input type="text" class="form-control" id="tel" name="tel" maxlength="9" placeholder=" Usuario" value="<?php if (isset($_POST['tel'])) echo $_POST["tel"] ?>" required />
                         <label for="tel">Teléfono</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Usuario" />
+                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Usuario" value="<?php if (isset($_POST['direccion'])) echo $_POST["direccion"] ?>" />
                         <label for="direccion">Dirección</label>
                     </div>
                     <div class="d-grid ">
