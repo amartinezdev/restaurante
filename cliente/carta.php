@@ -190,7 +190,6 @@ if (isset($_GET['limpiar'])) {
         $result = mysqli_query($conn, $consulta);
         $row = mysqli_fetch_array($result);
         ?>
-
         <main class="container my-4 flex-grow-1">
             <!-- CARTA -->
             <div class="row justify-content-center">
