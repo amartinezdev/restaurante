@@ -237,12 +237,13 @@ if (isset($_GET['limpiar'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    // realizo una tabla con todos los productos de la base de datos.
+                                    // filtrado por categoria
                                     if (isset($_GET["categoria"])) {
                                         $cat = $_GET["categoria"];
                                         $consulta = "SELECT * FROM producto WHERE categoria = '$cat'";
                                         $result = mysqli_query($conn, $consulta);
                                     } else {
+                                        // realizo una tabla con todos los productos de la base de datos.
                                         $consulta = "SELECT * FROM producto";
                                         $result = mysqli_query($conn, $consulta);
                                     }
@@ -251,9 +252,10 @@ if (isset($_GET['limpiar'])) {
                                     while ($row = mysqli_fetch_array($result)) {
                                         $id = $row['id'];
                                         $estado = $row['estado'];
+                                        $estadoCategoria = $row['estado_categoria'];
                                         $stock = $row['stock'];
 
-                                        if ($estado == 1 && $stock > 0) { // solo ponemos en la carta los disponibles.
+                                        if ($estado == 1 && $stock > 0 && $estadoCategoria == 1) { // solo ponemos en la carta los disponibles.
                                             print("<tr>");
                                             print("<td>");
                                             print($row['nombre']);
@@ -320,10 +322,10 @@ if (isset($_GET['limpiar'])) {
                                                 $subtotal = $precio * $cant;
                                                 $total += $subtotal;
 
-                                                print("<tr>");
-                                                print("<td>$nombre</td>");
-                                                print("<td class='text-center'>" . number_format($precio, 2) . "€</td>");
-                                                print("<td class='text-center' style='max-width:120px;'>");
+                                                echo "<tr>";
+                                                echo "<td>$nombre</td>";
+                                                echo "<td class='text-center'>" . number_format($precio, 2) . "€</td>";
+                                                echo "<td class='text-center' style='max-width:120px;'>";
 
                                                 // para el máximo y evitar que no puedan pedir más del stock que haya:
                                                 $consulta = mysqli_query($conn, "SELECT stock FROM producto WHERE id = '$idProd'");
@@ -337,20 +339,20 @@ if (isset($_GET['limpiar'])) {
 
                                                 <small class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></small>
                                                 <?php
-                                                print("</td>");
-                                                print("<td>");
+                                                echo "</td>";
+                                                echo "<td>";
                                                 ?>
                                                 <textarea
                                                     name="comentario[<?php echo $idProd; ?>]"
                                                     class="form-control text-center" maxlength="15"
                                                     placeholder="Comentario... (Opcional)"></textarea>
                                             <?php
-                                                print("</td>");
-                                                print("<td class='text-center'> " . number_format($subtotal, 2) . " €</td>");
-                                                print("<td class='text-center'>");
-                                                print("<a class='btn btn-sm btn-outline-danger' href='carta.php?remove=$idProd'>Eliminar</a>");
-                                                print("</td>");
-                                                print("</tr>");
+                                                echo "</td>";
+                                                echo "<td class='text-center'> " . number_format($subtotal, 2) . " €</td>";
+                                                echo "<td class='text-center'>";
+                                                echo "<a class='btn btn-sm btn-outline-danger' href='carta.php?remove=$idProd'>Eliminar</a>";
+                                                echo "</td>";
+                                                echo "</tr>";
                                             }
                                             ?>
                                         </tbody>

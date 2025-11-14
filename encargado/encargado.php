@@ -61,8 +61,9 @@ $active = "productos";
                                         while ($row = mysqli_fetch_array($result)) {
                                             $id = $row['id'];
                                             $estado = $row["estado"];
+                                            $estadoCategoria = $row['estado_categoria'];
 
-                                            if ($estado == 1) {
+                                            if ($estado == 1 && $estadoCategoria == 1) {
                                                 print("<tr>");
                                             } else {
                                                 print("<tr class='table-danger'>");

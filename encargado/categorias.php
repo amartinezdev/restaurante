@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Editar</th>
+                                            <th colspan="2">Editar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                                         while ($row = mysqli_fetch_array($result)) {
                                             $id = $row['id'];
+                                            $estado = $row['estado'];
                                             print("<tr>");
                                             print("<td>");
                                             print($row['nombre']);
@@ -72,6 +73,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                             print("</td>");
                                             print("<td>");
                                             print("<a href='editarCategoria.php?id=$id' class='btn btn-primary'>Editar</a>");
+                                            print("</td>");
+                                            print("<td>");
+                                            if ($estado == 1) {
+                                                print("<a href='bloquearCategoria.php?id=$id' class='btn btn-danger'>Bloquear</a>");
+                                            } else {
+                                                print("<a href='desbloquearCategoria.php?id=$id' class='btn btn-success'>Desbloquear</a>");
+                                            }
                                             print("</td>");
                                             print("</tr>");
                                         }
