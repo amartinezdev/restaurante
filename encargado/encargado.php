@@ -40,7 +40,7 @@ $active = "productos";
                         </header>
                         <section class="row justify-content-center ">
                             <div class="col-12 table-responsive">
-                                <table class="table text-start text-md-center table-hover table-striped">
+                                <table class="table text-start text-md-center table-hover table-striped align-middle">
                                     <thead>
                                         <tr>
                                             <th class='d-none d-sm-block d-sm-'>#</th>
