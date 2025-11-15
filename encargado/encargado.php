@@ -43,7 +43,7 @@ $active = "productos";
                                 <table class="table text-start text-md-center table-hover table-striped align-middle">
                                     <thead>
                                         <tr>
-                                            <th class='d-none d-sm-block d-sm-'>#</th>
+                                            <th class='d-none d-sm-table-cell'>#</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
                                             <th>Stock</th>

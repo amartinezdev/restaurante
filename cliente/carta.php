@@ -193,7 +193,7 @@ if (isset($_GET['limpiar'])) {
         <main class="container my-4 flex-grow-1">
             <!-- CARTA -->
             <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-5">
+                <div class="col-12 col-md-12 col-xxl-5">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
                         <header class="justify-content-between align-items-center mb-3">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Carta</h2>
@@ -228,7 +228,7 @@ if (isset($_GET['limpiar'])) {
                             <table class="table text-start text-md-center table-hover table-striped align-middle">
                                 <thead>
                                     <tr>
-                                        <th class='d-none d-xl-table-cell'>Imagen</th>
+                                        <th class='d-none d-md-table-cell'>Imagen</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th>Categoria</th>
@@ -257,7 +257,7 @@ if (isset($_GET['limpiar'])) {
 
                                         if ($estado == 1 && $stock > 0 && $estadoCategoria == 1) { // solo ponemos en la carta los disponibles.
                                             print("<tr>");
-                                            print("<td class='d-none d-lg-table-cell'>");
+                                            print("<td class='d-none d-md-table-cell'>");
                                             print("<img src='$imagen' width='50px' class='img-fluid'>");
                                             print("</td>");
                                             print("<td>");
@@ -289,7 +289,7 @@ if (isset($_GET['limpiar'])) {
                 </div>
 
                 <!-- PRODUCTOS -->
-                <div class="col-12 col-md-10 col-lg-7 order-first order-lg-2 mb-3">
+                <div class="col-12 col-md-12 order-first order-xxl-2 mb-3 col-xxl-7">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
                         <header class="justify-content-between align-items-center">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Pedido</h2>
