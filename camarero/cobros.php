@@ -73,47 +73,48 @@ include("../components/conexion.php");
                                             <th scope="col">Precio</th>
                                         </tr>
                                     </thead>
-                                    <?php
+                                    <tbody>
+                                        <?php
 
-                                    $consultaCobrar2 = mysqli_query($conn, "SELECT * FROM producto_pedido WHERE idPedido = '$idPedido'");
-                                    $total = 0.0;
-                                    while ($producto_pedidoCobrar = mysqli_fetch_array($consultaCobrar2)) {
-                                        $idProducto = $producto_pedidoCobrar["idProducto"];
-                                        $cantidad = $producto_pedidoCobrar["cant"];
+                                        $consultaCobrar2 = mysqli_query($conn, "SELECT * FROM producto_pedido WHERE idPedido = '$idPedido'");
+                                        $total = 0.0;
+                                        while ($producto_pedidoCobrar = mysqli_fetch_array($consultaCobrar2)) {
+                                            $idProducto = $producto_pedidoCobrar["idProducto"];
+                                            $cantidad = $producto_pedidoCobrar["cant"];
 
-                                        $consultaCobrar3 = mysqli_query($conn, "SELECT * FROM producto WHERE id = '$idProducto'");
-                                        $productoCobrar = mysqli_fetch_array($consultaCobrar3);
+                                            $consultaCobrar3 = mysqli_query($conn, "SELECT * FROM producto WHERE id = '$idProducto'");
+                                            $productoCobrar = mysqli_fetch_array($consultaCobrar3);
 
-                                        $nombre = $productoCobrar["nombre"];
-                                        $precio = $productoCobrar["precio"];
-                                        echo "<tbody>";
-                                        echo "   <tr>";
-                                        echo "      <td>";
-                                        echo "          $nombre";
+                                            $nombre = $productoCobrar["nombre"];
+                                            $precio = $productoCobrar["precio"];
+
+                                            echo "   <tr>";
+                                            echo "      <td>";
+                                            echo "          $nombre";
+                                            echo "      </td>";
+                                            echo "      <td>";
+                                            echo "          $cantidad";
+                                            echo "      </td>";
+                                            echo "      <td>";
+                                            echo "          $precio";
+                                            echo "      </td>";
+                                            echo "   </tr>";
+                                            $total += $cantidad * $precio;
+                                        }
+                                        echo "  <tr>";
+                                        echo "      <td colspan='2' class='text-end'>";
+                                        echo "          <strong>Total</strong>:";
                                         echo "      </td>";
-                                        echo "      <td>";
-                                        echo "          $cantidad";
+                                        echo "      <td class='text-start'>";
+                                        echo              number_format($total, 2) . " €";
                                         echo "      </td>";
-                                        echo "      <td>";
-                                        echo "          $precio";
-                                        echo "      </td>";
-                                        echo "   </tr>";
-                                        $total += $cantidad * $precio;
-                                    }
-                                    echo "  <tr>";
-                                    echo "      <td colspan='2' class='text-end'>";
-                                    echo "          <strong>Total</strong>:";
-                                    echo "      </td>";
-                                    echo "      <td class='text-start'>";
-                                    echo              number_format($total, 2) . " €";
-                                    echo "      </td>";
-                                    echo "  </tr>";
-                                    echo "  <tr>";
-                                    echo "  <td colspan='3' class='text-end'><button onclick='imprimir()' class='btn btn-outline-primary me-3'>Imprimir</button><button onclick='pagado()' class='btn btn-outline-warning'>Marcar como pagado</button></td>";
-                                    echo "  </tr>";
-                                    echo "</tbody>";
-                                    ?>
+                                        echo "  </tr>";
+                                        echo "  <tr>";
+                                        echo "  <td colspan='3' class='text-end'><button onclick='imprimir()' class='btn btn-outline-primary me-3'>Imprimir</button><button onclick='pagado()' class='btn btn-outline-warning'>Marcar como pagado</button></td>";
+                                        echo "  </tr>";
 
+                                        ?>
+                                    </tbody>
                                 </table>
                             </div>
 
