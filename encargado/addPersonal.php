@@ -43,7 +43,7 @@ include("seguridad.php");
                         <div class="row justify-content-center">
                             <form action="editarPersonal02.php" method="post" class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="dni" name="dni" placeholder="dni" required />
+                                    <input type="text" class="form-control" id="dni" name="dni" maxlength="9" placeholder="dni" required />
                                     <label for="dni">DNI</label>
                                 </div>
                                 <div class="form-floating mb-3">
@@ -61,7 +61,7 @@ include("seguridad.php");
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="telefono" required />
+                                    <input type="text" class="form-control" id="telefono" name="telefono" maxlength="9" placeholder="telefono" required />
                                     <label for="telefono">Teléfono</label>
                                 </div>
 
