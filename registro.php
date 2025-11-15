@@ -106,7 +106,7 @@ include("components/conexion.php");
                         <label for="apellido">Apellido</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Usuario" value="<?php if (isset($_POST['email'])) echo $_POST["email"] ?>" required />
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Usuario" value="<?php if (isset($_POST['email'])) echo $_POST["email"] ?>" required />
                         <label for="email">Email</label>
                     </div>
                     <div class="form-floating mb-3">
