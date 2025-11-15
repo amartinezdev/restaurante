@@ -42,7 +42,7 @@ include("seguridad.php");
                             </h2>
                         </header>
                         <div class="row justify-content-center">
-                            <form action="addProductos02.php" method="post" class="col-12">
+                            <form action="addProductos02.php" method="post" class="col-12" enctype="multipart/form-data">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required />
                                     <label for="nombre">Nombre</label>
@@ -95,13 +95,17 @@ include("seguridad.php");
                                     </div>
                                 </div>
 
-                                <div class="form-floating mb-3">
-                                    <div class="mb-3">
-
-
-                                    </div>
-
+                                <div class="mb-3">
+                                    <input
+                                        type="file"
+                                        class="form-control"
+                                        name="imagen"
+                                        id="imagen"
+                                        placeholder="Añade una imagen"
+                                        aria-describedby="imagen" required />
                                 </div>
+
+
                                 <div class="d-grid ">
                                     <button type="submit" class="btn btn-light fw-bold lead d-flex align-items-center justify-content-center">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">

@@ -49,7 +49,7 @@ include("seguridad.php");
                             </h2>
                         </header>
                         <div class="row justify-content-center">
-                            <form action="editarProducto02.php" method="post" class="col-12">
+                            <form action="editarProducto02.php" method="post" class="col-12" enctype="multipart/form-data">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="<?php echo $row["nombre"] ?>" required />
                                     <label for="nombre">Nombre</label>
@@ -113,6 +113,16 @@ include("seguridad.php");
                                             ?>
                                         </select>
                                     </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <input
+                                        type="file"
+                                        class="form-control"
+                                        name="imagen"
+                                        id="imagen"
+                                        placeholder="Añade una imagen"
+                                        aria-describedby="imagen" />
                                 </div>
 
                                 <div class="d-grid ">

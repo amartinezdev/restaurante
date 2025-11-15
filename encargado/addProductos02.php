@@ -20,17 +20,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $cat = $_POST["cat"];
 
-    $consulta2 = "SELECT id FROM categoria WHERE nombre = '$cat'";
+    // cogemos los datos de la categoría
+    $consulta2 = "SELECT * FROM categoria WHERE nombre = '$cat'";
     $result = mysqli_query($conn, $consulta2);
-
     $row = mysqli_fetch_array($result);
 
     $cat = $row["id"];
+    $estadoCat = $row["estado"];
 
-    $consulta = "INSERT INTO producto (nombre, precio, stock, estado, categoria)
-            VALUES('$nombre', '$precio', '$stock', '$bloqueado', '$cat')";
+    // añado el producto a la base de datos
+    $consulta = "INSERT INTO producto (nombre, precio, stock, estado, categoria, estado_categoria)
+                             VALUES('$nombre', '$precio', '$stock', '$bloqueado', '$cat', '$estadoCat')";
+
 
     $result = mysqli_query($conn, $consulta);
+
+
+    // selecciono el último ID del insert en la bd
+    $cod = mysqli_insert_id($conn);
+
+    if ($cod < 10) {
+        $ima = "../img_productos/00" . $cod . ".png";
+    } else if ($cod < 100) {
+        $ima = "../img_productos/0" . $cod . ".png";
+    } else {
+        $ima = "../img_productos/" . $cod . ".png";
+    }
+
+
+    // actualizo el producto con la imagen, teniendo de nombre el ID
+    mysqli_query($conn, "UPDATE producto SET imagen = '$ima' WHERE id = '$cod'");
+
+    // se guarda la imagen en la bbdd
+    $ruta = $ima;
+    COPY($_FILES["imagen"]["tmp_name"], $ruta);
 
     mysqli_close($conn);
 

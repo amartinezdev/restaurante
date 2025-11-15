@@ -62,6 +62,7 @@ $active = "productos";
                                             $id = $row['id'];
                                             $estado = $row["estado"];
                                             $estadoCategoria = $row['estado_categoria'];
+                                            $imagen = $row['imagen'];
 
                                             if ($estado == 1 && $estadoCategoria == 1) {
                                                 print("<tr>");
@@ -69,7 +70,7 @@ $active = "productos";
                                                 print("<tr class='table-danger'>");
                                             }
                                             print("<td class='d-none d-sm-table-cell'>");
-                                            print($row['id']);
+                                            print("<img src='$imagen' width='50px' class='img-fluid'>");
                                             print("</td>");
                                             print("<td>");
                                             print($row['nombre']);
