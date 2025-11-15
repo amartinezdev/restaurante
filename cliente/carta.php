@@ -228,6 +228,7 @@ if (isset($_GET['limpiar'])) {
                             <table class="table text-start text-md-center table-hover table-striped align-middle">
                                 <thead>
                                     <tr>
+                                        <th class='d-none d-xl-table-cell'>Imagen</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th>Categoria</th>
@@ -252,9 +253,13 @@ if (isset($_GET['limpiar'])) {
                                         $estado = $row['estado'];
                                         $estadoCategoria = $row['estado_categoria'];
                                         $stock = $row['stock'];
+                                        $imagen = $row['imagen'];
 
                                         if ($estado == 1 && $stock > 0 && $estadoCategoria == 1) { // solo ponemos en la carta los disponibles.
                                             print("<tr>");
+                                            print("<td class='d-none d-lg-table-cell'>");
+                                            print("<img src='$imagen' width='50px' class='img-fluid'>");
+                                            print("</td>");
                                             print("<td>");
                                             print($row['nombre']);
                                             print("</td>");
