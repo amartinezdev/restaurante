@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // por si el usuario sale de la sesión, evitamos que pierda el pedido asignado
         if (!isset($_SESSION['idPedido'])) {
-            $pedido = mysqli_query($conn, "SELECT * FROM pedido WHERE usuario = (SELECT dni FROM reserva WHERE dni = '$dni')");
+            $pedido = mysqli_query($conn, "SELECT * FROM pedido WHERE usuario = (SELECT dni FROM reserva WHERE dni = '$dni') AND estado != 2");
 
             $rowPedido = mysqli_num_rows($pedido);
             // si ya existe un pedido con ese DNI y esa MESA

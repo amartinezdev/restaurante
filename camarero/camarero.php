@@ -28,12 +28,16 @@ include("../components/conexion.php");
 
         $consulta = mysqli_query($conn, "SELECT * FROM pedido WHERE estado = 0");
         $numPedidos = mysqli_num_rows($consulta);
+
+        $consultaCobrar = "SELECT * FROM pedido WHERE estado = 1";
+        $resultadoCobrar = mysqli_query($conn, $consultaCobrar);
+        $numPedidosCobrar = mysqli_num_rows($resultadoCobrar);
         ?>
 
         <!-- CONTENIDO PRINCIPAL -->
         <main class="container my-4 flex-grow-1">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-12">
+                <div class="col-6">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 text-center">
                         <header class="text-center mb-3">
                             <h4 class="h4 mb-1">Bienvenido, <?php echo $usuario ?></h4>
@@ -41,21 +45,47 @@ include("../components/conexion.php");
                         <?php
                         if ($numPedidos == 0) {
                         ?>
-                            <p class="display-6">Actualmente no hay pedidos sin servir. <br>¡Buen trabajo!</p>
+                            <p class="display-6">No hay pedidos sin servir. <br>¡Buen trabajo!</p>
                         <?php
                         } else if ($numPedidos == 1) {
                         ?>
-                            <p class="display-6">Actualmente hay <?php echo $numPedidos ?> pedido sin servir</p>
+                            <p class="display-6">Hay <?php echo $numPedidos ?> pedido sin servir</p>
                         <?php
                         } else {
                         ?>
-                            <p class="display-6">Actualmente hay <?php echo $numPedidos ?> pedidos sin servir</p>
+                            <p class="display-6">Hay <?php echo $numPedidos ?> pedidos sin servir</p>
                         <?php
                         }
                         ?>
                         <?php
                         if ($numPedidos >= 1) {
                             echo "<a href='pedidos.php' class='btn btn-primary mt-5'>Ir a pedidos</a>";
+                        }
+
+                        ?>
+
+                    </section>
+                </div>
+
+                <div class="col-6">
+                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 text-center">
+                        <header class="text-center mb-3">
+                            <h4 class="h4 mb-1">Bienvenido, <?php echo $usuario ?></h4>
+                        </header>
+                        <?php
+                        if ($numPedidosCobrar == 0) {
+                        ?>
+                            <p class="display-6">No hay cobros pendientes.</p>
+                        <?php
+                        } else if ($numPedidosCobrar >= 1) {
+                        ?>
+                            <p class="display-6">Hay pendiente de cobro: <?php echo $numPedidosCobrar ?></p>
+                        <?php
+                        }
+                        ?>
+                        <?php
+                        if ($numPedidosCobrar >= 1) {
+                            echo "<a href='cobros.php' class='btn btn-primary mt-5'>Ir a Cobros</a>";
                         }
 
                         ?>

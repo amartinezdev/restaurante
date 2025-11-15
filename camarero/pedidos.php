@@ -33,6 +33,7 @@ include("../components/conexion.php");
         <!-- CONTENIDO PRINCIPAL -->
         <main class="container my-4 flex-grow-1">
             <div class="row justify-content-center">
+                <!-- PARTE DE SERVIR -->
                 <div class="col-12 col-lg-8 col-xl-6">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 text-center">
                         <header class="text-center mb-3">
@@ -94,18 +95,18 @@ include("../components/conexion.php");
                                                 $nombre = $infoProducto["nombre"];
 
                                                 echo "<tr>";
-                                                echo "<td>$nombre</td>";
-                                                echo "<td>$cant</td>";
+                                                echo "  <td>$nombre</td>";
+                                                echo "  <td>$cant</td>";
                                                 if (isset($comentario)) {
-                                                    echo "<td>$comentario</td>";
+                                                    echo "  <td>$comentario</td>";
                                                 } else {
-                                                    echo "<td>(Sin comentario)</td>";
+                                                    echo "  <td>(Sin comentario)</td>";
                                                 }
 
                                                 if ($servido == 1) {
-                                                    echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required checked /></td>";
+                                                    echo "  <td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required checked /></td>";
                                                 } else {
-                                                    echo "<td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required /></td>";
+                                                    echo "  <td><input class='form-check-input' type='checkbox' value='$idPedido' name='id' required /></td>";
                                                 }
 
 
@@ -150,7 +151,6 @@ include("../components/conexion.php");
                             echo "</div>";
                         }
                         ?>
-
                     </section>
                 </div>
             </div>
@@ -163,6 +163,18 @@ include("../components/conexion.php");
         // de momento no funciona
         function servido() {
             confirm("No se han enviado todos los productos.\n\n¿Estás seguro de marcarlo como servido?")
+        }
+
+        function pagado() {
+            let confirmar = confirm("¿Estás seguro de poner como pagado el pedido?");
+
+            if (confirmar) {
+                // aquí va el location.href para pagar y con ello, liberar la mesa y la reserva
+            }
+        }
+
+        function imprimir() {
+            // mandamos a imprimir a la impresora
         }
     </script>
 </body>
