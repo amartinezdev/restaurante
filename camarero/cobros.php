@@ -110,7 +110,9 @@ include("../components/conexion.php");
                                         echo "      </td>";
                                         echo "  </tr>";
                                         echo "  <tr>";
-                                        echo "  <td colspan='3' class='text-end'><button onclick='imprimir()' class='btn btn-outline-primary me-3'>Imprimir</button><button onclick='pagado()' class='btn btn-outline-warning'>Marcar como pagado</button></td>";
+                                        echo "  <td colspan='3' class='text-end'>
+                                        <a href='#' class='btn btn-outline-primary me-3'>Imprimir</a>
+                                        <button onclick='pagado($idPedido)' class='btn btn-outline-warning'>Cobrar</button></td>";
                                         echo "  </tr>";
 
                                         ?>
@@ -146,11 +148,12 @@ include("../components/conexion.php");
             confirm("No se han enviado todos los productos.\n\n¿Estás seguro de marcarlo como servido?")
         }
 
-        function pagado() {
+        function pagado(pedido) {
             let confirmar = confirm("¿Estás seguro de poner como pagado el pedido?");
 
             if (confirmar) {
                 // aquí va el location.href para pagar y con ello, liberar la mesa y la reserva
+                location.href = "cobrado.php?idPedido=" + pedido;
             }
         }
 

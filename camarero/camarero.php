@@ -70,7 +70,7 @@ include("../components/conexion.php");
                 <div class="col-6">
                     <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 text-center">
                         <header class="text-center mb-3">
-                            <h4 class="h4 mb-1">Bienvenido, <?php echo $usuario ?></h4>
+                            <h4 class="h4 mb-1">Pendientes de cobro</h4>
                         </header>
                         <?php
                         if ($numPedidosCobrar == 0) {

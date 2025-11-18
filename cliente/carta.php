@@ -75,8 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $idPedido = $rowPedido["id"];
                 $_SESSION["idPedido"] = $idPedido;
             } else {
-                $pedido = "INSERT INTO pedido (usuario, estado, numMesa)
-                        VALUES('$dni', 0, '$mesa')";
+                $fechaAct = date("Y-m-d H:i:s");
+                $pedido = "INSERT INTO pedido (usuario, fecha, estado, numMesa)
+                        VALUES('$dni', '$fechaAct', 0, '$mesa')";
 
                 mysqli_query($conn, $pedido);
 

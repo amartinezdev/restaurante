@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2025 a las 15:10:33
+-- Tiempo de generación: 18-11-2025 a las 22:15:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -86,7 +86,8 @@ DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `id` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
-  `estado` tinyint(1) NOT NULL COMMENT '0- no pagado 1- pagado',
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'fecha del pedido',
+  `estado` tinyint(1) NOT NULL COMMENT '0- no servido 1- servido 2- pagado',
   `numMesa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

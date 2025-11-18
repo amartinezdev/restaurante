@@ -23,7 +23,7 @@ if (!isset($_SESSION["haElegidoMesa"])) {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $comensales = $_POST["comensales"];
 
-    mysqli_query($conn, "UPDATE reserva SET comensales = '$comensales' WHERE dni = '$dni'");
+    mysqli_query($conn, "UPDATE reserva SET comensales = '$comensales' WHERE dni = '$dni' AND comensales = 0");
 
     $_SESSION["haElegidoComensales"] = true;
     header("LOCATION: carta.php");
