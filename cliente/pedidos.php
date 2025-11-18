@@ -51,6 +51,7 @@ $dni = $_SESSION["dni"];
                             $idPedido = $rowPedido["id"];
                             $estado = $rowPedido["estado"];
                             $mesa = $rowPedido["numMesa"];
+                            $fecha = $rowPedido["fecha"];
 
                             print("<div class='mb-4'>");
                             print("<div class='bg-body rounded-4 p-3 p-sm-4 mb-3 pedido'>");
@@ -63,9 +64,12 @@ $dni = $_SESSION["dni"];
                             } else {
                                 print("<span class='badge text-bg-secondary'>Pendiente</span>");
                             }
-                            print("</div>");
 
+                            print("</div>");
+                            print("<div class='d-flex justify-content-between align-items-center'>");
                             print("<p class='small text-muted m-0 mb-2'><i>Mesa $mesa</i></p>");
+                            print("<p class='text-muted ms-auto small'><i>$fecha</i></p>");
+                            print("</div>");
                         ?>
                             <!-- la tabla de los productos del pedido -->
                             <div class="table-responsive">
@@ -122,6 +126,13 @@ $dni = $_SESSION["dni"];
                                     print("<td colspan='4' class='text-end'>Total</td>");
                                     print("<td class='text-center'>" . number_format($totalPedido, 2) . " €</td>");
                                     print("</tr>");
+                                    if ($estado == 2) {
+                                        print("<tr>");
+                                        print("<td colspan='5' class='text-end'>");
+                                        print("<a href='pdf.php?idPedido=$idPedido' class='btn btn-success'>Ver factura</a>");
+                                        print("</td>");
+                                        print("</tr>");
+                                    }
                                     print("</tbody>");
                                     print("</table>");
                                     print("</div>");
