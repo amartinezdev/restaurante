@@ -43,6 +43,8 @@ $dniCliente  = $pedido["usuario"];
 //datos del usuario
 $consultaCliente = mysqli_query($conn, "SELECT * FROM usuario WHERE dni = '$dniCliente'");
 $cliente = mysqli_fetch_array($consultaCliente);
+$nombreCliente = $cliente["nombre"];
+$apellidoCliente = $cliente["apellido"];
 
 
 // productos del pedido
