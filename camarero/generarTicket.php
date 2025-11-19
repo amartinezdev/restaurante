@@ -9,12 +9,7 @@ use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 include("../components/conexion.php");
 include("seguridad.php");
 
-// Comprobar que recibimos idPedido
-if (!isset($_GET['idPedido'])) {
-    die("No se ha indicado ningún pedido.");
-}
-
-$idPedido = (int) $_GET['idPedido'];
+$idPedido = $_GET['idPedido'];
 
 // =========================
 // 1. OBTENER DATOS DEL PEDIDO

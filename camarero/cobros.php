@@ -111,7 +111,7 @@ include("../components/conexion.php");
                                         echo "  </tr>";
                                         echo "  <tr>";
                                         echo "  <td colspan='3' class='text-end'>
-                                        <a href='#' class='btn btn-outline-primary me-3'>Imprimir</a>
+                                        <a href='imprimirTicket.php?idPedido=$idPedido' class='btn btn-outline-primary me-3'>Imprimir</a>
                                         <button onclick='pagado($idPedido)' class='btn btn-outline-warning'>Cobrar</button></td>";
                                         echo "  </tr>";
 
