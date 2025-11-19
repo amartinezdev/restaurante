@@ -99,6 +99,7 @@ try {
         $precioFormateado = number_format($precio, 2);
         $total += $precioFormateado;
 
+        // reservamos espacios; 20 pegados a la izquierda, 3 para la cantidad y 10 para el precio
         $printer->text(sprintf("%-20s %3s %10s EUR\n", $nombre, $cantidad, $precioFormateado));
     }
 
