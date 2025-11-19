@@ -129,7 +129,7 @@ $dni = $_SESSION["dni"];
                                     if ($estado == 2) {
                                         print("<tr>");
                                         print("<td colspan='5' class='text-end'>");
-                                        print("<a href='pdf.php?idPedido=$idPedido' class='btn btn-success'>Ver factura</a>");
+                                        print("<a href='pdf.php?idPedido=$idPedido' target='_blank' class='btn btn-success'>Ver factura</a>");
                                         print("</td>");
                                         print("</tr>");
                                     }
