@@ -4,11 +4,11 @@ include("../components/conexion.php");
 
 include("seguridad.php");
 
-if (!isset($_SESSION["haElegidoMesa"])) {
-    header("LOCATION: mesa.php");
-} else if (!isset($_SESSION["haElegidoComensales"])) {
-    header("LOCATION: eligeComensales.php");
-}
+// if (!isset($_SESSION["haElegidoMesa"])) {
+//     header("LOCATION: mesa.php");
+// } else if (!isset($_SESSION["haElegidoComensales"])) {
+//     header("LOCATION: eligeComensales.php");
+// }
 $dni = $_SESSION["dni"];
 ?>
 
@@ -45,45 +45,59 @@ $dni = $_SESSION["dni"];
                         // traemos todos los pedidos del usuario
                         $pedidos = mysqli_query($conn, "SELECT * FROM pedido WHERE usuario = '$dni' ORDER BY id DESC");
 
-
-                        // recorremos cada pedido añadiéndolo a una card nueva
-                        while ($rowPedido = mysqli_fetch_array($pedidos)) {
-                            $idPedido = $rowPedido["id"];
-                            $estado = $rowPedido["estado"];
-                            $mesa = $rowPedido["numMesa"];
-                            $fecha = $rowPedido["fecha"];
-
-                            print("<div class='mb-4'>");
-                            print("<div class='bg-body rounded-4 p-3 p-sm-4 mb-3 pedido'>");
-                            print("<div class='d-flex justify-content-between align-items-center mb-2'>");
-                            print("<h5 class='m-0'>Pedido #$idPedido</h5>");
-                            if ($estado == 2) {
-                                print("<span class='badge text-bg-success'>Pagado</span>");
-                            } else if ($estado == 1) {
-                                print("<span class='badge text-bg-warning'>Servido</span>");
-                            } else {
-                                print("<span class='badge text-bg-secondary'>Pendiente</span>");
-                            }
-
-                            print("</div>");
-                            print("<div class='d-flex justify-content-between align-items-center'>");
-                            print("<p class='small text-muted m-0 mb-2'><i>Mesa $mesa</i></p>");
-                            print("<p class='text-muted ms-auto small'><i>$fecha</i></p>");
-                            print("</div>");
+                        if (mysqli_num_rows($pedidos) == 0) {
                         ?>
-                            <!-- la tabla de los productos del pedido -->
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped align-middle">
-                                    <thead>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th class="text-center">Precio</th>
-                                            <th class="text-center">Cantidad</th>
-                                            <th>Comentario</th>
-                                            <th class="text-center">Subtotal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <div
+                                class="alert alert-warning"
+                                role="alert">
+                                No tienes pedidos registrados con este DNI
+                            </div>
+
+                            <?php
+
+
+
+                        } else {
+
+
+                            // recorremos cada pedido añadiéndolo a una card nueva
+                            while ($rowPedido = mysqli_fetch_array($pedidos)) {
+                                $idPedido = $rowPedido["id"];
+                                $estado = $rowPedido["estado"];
+                                $mesa = $rowPedido["numMesa"];
+                                $fecha = $rowPedido["fecha"];
+
+                                print("<div class='mb-4'>");
+                                print("<div class='bg-body rounded-4 p-3 p-sm-4 mb-3 pedido'>");
+                                print("<div class='d-flex justify-content-between align-items-center mb-2'>");
+                                print("<h5 class='m-0'>Pedido #$idPedido</h5>");
+                                if ($estado == 2) {
+                                    print("<span class='badge text-bg-success'>Pagado</span>");
+                                } else if ($estado == 1) {
+                                    print("<span class='badge text-bg-warning'>Servido</span>");
+                                } else {
+                                    print("<span class='badge text-bg-secondary'>Pendiente</span>");
+                                }
+
+                                print("</div>");
+                                print("<div class='d-flex justify-content-between align-items-center'>");
+                                print("<p class='small text-muted m-0 mb-2'><i>Mesa $mesa</i></p>");
+                                print("<p class='text-muted ms-auto small'><i>$fecha</i></p>");
+                                print("</div>");
+                            ?>
+                                <!-- la tabla de los productos del pedido -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th class="text-center">Precio</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th>Comentario</th>
+                                                <th class="text-center">Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                     <?php
 
                                     $lineas = mysqli_query($conn, "SELECT * FROM producto_pedido WHERE idPedido = '$idPedido'");
@@ -138,10 +152,11 @@ $dni = $_SESSION["dni"];
                                     print("</div>");
                                     print("</div>");
                                 }
+                            }
 
 
-                                print("<hr class='mt-3'>");
-                                print("</div>");
+                            print("<hr class='mt-3'>");
+                            print("</div>");
                                     ?>
                     </section>
                 </div>

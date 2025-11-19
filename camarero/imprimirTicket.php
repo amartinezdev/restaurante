@@ -37,8 +37,8 @@ $idPedido = $_GET['idPedido'];
 $consultaPedido = mysqli_query($conn, "SELECT * FROM pedido WHERE id = '$idPedido'");
 $pedido = mysqli_fetch_array($consultaPedido);
 $fechaPedido = $pedido["fecha"];
-$numMesa     = $pedido["numMesa"];
-$dniCliente  = $pedido["usuario"];
+$numMesa = $pedido["numMesa"];
+$dniCliente = $pedido["usuario"];
 
 //datos del usuario
 $consultaCliente = mysqli_query($conn, "SELECT * FROM usuario WHERE dni = '$dniCliente'");
@@ -54,10 +54,10 @@ $total = 0;
 
 try {
     // Configurar impresora - Usar conexión de red
-    $ipImpresora     = "192.168.36.170"; // Cambia a la IP de tu impresora
+    $ipImpresora = "192.168.36.170"; // Cambia a la IP de tu impresora
     $puertoImpresora = 9100;             // Puerto por defecto ESC/POS
-    $connector       = new NetworkPrintConnector($ipImpresora, $puertoImpresora);
-    $printer         = new Printer($connector);
+    $connector = new NetworkPrintConnector($ipImpresora, $puertoImpresora);
+    $printer = new Printer($connector);
 
     // Numero de factura
     $num_factura = str_pad($idPedido, 4, "0", STR_PAD_LEFT);
@@ -106,9 +106,9 @@ try {
     }
 
     // total
-    $ivaTipo        = 0.21; // 21%
+    $ivaTipo = 0.21; // 21%
     $base_imponible = $total / (1 + $ivaTipo);
-    $cuota_iva      = $total - $base_imponible;
+    $cuota_iva = $total - $base_imponible;
 
     $printer->text(str_repeat("=", 39) . "\n");
     $printer->setJustification(Printer::JUSTIFY_LEFT);

@@ -14,10 +14,17 @@ if (!isset($_SESSION["haElegidoMesa"])) {
 $usuario = $_SESSION["usuario"];
 $dni = $_SESSION["dni"];
 
+$consulta = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
+$row = mysqli_fetch_array($consulta);
+$rowNum = mysqli_num_rows($consulta);
+
+if ($rowNum == 0) {
+    header("LOCATION: mesa.php");
+    exit;
+}
+
 // si el usuario cierra sesión y vuelve a entrar
 if (!isset($_SESSION["mesa"])) {
-    $consulta = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
-    $row = mysqli_fetch_array($consulta);
     $_SESSION["mesa"] = $row["numMesa"];
 } else {
     $mesa = $_SESSION["mesa"];
@@ -113,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $productoPedido = " INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
                                 VALUES ('$idPedido', '$idProducto', '$cant', '$coment')
                                     ON DUPLICATE KEY UPDATE
-                                        cant = cant + VALUES(cant),
-                                        comentario = VALUES(comentario)";
+                                                        cant = cant + VALUES(cant),
+                                                        comentario = VALUES(comentario)";
 
             $updateEstado = mysqli_query($conn, "UPDATE pedido SET estado = 0 WHERE id   = '$idPedido'");
 
