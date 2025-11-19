@@ -36,7 +36,7 @@ if (!isset($_SESSION['carrito'])) {
     $_SESSION['carrito'] = [];
 }
 
-// agregamos la ID al carrito y recargamos la página
+// agregamos la id del producto al carrito y recargamos la página
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     if (!isset($_SESSION['carrito'][$id])) {
@@ -46,19 +46,20 @@ if (isset($_GET['id'])) {
     header("LOCATION: carta.php");
     exit;
 }
+
 /*
     BUG 1: los pedidos no se actualizan correctamtne - OK
     BUG 2: las cantidades de los pedidos?? donde están? - OK
     BUG 3: es NECESARIO que los comentarios vayan por producto - OK
     BUG 4: las inserciones no insertan - OK
 */
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // si le damos a pedir, realizamos el insert en la base de datos
     if (isset($_POST["pedir"])) {
         // si vienen cantidades en el post, sincronizamos primero
         if (isset($_POST['cantidades'])) {
+            //producto 4 -> cantidad 3
             foreach ($_POST['cantidades'] as $id => $cantidad) {
                 $_SESSION['carrito'][$id] = $cantidad;
             }
