@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // por último limpiamos el carrito de la sesión
         $_SESSION['carrito'] = [];
 
-        header("LOCATION: pedidos.php");
+        header("LOCATION: ticketCocina.php?idPedido=$idPedido");
         exit;
     }
 

@@ -55,6 +55,9 @@ while ($linea = mysqli_fetch_array($consultaLineas)) {
     ";
 }
 
+$ivaTipo = 0.21; // 21%
+$base_imponible = $total / (1 + $ivaTipo);
+$cuota_iva = $total - $base_imponible;
 
 $html = "
 <html>
@@ -77,7 +80,7 @@ $html = "
         }
 
         .subtitulo {
-            font-size: 11px;
+            font-size: 10px;
             color: #555555;
         }
 
@@ -220,8 +223,16 @@ $html = "
         <tbody>
             $filasTabla
             <tr class='fila-total'>
+                <td colspan='2' class='text-right'><p class='subtitulo'>Base Imponible:</p> </td>
+                <td class='text-right'><p class='subtitulo'>" . number_format($base_imponible, 2) . " €</p></td>
+            </tr>
+            <tr class='fila-total'>
+                <td colspan='2' class='text-right text-muted'><p class='subtitulo'>IVA (21%)    </p></td>
+                <td class='text-right text-muted'><p class='subtitulo'>" . number_format($cuota_iva, 2) . " €</p></td>
+            </tr>
+            <tr class='fila-total'>
                 <td colspan='2' class='text-right'><strong>Total</strong></td>
-                <td class='text-right'><strong>" . number_format($total, 2, ',', '.') . " €</strong></td>
+                <td class='text-right'><strong>" . number_format($total, 2) . " €</strong></td>
             </tr>
         </tbody>
     </table>

@@ -83,8 +83,8 @@ try {
     );
 
     while ($linea = mysqli_fetch_assoc($consultaLineas)) {
+        $idProducto = $linea["idProducto"];
         $cantidad = $linea["cant"];
-        $nombre = quitaTildes($linea["nombre"]);
         $comentario = trim($linea["comentario"] ?? "");
 
         $consultaProd = mysqli_query(
@@ -92,11 +92,14 @@ try {
             "SELECT nombre FROM producto WHERE id = '$idProducto'"
         );
 
+        $rowProducto = mysqli_fetch_array($consultaProd);
+
         // línea principal: " 2x  Croquetas jamon"
+        $nombre = quitaTildes($rowProducto["nombre"]);
         $lineaProd = sprintf("%2dx  %s\n", $cantidad, $nombre);
         $printer->text($lineaProd);
 
-        // si hay comentario, lo imprimimos en la línea de abajo, sangrado
+        // si hay comentario, lo imprimimos en la línea de abajo, con tabs
         if ($comentario !== "") {
             $comentario = quitaTildes($comentario);
             $printer->setEmphasis(true);
@@ -108,7 +111,7 @@ try {
     $printer->text(str_repeat("=", 32) . "\n");
     $printer->setJustification(Printer::JUSTIFY_CENTER);
     $printer->text("FIN PEDIDO COCINA\n");
-    $printer->text("\n\n");
+    $printer->text("\n\n\n");
 
     // Cortar y cerrar
     $printer->cut();

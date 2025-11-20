@@ -9,7 +9,7 @@ use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 include("../components/conexion.php");
 include("seguridad.php");
 
-// quita las tildes en el ticket
+// quita las tildes en el ticket, evita errores de quitar espacios
 function quitaTildes($texto)
 {
     $originales = array(
