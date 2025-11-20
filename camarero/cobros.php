@@ -162,5 +162,4 @@ include("../components/conexion.php");
         }
     </script>
 </body>
-
 </html>

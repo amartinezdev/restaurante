@@ -305,7 +305,7 @@ if (isset($_GET['limpiar'])) {
                             <p class="text-center text-muted small"><i>Mesa <?php echo $mesa ?> - <?php echo $comensales ?> comensales</i></p>
                         </header>
 
-                        <!-- TABLA DE PRODUCTOS -->
+                        <!-- CARRITO -->
                         <form action="" method="post">
                             <?php if (empty($_SESSION['carrito'])) { ?>
                                 <p class="text-center text-muted">No hay productos en el pedido.</p>
