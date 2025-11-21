@@ -17,26 +17,6 @@ El desarrollo se organiza siguiendo un enfoque **ágil** basado en **Scrum**, di
 
 ---
 
-## Metodología de trabajo
-
-El proyecto se organiza en Sprints cortos, con entregas incrementales:
-
-- **Roles Scrum**:
-  - *Product Owner*: define requisitos y prioriza.
-  - *Scrum Master*: facilita el proceso y elimina impedimentos.
-  - *Equipo de desarrollo*: implementa funcionalidad (backend, frontend, BD).
-
-- **Eventos principales**:
-  - *Sprint Planning*: planificación de objetivos del sprint.
-  - *Daily*: seguimiento diario del progreso.
-  - *Sprint Review*: revisión funcional de lo entregado.
-  - *Sprint Retrospective*: mejora continua del proceso.
-
-- **Artefactos**:
-  - *Product Backlog*: lista global de funcionalidades del sistema.
-  - *Sprint Backlog*: tareas seleccionadas para cada sprint.
-  - *Incremento*: versión funcional del sistema al final de cada sprint.
-
 ### 📅 Planificación de Sprints
 
 | Sprint  | Fecha fin       | Objetivo principal                                      |
