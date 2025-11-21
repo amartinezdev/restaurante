@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $telefono = $_POST["telefono"];
     $direccion = $_POST["direccion"];
+    $pw = $_POST["pw"];
 
 
     $dni = $_SESSION["dni"];
