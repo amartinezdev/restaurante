@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $consulta = "UPDATE usuario
         SET nombre = '$nombre',
             apellido = '$apellido',
+            password = '$pw',
             email = '$email',
             telefono = '$telefono',
             direccion = null
@@ -30,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $consulta = "UPDATE usuario
         SET nombre = '$nombre',
             apellido = '$apellido',
+            password = '$pw',
             email = '$email',
             telefono = '$telefono',
             direccion = '$direccion'

@@ -41,7 +41,7 @@ include("seguridad.php");
                             </h2>
                         </header>
                         <div class="row justify-content-center">
-                            <form action="editarPersonal02.php" method="post" class="col-12">
+                            <form action="addPersonal02.php" method="POST" class="col-12">
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="dni" name="dni" maxlength="9" placeholder="dni" required />
                                     <label for="dni">DNI</label>
@@ -53,6 +53,11 @@ include("seguridad.php");
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="apellido" name="apellido" placeholder="apellido" required />
                                     <label for="apellido">Apellido</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="pw" name="pw" placeholder="pw" required />
+                                    <label for="pw">Contraseña</label>
                                 </div>
 
                                 <div class="form-floating mb-3">

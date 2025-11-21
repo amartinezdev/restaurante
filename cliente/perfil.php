@@ -74,6 +74,11 @@ include("seguridad.php");
                                 </div>
 
                                 <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="pw" name="pw" placeholder="pw" value="<?php echo $row["password"] ?>" required />
+                                    <label for="pw">Contraseña *</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="email" value="<?php echo $row["email"] ?>" required />
                                     <label for="email">Email *</label>
                                 </div>
