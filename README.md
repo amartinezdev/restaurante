@@ -133,13 +133,13 @@ Dotar al encargado de herramientas avanzadas para gestionar pedidos, personal, m
 - ✅ Gestión de **perfiles de camareros**:
   - Registro de nuevos camareros.
   - Suspensión/bloqueo de camareros.
-- Sistema de **informes de rendimiento**:
+- ✅ Sistema de **informes de rendimiento**:
   - Ingresos por periodo.
   - Número de comensales.
   - Mesas atendidas, etc.
 
 
-**Estado del Sprint 4**: 🟡 En desarrollo.
+**Estado del Sprint 4**: ✅ Completado.
 
 ---
 
@@ -165,7 +165,7 @@ Cerrar el proyecto con pruebas de usuario, documentación completa y revisión d
   - Comprobación de accesos no autorizados.
   - Revisión de gestión de sesiones y datos sensibles.
 
-**Estado del Sprint 5**: 🟡 Planificado.
+**Estado del Sprint 5**: ✅ Completado.
 
 ---
 
