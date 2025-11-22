@@ -63,7 +63,7 @@ Construir la base del sistema: autenticación, roles de usuario y estructura ini
 
 ---
 
-### 🥈 Sprint 2 – Gestión de mesas y toma de pedidos (16/11/2025)
+### Sprint 2 – Gestión de mesas y toma de pedidos (16/11/2025)
 
 **Objetivo**  
 Permitir a los clientes seleccionar mesa, realizar pedidos (con stock controlado y rondas) y facilitar al camarero la gestión de esos pedidos.
@@ -96,7 +96,7 @@ Permitir a los clientes seleccionar mesa, realizar pedidos (con stock controlado
 
 ---
 
-### 🥉 Sprint 3 – Generación de cuentas y cierre de mesas (rol Camarero) (23/11/2025)
+### Sprint 3 – Generación de cuentas y cierre de mesas (rol Camarero) (23/11/2025)
 
 **Objetivo**  
 Completar el flujo de pedidos hasta el pago y cierre de mesa.
@@ -121,7 +121,7 @@ Completar el flujo de pedidos hasta el pago y cierre de mesa.
 
 ---
 
-### 🏅 Sprint 4 – Funciones administrativas y gestión del menú (rol Encargado) (30/11/2025)
+### Sprint 4 – Funciones administrativas y gestión del menú (rol Encargado) (30/11/2025)
 
 **Objetivo**  
 Dotar al encargado de herramientas avanzadas para gestionar pedidos, personal, menú e informes.
@@ -143,7 +143,7 @@ Dotar al encargado de herramientas avanzadas para gestionar pedidos, personal, m
 
 ---
 
-### 🎓 Sprint 5 – Pruebas finales y documentación (05/12/2025)
+### Sprint 5 – Pruebas finales y documentación (05/12/2025)
 
 **Objetivo**  
 Cerrar el proyecto con pruebas de usuario, documentación completa y revisión de seguridad.
