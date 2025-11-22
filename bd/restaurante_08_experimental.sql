@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2025 a las 17:45:25
+-- Tiempo de generación: 22-11-2025 a las 13:52:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -88,7 +88,8 @@ CREATE TABLE `pedido` (
   `usuario` varchar(255) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT 'fecha del pedido',
   `estado` tinyint(1) NOT NULL COMMENT '0- no servido 1- servido 2- pagado',
-  `numMesa` int(11) NOT NULL
+  `numMesa` int(11) NOT NULL,
+  `comensales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
