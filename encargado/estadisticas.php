@@ -83,13 +83,13 @@ include("seguridad.php");
                                 }
 
                                 // otro select del pedido para sacar los comensales y la cuenta de los pedidos pagados
-                                $consultaPedidos = "SELECT COUNT(id), SUM(comensales) 
+                                $consultaPedidos = "SELECT COUNT(id) as numPedidos, SUM(comensales) as numComensales
                                                    FROM pedido 
                                                     WHERE estado = 2";
                                 $resultPedidos = mysqli_query($conn, $consultaPedidos);
                                 $rowPedidos = mysqli_fetch_array($resultPedidos);
-                                $numPedidosPagados = $rowPedidos[0];
-                                $comensalesPagados = $rowPedidos[1];
+                                $numPedidosPagados = $rowPedidos["numPedidos"];
+                                $comensalesPagados = $rowPedidos["numComensales"];
 
                                 if ($numPedidosPagados == "") {
                                     $numPedidosPagados = 0;
@@ -260,8 +260,17 @@ include("seguridad.php");
                                                         <tbody>
                                                             <?php
                                                             // obtener las fechas del filtro o por defecto el mes actual
-                                                            $fechaInicio = isset($_GET['fecha_inicio']) ? $_GET['fecha_inicio'] : date('Y-m-01');
-                                                            $fechaFin = isset($_GET['fecha_fin']) ? $_GET['fecha_fin'] : date('Y-m-d');
+                                                            if (isset($_GET['fecha_inicio'])) {
+                                                                $fechaInicio = $_GET['fecha_inicio'];
+                                                            } else {
+                                                                $fechaInicio = date('Y-m-01');
+                                                            }
+
+                                                            if (isset($_GET['fecha_fin'])) {
+                                                                $fechaFin = $_GET['fecha_fin'];
+                                                            } else {
+                                                                $fechaFin = date('Y-m-d');
+                                                            }
 
                                                             // selecciono las fechas únicas en el rango
                                                             $consultaFechas = "SELECT DISTINCT DATE(fecha) as fecha FROM pedido WHERE DATE(fecha) >= '$fechaInicio' AND DATE(fecha) <= '$fechaFin' ORDER BY fecha DESC";
