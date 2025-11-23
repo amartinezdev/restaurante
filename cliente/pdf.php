@@ -63,6 +63,7 @@ $html = "
 <html>
 <head>
     <meta charset='UTF-8'>
+    <title>El Quinto Pino - Recibo PDF</title>
     <style>
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

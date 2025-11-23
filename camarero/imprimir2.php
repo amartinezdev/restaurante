@@ -221,7 +221,8 @@ $rawData = $connector->getData();
 
 <head>
     <meta charset="UTF-8">
-    <title>Prueba ticket - El Quinto Pino</title>
+    <title>El Quinto Pino - Vista Previa Ticket</title>
+    <link rel="shortcut icon" href="../img/ico.png" type="image/x-icon">
 </head>
 
 <body>

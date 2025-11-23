@@ -14,8 +14,9 @@ $active = "productos";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>El Quinto Pino - Cliente</title>
+    <title>El Quinto Pino - Personal</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="../img/ico.png" type="image/x-icon">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
 </head>
