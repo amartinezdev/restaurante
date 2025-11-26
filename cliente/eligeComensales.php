@@ -8,6 +8,25 @@ $dni = $_SESSION["dni"];
 $result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
 $row = mysqli_fetch_assoc($result);
 
+if (isset($_SESSION['idPedido'])) {
+    $idPedidoSesion = $_SESSION['idPedido'];
+    $checkPedido = mysqli_query($conn, "SELECT * FROM pedido WHERE id = '$idPedidoSesion'");
+    
+    if (mysqli_num_rows($checkPedido) > 0) {
+        $rowPedidoCheck = mysqli_fetch_array($checkPedido);
+        // Si el pedido ya está pagado, limpiamos las variables de sesión
+        if ($rowPedidoCheck['estado'] == 2) {
+            unset($_SESSION['idPedido']);
+            unset($_SESSION['mesa']);
+            unset($_SESSION['comensales']);
+            unset($_SESSION["haElegidoComensales"]);
+            unset($_SESSION["haElegidoMesa"]);
+            // También limpiamos el carrito por seguridad
+            unset($_SESSION['carrito']);
+        }
+    }
+}
+
 if ($row["comensales"] != 0) {
     $_SESSION["haElegidoComensales"] = true;
     header("LOCATION: carta.php");

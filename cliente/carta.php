@@ -30,26 +30,52 @@ if (!isset($_SESSION["mesa"])) {
     $mesa = $_SESSION["mesa"];
 }
 
-
-
 $result = mysqli_query($conn, "SELECT * FROM reserva WHERE dni = '$dni'");
 $row = mysqli_fetch_assoc($result);
 
 $mesa = $row["numMesa"];
 $comensales = $row["comensales"];
 
-// si el carrito NO está inicializado, lo inicializamos
-if (!isset($_SESSION['carrito'])) {
-    $_SESSION['carrito'] = [];
+// si hay un idPedido en sesión, hay errores, soluciono el problema con el siguiente if
+if (isset($_SESSION["idPedido"])) {
+    $idPedidoSesion = $_SESSION["idPedido"]; // guardamos el idPedido de la sesión
+    $checkPedido = mysqli_query($conn, "SELECT * FROM pedido WHERE id = '$idPedidoSesion'");
+    
+    if (mysqli_num_rows($checkPedido) > 0) {
+        $rowPedidoCheck = mysqli_fetch_array($checkPedido);
+        // si el pedido ya está pagado (estado 2), limpio todas las variables de sesión
+        if ($rowPedidoCheck["estado"] == 2) {
+            unset($_SESSION["idPedido"]);
+            unset($_SESSION["mesa"]);
+            unset($_SESSION["comensales"]);
+            unset($_SESSION["haElegidoComensales"]);
+            unset($_SESSION["haElegidoMesa"]);
+            // también limpio el carrito por seguridad
+            unset($_SESSION["carrito"]);
+        }
+    } else {
+        // si el pedido no existe en BD, limpio la sesión
+        unset($_SESSION["idPedido"]);
+    }
+}
+
+// aseguro que la mesa en sesión coincida con la reserva actual
+if (isset($_SESSION["mesa"]) && $_SESSION["mesa"] != $mesa) {
+    $_SESSION["mesa"] = $mesa;
+}
+
+// si el carrito NO está inicializado, lo inicializo
+if (!isset($_SESSION["carrito"])) {
+    $_SESSION["carrito"] = [];
 }
 
 // agregamos la id del producto al carrito y recargamos la página
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    if (!isset($_SESSION['carrito'][$id])) {
-        $_SESSION['carrito'][$id] = 0;
+if (isset($_GET["id"])) {
+    $id = $_GET["id"];
+    if (!isset($_SESSION["carrito"][$id])) {
+        $_SESSION["carrito"][$id] = 0;
     }
-    $_SESSION['carrito'][$id] += 1;
+    $_SESSION["carrito"][$id] += 1;
     header("LOCATION: carta.php");
     exit;
 }
