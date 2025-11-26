@@ -36,29 +36,6 @@ $row = mysqli_fetch_assoc($result);
 $mesa = $row["numMesa"];
 $comensales = $row["comensales"];
 
-// si hay un idPedido en sesión, hay errores, soluciono el problema con el siguiente if
-if (isset($_SESSION["idPedido"])) {
-    $idPedidoSesion = $_SESSION["idPedido"]; // guardamos el idPedido de la sesión
-    $checkPedido = mysqli_query($conn, "SELECT * FROM pedido WHERE id = '$idPedidoSesion'");
-    
-    if (mysqli_num_rows($checkPedido) > 0) {
-        $rowPedidoCheck = mysqli_fetch_array($checkPedido);
-        // si el pedido ya está pagado (estado 2), limpio todas las variables de sesión
-        if ($rowPedidoCheck["estado"] == 2) {
-            unset($_SESSION["idPedido"]);
-            unset($_SESSION["mesa"]);
-            unset($_SESSION["comensales"]);
-            unset($_SESSION["haElegidoComensales"]);
-            unset($_SESSION["haElegidoMesa"]);
-            // también limpio el carrito por seguridad
-            unset($_SESSION["carrito"]);
-        }
-    } else {
-        // si el pedido no existe en BD, limpio la sesión
-        unset($_SESSION["idPedido"]);
-    }
-}
-
 // aseguro que la mesa en sesión coincida con la reserva actual
 if (isset($_SESSION["mesa"]) && $_SESSION["mesa"] != $mesa) {
     $_SESSION["mesa"] = $mesa;

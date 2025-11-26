@@ -8,25 +8,6 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["rol"] != 0) {
 
 include("../components/conexion.php");
 
-if (isset($_SESSION['idPedido'])) {
-    $idPedidoSesion = $_SESSION['idPedido'];
-    $checkPedido = mysqli_query($conn, "SELECT * FROM pedido WHERE id = '$idPedidoSesion'");
-    
-    if (mysqli_num_rows($checkPedido) > 0) {
-        $rowPedidoCheck = mysqli_fetch_array($checkPedido);
-        // si el pedido ya est apagado, limpiamos las variables de sessión
-        if ($rowPedidoCheck['estado'] == 2) {
-            unset($_SESSION["idPedido"]);
-            unset($_SESSION["mesa"]);
-            unset($_SESSION["comensales"]);
-            unset($_SESSION["haElegidoComensales"]);
-            unset($_SESSION["haElegidoMesa"]);
-            // también limpiamos el carrito por seguridad
-            unset($_SESSION["carrito"]);
-        }
-    }
-}
-
 $dni = $_SESSION["dni"];
 
 $consulta = "SELECT * FROM reserva WHERE dni = '$dni'";
@@ -36,9 +17,18 @@ $row = mysqli_num_rows($result);
 if ($row > 0) {
     $_SESSION["haElegidoMesa"] = true;
     header("LOCATION: eligeComensales.php");
+    exit;
 }
 
-
+// si hay un idPedido en sesión, limpio todas las variables de sesión relacionadas con el pedido
+if (isset($_SESSION["idPedido"])) {
+    unset($_SESSION["idPedido"]);
+    unset($_SESSION["mesa"]);
+    unset($_SESSION["comensales"]);
+    unset($_SESSION["haElegidoComensales"]);
+    unset($_SESSION["haElegidoMesa"]);
+    unset($_SESSION["carrito"]);
+}
 
 ?>
 
