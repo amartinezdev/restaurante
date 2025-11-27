@@ -14,7 +14,7 @@ $_SESSION["haElegidoMesa"] = true;
 
 $fechaAct = date("Y-m-d H:i:s");
 
-$consulta = "INSERT INTO reserva (dni, numMesa, fecha) VALUES ('$usuario', '$m', '$fechaAct')";
+$consulta = "INSERT INTO reserva (dni, numMesa, fecha, comensales) VALUES ('$usuario', '$m', '$fechaAct', 0)";
 
 $result = mysqli_query($conn, $consulta);
 

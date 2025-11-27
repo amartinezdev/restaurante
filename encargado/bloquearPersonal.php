@@ -15,5 +15,5 @@ $result = mysqli_query($conn, $consulta);
 
 mysqli_close($conn);
 
-header("LOCATION: /restaurante/encargado/personal.php");
+header("LOCATION: /encargado/personal.php");
 exit;
