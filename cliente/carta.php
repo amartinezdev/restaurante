@@ -120,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             LO QUE HACE: si hay 1 pedido y 1 producto en el mismo pedido; le suma la cantidad al producto.
             (mucho mejor que la opción de abajo comentada)
             */
-            $productoPedido = " INSERT INTO producto_pedido (idPedido, idProducto, cant, comentario)
-                                VALUES ('$idPedido', '$idProducto', '$cant', '$coment')
+            $productoPedido = " INSERT INTO producto_pedido (idPedido, idProducto, cant, servido, comentario)
+                                VALUES ('$idPedido', '$idProducto', '$cant', 0, '$coment')
                                     ON DUPLICATE KEY UPDATE
                                                         cant = cant + VALUES(cant),
                                                         comentario = VALUES(comentario)";
@@ -190,6 +190,7 @@ if (isset($_GET['limpiar'])) {
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -237,11 +238,11 @@ if (isset($_GET['limpiar'])) {
                             </div>
                         </form>
 
-                        <div class="col-12 table-responsive align-items-center">
-                            <table class="table text-start text-md-center table-hover table-striped align-middle">
+                        <div class="tbl-wrap">
+                            <table class="tbl">
                                 <thead>
                                     <tr>
-                                        <th class='d-none d-md-table-cell'>Imagen</th>
+                                        <th class='tw:hidden tw:md:table-cell'>Imagen</th>
                                         <th>Nombre</th>
                                         <th>Precio</th>
                                         <th>Categoria</th>
@@ -270,14 +271,14 @@ if (isset($_GET['limpiar'])) {
 
                                         if ($estado == 1 && $stock > 0 && $estadoCategoria == 1) { // solo ponemos en la carta los disponibles.
                                             print("<tr>");
-                                            print("<td class='d-none d-md-table-cell'>");
-                                            print("<img src='$imagen' width='50px' class='img-fluid'>");
+                                            print("<td class='tw:hidden tw:md:table-cell'>");
+                                            print("<img src='$imagen' class='tw:h-10 tw:w-10'>");
                                             print("</td>");
                                             print("<td>");
                                             print($row['nombre']);
                                             print("</td>");
                                             print("<td>");
-                                            print($row['precio']);
+                                            print(number_format($row['precio'], 2) . " €");
                                             print("</td>");
                                             print("<td>");
 
@@ -289,7 +290,7 @@ if (isset($_GET['limpiar'])) {
 
                                             print("</td>");
                                             print("<td>");
-                                            print("<a href='carta.php?id=$id' class='btn btn-primary'>Añadir</a>");
+                                            print("<a href='carta.php?id=$id' class='btn btn-primary carrito-add' data-id='$id'>Añadir</a>");
                                             print("</td>");
                                             print("</tr>");
                                         }
@@ -303,101 +304,24 @@ if (isset($_GET['limpiar'])) {
 
                 <!-- PRODUCTOS -->
                 <div class="col-12 col-md-12 order-first order-xxl-2 mb-3 col-xxl-7">
-                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4">
+                    <section class="bg-dark-subtle border rounded-4 p-3 p-sm-4 pedido-panel">
                         <header class="justify-content-between align-items-center">
                             <h2 class="display-6 m-0 text-center flex-grow-1">Pedido</h2>
                             <p class="text-center text-muted small"><i>Mesa <?php echo $mesa ?> - <?php echo $comensales ?> comensales</i></p>
                         </header>
 
-                        <!-- CARRITO -->
-                        <form action="" method="post">
-                            <?php if (empty($_SESSION['carrito'])) { ?>
-                                <p class="text-center text-muted">No hay productos en el pedido.</p>
-                            <?php } else { ?>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-striped align-middle align-items-center">
-                                        <thead>
-                                            <tr>
-                                                <th>Producto</th>
-                                                <th class="text-center">Precio</th>
-                                                <th class="text-center">Cantidad</th>
-                                                <th class="text-center">Comentario</th>
-                                                <th class="text-center">Subtotal</th>
-                                                <th class="text-center">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $total = 0.0;
-                                            foreach ($_SESSION["carrito"] as $idProd => $cant) {
-                                                // se recupera nombre y precio del producto
-                                                $consulta2 = mysqli_query($conn, "SELECT nombre, precio FROM producto WHERE id = $idProd");
-                                                $producto = mysqli_fetch_assoc($consulta2);
-
-                                                $nombre = $producto['nombre'];
-                                                $precio = $producto['precio'];
-                                                $subtotal = $precio * $cant;
-                                                $total += $subtotal;
-
-                                                echo "<tr>";
-                                                echo "<td>$nombre</td>";
-                                                echo "<td class='text-center'>" . number_format($precio, 2) . "€</td>";
-                                                echo "<td class='text-center' style='max-width:120px;'>";
-
-                                                // para el máximo y evitar que no puedan pedir más del stock que haya:
-                                                $consulta = mysqli_query($conn, "SELECT stock FROM producto WHERE id = '$idProd'");
-                                                $rowStock = mysqli_fetch_array($consulta);
-                                            ?>
-                                                <input type="number"
-                                                    name="cantidades[<?php echo $idProd ?>]"
-                                                    value="<?php echo $cant ?>"
-                                                    min="1" max="<?php echo $rowStock["stock"] ?>"
-                                                    class="form-control text-center">
-
-                                                <small class="small text-muted text-start">Máx: <?php echo $rowStock["stock"] ?></small>
-                                                <?php
-                                                echo "</td>";
-                                                echo "<td>";
-                                                ?>
-                                                <textarea
-                                                    name="comentario[<?php echo $idProd; ?>]"
-                                                    class="form-control text-center" maxlength="15"
-                                                    placeholder="Comentario... (Opcional)"></textarea>
-                                            <?php
-                                                echo "</td>";
-                                                echo "<td class='text-center'> " . number_format($subtotal, 2) . " €</td>";
-                                                echo "<td class='text-center'>";
-                                                echo "<a class='btn btn-sm btn-outline-danger' href='carta.php?remove=$idProd'>Eliminar</a>";
-                                                echo "</td>";
-                                                echo "</tr>";
-                                            }
-                                            ?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th colspan="4" class="text-end">Total</th>
-                                                <th class="text-center"><?php echo number_format($total, 2) ?> €</th>
-                                                <th></th>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-
-
-                                <div class="d-flex gap-2 justify-content-end">
-                                    <a class="btn btn-outline-secondary" href="carta.php?limpiar=1">Vaciar</a>
-                                    <button type="submit" class="btn btn-outline-primary">Actualizar cantidades</button>
-                                    <button type="submit" name="pedir" value="1" class="btn btn-success">Pedir</button>
-                                </div>
-                            <?php } ?>
-                        </form>
+                        <?php include("carritoTabla.php"); ?>
                     </section>
                 </div>
             </div>
         </main>
     </div>
 
+    <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/toast.js"></script>
+    <script src="/js/carrito.js"></script>
 </body>
 
 </html>
