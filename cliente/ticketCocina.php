@@ -120,8 +120,10 @@ try {
     if (isset($printer)) {
         $printer->close();
     }
-    echo "Error al imprimir ticket de cocina: " . $e->getMessage();
-    exit;
+    // La impresora no es imprescindible: el pedido ya está guardado en BD antes
+    // de llegar aquí, así que si falla (sin impresora configurada, apagada...)
+    // seguimos el flujo normal en vez de romper la pantalla del cliente.
+    error_log("Error al imprimir ticket de cocina (pedido $idPedido): " . $e->getMessage());
 }
 
 mysqli_close($conn);

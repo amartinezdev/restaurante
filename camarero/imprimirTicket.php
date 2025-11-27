@@ -138,8 +138,10 @@ try {
         $printer->close();
     }
 
-    echo "Error al imprimir ticket: " . $e->getMessage();
-    exit;
+    // La impresora no es imprescindible: el cobro ya está guardado en BD antes
+    // de llegar aquí, así que si falla (sin impresora configurada, apagada...)
+    // seguimos el flujo normal en vez de romper la pantalla del camarero.
+    error_log("Error al imprimir ticket (pedido $idPedido): " . $e->getMessage());
 }
 
 mysqli_close($conn);
