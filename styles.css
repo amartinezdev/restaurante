@@ -1,7 +1,21 @@
 /* ESTILOS GENERALES */
+:root {
+  /* Curvas de easing (animate skill) — más fuertes que las de CSS por defecto */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Elevación: offset + blur reales, nunca un halo a 0 0 */
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 16px 40px -16px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 32px 64px -24px rgba(0, 0, 0, 0.65), 0 4px 12px rgba(0, 0, 0, 0.35);
+
+  --panel-border: color-mix(in srgb, white 10%, transparent);
+}
+
 @font-face {
   font-family: Adumu;
-  src: url(/restaurante/fonts/Adumu.ttf);
+  src: url(/fonts/Adumu.ttf);
 }
 
 h1 {
@@ -9,10 +23,11 @@ h1 {
 }
 
 body {
-  background-image: url(/restaurante/img/background02.jpg);
+  background-image: url(/img/background02.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  font-variant-numeric: tabular-nums;
 }
 
 .infosuccess {
@@ -22,11 +37,241 @@ body {
   border-radius: 10px;
 }
 
+/* Paneles: el mismo trío bg-dark-subtle + border + rounded-4 se repite en
+   prácticamente toda vista de la app (login, mesa, carta, pedidos, perfiles,
+   encargado…). Elevarlo aquí una vez sube el acabado de toda la app sin
+   tocar una sola plantilla. */
+.bg-dark-subtle.border.rounded-4 {
+  /* OJO: los porcentajes de color-mix() tienen que sumar 100 — si no, el
+     resultado sale con transparencia añadida (por eso se veía "desvaído"
+     contra el fondo). Aquí sí suman 100: opaco de verdad. */
+  background-color: color-mix(in srgb, var(--bs-dark) 88%, black 12%) !important;
+  border-color: var(--panel-border) !important;
+  box-shadow: var(--shadow-md);
+}
+
+/* Focus visible propio en vez del outline por defecto del navegador */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 2px solid var(--bs-success);
+  outline-offset: 2px;
+}
+
+/* Selección de texto y scrollbar en línea con la paleta, no el gris del navegador */
+::selection {
+  background-color: color-mix(in srgb, var(--bs-success) 45%, transparent);
+  color: white;
+}
+
+* {
+  scrollbar-color: color-mix(in srgb, var(--bs-success) 55%, var(--bs-dark) 45%) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--bs-success) 45%, var(--bs-dark) 55%);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* El amarillo de Bootstrap no tiene contraste suficiente con texto blanco
+   (usado en las tarjetas de estadísticas) */
+.bg-warning.text-white {
+  color: #241c00 !important;
+}
+
+/* FORMULARIOS: inputs/selects/file-picker de Bootstrap venían con el gris
+   plano por defecto (borde casi invisible, esquinas apenas redondeadas) que
+   desentona con los paneles de cristal del resto de la app. Un único bloque
+   aquí arregla todos los formularios (login, registro, perfiles, altas y
+   ediciones de producto/personal/categoría…) sin tocar cada plantilla. */
+.form-control,
+.form-select {
+  background-color: color-mix(in srgb, white 4%, transparent);
+  border: 1px solid var(--panel-border);
+  border-radius: 0.75rem;
+  color: var(--bs-body-color);
+  transition: border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out),
+    background-color 160ms var(--ease-out);
+}
+
+.form-control::placeholder {
+  color: color-mix(in srgb, var(--bs-body-color) 42%, transparent);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: color-mix(in srgb, white 6%, transparent);
+  border-color: color-mix(in srgb, var(--bs-success) 55%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bs-success) 18%, transparent);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: color-mix(in srgb, white 2%, transparent);
+  color: color-mix(in srgb, var(--bs-body-color) 45%, transparent);
+}
+
+/* Selector de archivo: el botón interno ("Elegir archivo") pasa de gris
+   plano a un chip en verde, coherente con el resto de acciones primarias */
+.form-control[type="file"] {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.form-control[type="file"]::file-selector-button {
+  margin-inline-end: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background-color: color-mix(in srgb, var(--bs-success) 20%, transparent);
+  color: var(--bs-success);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background-color 160ms var(--ease-out);
+}
+
+.form-control[type="file"]::file-selector-button:hover {
+  background-color: color-mix(in srgb, var(--bs-success) 30%, transparent);
+}
+
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--bs-body-color) 65%, transparent);
+}
+
+.form-floating > label {
+  color: color-mix(in srgb, var(--bs-body-color) 50%, transparent);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+  color: color-mix(in srgb, var(--bs-success) 80%, white);
+}
+
+/* .tbl-wrap (tailwind/input.css) es hijo directo de un `.row` de Bootstrap
+   en varias vistas; Bootstrap mete `padding: 0 .75rem` a CUALQUIER hijo
+   directo de `.row`, no solo a los `.col-*`. Esa capa de Tailwind no puede
+   ganarle a Bootstrap (los @layer siempre pierden contra CSS sin layer), así
+   que el override vive aquí. */
+.tbl-wrap {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Cabeceras de tabla: más legibles, un paso de jerarquía por debajo de las filas */
+.table > thead > tr > th {
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--bs-body-color) 62%, transparent);
+  border-bottom-width: 2px;
+}
+
+/* Tarjeta de credenciales de prueba (index.php, solo en modo demo) */
+.demo-credentials {
+  background-color: color-mix(in srgb, var(--bs-dark) 78%, black 22%);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: var(--shadow-md);
+}
+
+/* Banner de modo demo (components/header.php) */
+.demo-banner {
+  padding: 0.5rem 1rem;
+  background-color: color-mix(in srgb, var(--bs-warning) 16%, var(--bs-dark) 84%);
+  color: color-mix(in srgb, var(--bs-warning) 70%, white);
+  border-bottom: 1px solid color-mix(in srgb, var(--bs-warning) 30%, transparent);
+}
+
 /* ESTILOS POR PÁGINA */
 
 /* index.html */
-.login {
-  box-shadow: 0px 0px 150px 50px black;
+
+/* Header translúcido en login/registro: deja ver el vídeo de fondo en vez
+   de tapar la mitad superior con un bloque opaco. Scoped a .auth-view para
+   no afectar al header sólido que usan el resto de vistas. */
+.auth-view header {
+  background-color: color-mix(in srgb, var(--bs-dark) 25%, transparent) !important;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.login,
+.registro {
+  background-color: color-mix(in srgb, var(--bs-dark) 78%, black 22%);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: var(--shadow-lg);
+
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+}
+
+.login-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bs-success) 20%, transparent);
+  color: var(--bs-success);
+}
+
+.auth-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--bs-danger) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bs-danger) 35%, transparent);
+  color: color-mix(in srgb, var(--bs-danger) 35%, white);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: left;
+
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 250ms var(--ease-out), transform 250ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.auth-alert svg {
+  flex: none;
+  margin-top: 0.1rem;
 }
 
 .video-fondo {
@@ -36,25 +281,40 @@ body {
   height: 100vh;
   object-fit: cover;
   object-position: center;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* Vela el vídeo lo justo para garantizar contraste del login pase lo que
+   pase en el clip, y da profundidad con un viñeteado sutil */
+.video-overlay {
+  position: fixed;
+  inset: 0;
   z-index: -1;
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.3) 45%,
+      rgba(0, 0, 0, 0.6) 100%);
   pointer-events: none;
 }
 
 /* REGISTRO */
 
 .registro {
-  box-shadow: 0px 0px 50px 20px black;
+  box-shadow: var(--shadow-lg);
 }
 
 /* CLIENTE */
 .card-mesa {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   font-size: 16px;
 }
 
-.card-mesa:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 0px 10px 1px rgb(0, 0, 0) !important;
+@media (hover: hover) and (pointer: fine) {
+  .card-mesa:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md) !important;
+  }
 }
 
 .card-mesa img {
@@ -62,12 +322,200 @@ body {
   object-fit: contain;
 }
 
+/* Entrada escalonada de las tarjetas de mesa en la carga inicial */
+.card-mesa {
+  opacity: 1;
+  transform: scale(1);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out),
+    opacity 300ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.card-mesa:nth-of-type(1) { transition-delay: 0ms; }
+.card-mesa:nth-of-type(2) { transition-delay: 40ms; }
+.card-mesa:nth-of-type(3) { transition-delay: 80ms; }
+.card-mesa:nth-of-type(4) { transition-delay: 120ms; }
+.card-mesa:nth-of-type(5) { transition-delay: 160ms; }
+.card-mesa:nth-of-type(n + 6) { transition-delay: 200ms; }
+
 /* PEDIDOS */
 
 .pedido {
-  transition: 0.4s;
+  transition: box-shadow 0.4s var(--ease-out);
 }
 
 .pedido:hover {
-  box-shadow: 0px 0px 10px 1px rgb(0, 0, 0) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* Feedback en cualquier botón/enlace de tipo botón: se levanta un poco al
+   pasar el ratón, se hunde al pulsar */
+.btn {
+  transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* PEDIDO (cliente/carta.php) — se queda visible al hacer scroll por la carta,
+   solo en el layout de dos columnas (>= xxl); apilado en pantallas más
+   pequeñas no tiene sentido pegarlo. */
+@media (min-width: 1400px) {
+  .pedido-panel {
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+}
+
+/* CARRITO (cliente/carta.php) — filas añadidas/eliminadas por AJAX */
+.carrito-row {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+
+.carrito-row[data-entering] {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.carrito-row[data-leaving] {
+  opacity: 0;
+  transform: translateX(12px);
+}
+
+.carrito-subtotal.flash {
+  transition: color 200ms ease;
+  color: var(--bs-success);
+}
+
+/* TOAST (js/toast.js) */
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1080;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: min(92vw, 380px);
+}
+
+.toast-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background-color: color-mix(in srgb, var(--bs-body-bg) 85%, transparent);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  color: var(--bs-body-color);
+  border-radius: 1rem;
+  padding: 0.8rem 0.9rem;
+  padding-bottom: 0.95rem;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55), 0 2px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 320ms var(--ease-out), transform 320ms var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(16px) scale(0.94);
+  }
+}
+
+.toast-item[data-leaving] {
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.toast-icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bs-body-color) 12%, transparent);
+  color: var(--bs-body-color);
+}
+
+.toast-item.toast-success .toast-icon {
+  background: color-mix(in srgb, var(--bs-success) 22%, transparent);
+  color: var(--bs-success);
+}
+
+.toast-item.toast-danger .toast-icon {
+  background: color-mix(in srgb, var(--bs-danger) 22%, transparent);
+  color: var(--bs-danger);
+}
+
+.toast-message {
+  flex: 1 1 auto;
+  padding-top: 0.28rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.toast-close {
+  flex: none;
+  border: 0;
+  background: transparent;
+  color: color-mix(in srgb, var(--bs-body-color) 55%, transparent);
+  line-height: 1;
+  font-size: 1.15rem;
+  padding: 0.1rem 0 0 0.25rem;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.toast-close:hover {
+  color: var(--bs-body-color);
+}
+
+.toast-progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  transform-origin: left center;
+  background: var(--bs-primary);
+}
+
+.toast-item.toast-success .toast-progress { background: var(--bs-success); }
+.toast-item.toast-danger .toast-progress { background: var(--bs-danger); }
+
+@media (prefers-reduced-motion: reduce) {
+  .card-mesa,
+  .card-mesa:hover,
+  .carrito-row,
+  .toast-item,
+  .login,
+  .registro,
+  .auth-alert {
+    transition-duration: 1ms !important;
+  }
+
+  .card-mesa:hover {
+    transform: none;
+  }
 }

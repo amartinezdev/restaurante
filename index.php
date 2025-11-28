@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("components/conexion.php");
-
+require_once __DIR__ . "/components/demo.php";
 ?>
 
 
@@ -20,7 +20,7 @@ include("components/conexion.php");
 </head>
 
 <body>
-  <div class="container-fluid vh-100">
+  <div class="container-fluid vh-100 auth-view">
 
     <?php
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -69,13 +69,20 @@ include("components/conexion.php");
     <!-- SECTION -->
     <section class="row justify-content-center align-items-center h-75">
       <!-- MAIN -->
-      <main class="login col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 col-xxl-3 bg-success p-4 rounded">
-        <h3 class="text-center text-white mb-4">Accede al portal</h3>
+      <main class="login col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 col-xxl-3 rounded-4 p-4 p-sm-5">
+        <div class="login-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <rect x="5" y="11" width="14" height="9" rx="2"></rect>
+            <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+          </svg>
+        </div>
+        <h3 class="text-center mb-1">Accede al portal</h3>
+        <p class="text-center text-muted mb-4 small">Inicia sesión con tu DNI y contraseña</p>
 
         <form action="" method="post" enctype="multipart/form-data">
           <!-- Usuario -->
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="dni" name="dni" placeholder="Usuario" required />
+            <input type="text" class="form-control" id="dni" name="dni" placeholder="Usuario" required autofocus />
             <label for="dni">DNI</label>
           </div>
 
@@ -84,42 +91,79 @@ include("components/conexion.php");
             <input type="password" class="form-control" id="pw" name="pw" placeholder="Contraseña" required />
             <label for="pw">Contraseña</label>
           </div>
-          <div class="d-grid ">
-            <button type="submit" class="btn btn-light fw-bold lead d-flex align-items-center justify-content-center">
+
+          <?php if (isset($mensaje)) { ?>
+            <div class="auth-alert mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9"></circle>
+                <line x1="12" y1="8" x2="12" y2="12.5"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span><?php echo $mensaje; ?></span>
+            </div>
+          <?php } ?>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success fw-bold d-flex align-items-center justify-content-center gap-2 py-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
                 <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
               </svg>
-              &nbsp;Entrar</button>
+              Entrar
+            </button>
           </div>
 
-          <div class="text-center mt-4 text-warning">
-            <?php
-            if (isset($mensaje)) {
-              echo $mensaje;
-            }
+          <hr class="my-4 opacity-25" />
 
-            ?>
+          <div class="text-center small">
+            <span class="text-muted">¿No tienes cuenta?</span>
+            <a href="registro.php" class="link-success fw-semibold text-decoration-none ms-1">Regístrate</a>
           </div>
-
-          <hr class="mt-4" />
-
-          <div class="row justify-content-center text-center">
-            <div class="col-auto d-flex align-items-center">
-              <p class="mb-0 me-2">¿No tienes cuenta?</p>
-              <a href="registro.php" class="btn btn-outline-light fw-bold">Regístrate</a>
-            </div>
-          </div>
-
-
         </form>
       </main>
+
+      <?php if (DEMO_MODE): ?>
+        <div class="w-100"></div>
+        <div class="demo-credentials col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 col-xxl-3 rounded-4 p-3 mt-3">
+          <p class="text-center text-muted small mb-2">Credenciales de prueba — entra y prueba la app</p>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Rol</th>
+                  <th>DNI</th>
+                  <th>Contraseña</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Encargado</td>
+                  <td>1</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Camarero</td>
+                  <td>2</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>Cliente</td>
+                  <td>3</td>
+                  <td>3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-center text-muted small mt-2 mb-0">También hay 2 clientes de prueba más: 4 / 4 y 5 / 5.</p>
+        </div>
+      <?php endif; ?>
     </section>
 
-    <video class="video-fondo" autoplay muted loop>
+    <video class="video-fondo" autoplay muted loop playsinline>
       <source src="img/fondo.mov" type="video/mp4" />
       Tu navegador no soporta videos HTML5.
     </video>
+    <div class="video-overlay"></div>
 
     <!-- FOOTER -->
     <footer class="row">

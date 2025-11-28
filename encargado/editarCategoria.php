@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $result2 = mysqli_query($conn, $consulta2);
 
-    header("LOCATION: /restaurante/encargado/categorias.php");
+    header("LOCATION: /encargado/categorias.php");
     exit;
 }
 
@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -79,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                             type="submit"
                                             name="addCat"
                                             id="addCat"
-                                            class="btn btn-primary" value="Editar categoría">
+                                            class="btn btn-success" value="Editar categoría">
                                         </input>
                                     </div>
                                 </form>
