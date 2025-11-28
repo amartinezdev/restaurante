@@ -19,6 +19,7 @@ $active = "productos";
     <link rel="shortcut icon" href="../img/ico.png" type="image/x-icon">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -39,15 +40,15 @@ $active = "productos";
                             <h4 class="display-6">Listado del personal</h4>
                         </header>
                         <section class="row justify-content-center ">
-                            <div class="col-12 table-responsive">
-                                <table class="table text-start text-md-center table-hover table-striped">
+                            <div class="tbl-wrap">
+                                <table class="tbl">
                                     <thead>
                                         <tr>
-                                            <th class='d-none d-lg-table-cell'>DNI</th>
+                                            <th class='tw:hidden tw:lg:table-cell'>DNI</th>
                                             <th>Nombre</th>
                                             <th>Apellido</th>
                                             <th>Rol</th>
-                                            <th class='d-none d-md-table-cell'>Email</th>
+                                            <th class='tw:hidden tw:md:table-cell'>Email</th>
                                             <th colspan="2">Editar</th>
                                         </tr>
                                     </thead>
@@ -67,9 +68,9 @@ $active = "productos";
                                                 if ($estado == 0) {
                                                     print("<tr>");
                                                 } else {
-                                                    print("<tr class='table-danger'>");
+                                                    print("<tr class='tbl-row-alert'>");
                                                 }
-                                                print("<td class='d-none d-lg-table-cell'>");
+                                                print("<td class='tw:hidden tw:lg:table-cell'>");
                                                 print($row['dni']);
                                                 print("</td>");
 
@@ -89,14 +90,14 @@ $active = "productos";
                                                 }
                                                 print("</td>");
 
-                                                print("<td class='d-none d-md-table-cell'>");
+                                                print("<td class='tw:hidden tw:md:table-cell'>");
                                                 print($row['email']);
                                                 print("</td>");
 
                                                 print("<td>");
                                                 print("<a href='editarPersonal.php?id=$id' class='btn btn-primary'>Editar</a>");
                                                 print("</td>");
-                                                print("<td class='d-none d-md-table-cell'>");
+                                                print("<td class='tw:hidden tw:md:table-cell'>");
                                                 if ($estado == 0) {
                                                     print("<a href='bloquearPersonal.php?id=$id' class='btn btn-danger'>Bloquear</a>");
                                                 } else {

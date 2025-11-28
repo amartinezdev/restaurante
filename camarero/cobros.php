@@ -17,6 +17,7 @@ include("../components/conexion.php");
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -65,8 +66,8 @@ include("../components/conexion.php");
 
 
                         ?>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-striped align-middle">
+                            <div class="tbl-wrap">
+                                <table class="tbl">
                                     <thead>
                                         <tr>
                                             <th scope="col">Producto</th>

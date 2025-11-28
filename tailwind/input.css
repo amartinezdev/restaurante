@@ -1,0 +1,106 @@
+/*
+ * Tailwind CSS, con el prefijo `tw:` en TODAS las utilidades (obligatorio
+ * aquí: Bootstrap y Tailwind comparten nombres de clase — `.collapse`,
+ * `.container`, `.gap-3`, `.p-3`… — con significados distintos; sin prefijo,
+ * el bare `.collapse` de Tailwind (visibility:collapse, pensado para filas
+ * de tabla) pisaba el `.collapse` del navbar colapsable de Bootstrap y lo
+ * dejaba invisible). Cargado sin `preflight`: el reset de Tailwind también
+ * pisaría los estilos base de Bootstrap.
+ *
+ * Bootstrap sigue mandando en formularios, navbar, modales…; Tailwind (con
+ * su prefijo) se usa donde Bootstrap se queda corto: tablas y pastillas de
+ * estado, en toda la aplicación.
+ *
+ * Reconstruir tras cambiar clases `tw:` en el PHP:
+ *   npm run build:css
+ */
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+@plugin "@tailwindcss/forms";
+
+@source "../*.php";
+@source "../cliente/**/*.php";
+@source "../camarero/**/*.php";
+@source "../encargado/**/*.php";
+@source "../components/**/*.php";
+@source "../js/**/*.js";
+
+@layer components {
+  /* Contenedor de tabla: sustituye a `.table-responsive` de Bootstrap.
+     Bootstrap aplica `padding: 0 .75rem` a CUALQUIER hijo directo de `.row`
+     (no solo a los `.col-*`), así que .tbl-wrap heredaba ese padding y la
+     tabla (al 100% del content-box) quedaba 24px más estrecha que el
+     wrapper, dejando un hueco simétrico junto al borde redondeado. No se
+     puede anular aquí: las reglas de Tailwind viven en @layer components,
+     que SIEMPRE pierde contra el CSS sin layer de Bootstrap pase lo que
+     pase con la especificidad — el override real está en styles.css. */
+  .tbl-wrap {
+    @apply tw:overflow-x-auto tw:overflow-y-hidden tw:rounded-2xl tw:border tw:border-white/10 tw:bg-white/[0.03];
+  }
+
+  .tbl {
+    /* Nada de min-w-max: en columnas estrechas (la carta a dos columnas)
+       forzaba scroll horizontal donde antes el texto simplemente envolvía.
+
+       border-separate (no collapse) a propósito: con border-collapse, Chromium
+       pinta el fondo/borde de las celdas de la cabecera un par de px fuera del
+       overflow:hidden + border-radius del .tbl-wrap, dejando una esquina
+       cuadrada asomando sobre la redondeada (visible sobre todo en la esquina
+       superior izquierda). border-separate + spacing 0 evita ese bug. */
+    @apply tw:w-full tw:border-separate tw:border-spacing-0 tw:text-sm tw:text-neutral-100;
+  }
+
+  .tbl thead {
+    @apply tw:bg-white/[0.05];
+  }
+
+  .tbl thead th {
+    @apply tw:whitespace-nowrap tw:px-4 tw:py-3 tw:text-left tw:text-[11px] tw:font-semibold tw:uppercase tw:tracking-wider tw:text-neutral-400;
+  }
+
+  .tbl tbody td {
+    @apply tw:px-4 tw:py-3 tw:align-middle tw:tabular-nums tw:text-neutral-100;
+  }
+
+  .tbl tbody tr {
+    @apply tw:border-t tw:border-white/10 tw:transition-colors tw:duration-150;
+  }
+
+  .tbl tbody tr:hover {
+    @apply tw:bg-emerald-400/5;
+  }
+
+  .tbl tbody tr.tbl-row-alert {
+    @apply tw:bg-red-500/10;
+  }
+
+  .tbl tfoot th,
+  .tbl tfoot td {
+    @apply tw:border-t tw:border-white/15 tw:bg-white/[0.03] tw:px-4 tw:py-3 tw:font-semibold tw:text-neutral-100;
+  }
+
+  .tbl img {
+    @apply tw:block tw:rounded-lg tw:object-cover;
+  }
+
+  /* Pastillas de estado: Disponible/Ocupada, Pendiente/Pagado/Servido… */
+  .pill {
+    @apply tw:inline-flex tw:items-center tw:gap-1.5 tw:whitespace-nowrap tw:rounded-full tw:px-2.5 tw:py-1 tw:text-xs tw:font-semibold;
+  }
+
+  .pill-success {
+    @apply tw:bg-emerald-400/15 tw:text-emerald-300;
+  }
+
+  .pill-danger {
+    @apply tw:bg-red-400/15 tw:text-red-300;
+  }
+
+  .pill-warning {
+    @apply tw:bg-amber-400/15 tw:text-amber-300;
+  }
+
+  .pill-neutral {
+    @apply tw:bg-white/10 tw:text-neutral-300;
+  }
+}

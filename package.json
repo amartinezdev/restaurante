@@ -1,0 +1,20 @@
+{
+  "name": "restaurante",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Herramientas de frontend para El Quinto Pino (Tailwind CSS, solo build de CSS — la app sigue siendo PHP puro).",
+  "scripts": {
+    "build:css": "tailwindcss -i ./tailwind/input.css -o ./tailwind/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./tailwind/input.css -o ./tailwind/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amartinezdev/restaurante.git"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^4.3.3"
+  }
+}

@@ -19,6 +19,7 @@ $active = "productos";
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -40,11 +41,11 @@ $active = "productos";
                             <p class="lead">Consulta tus productos</p>
                         </header>
                         <section class="row justify-content-center ">
-                            <div class="col-12 table-responsive">
-                                <table class="table text-start text-md-center table-hover table-striped align-middle">
+                            <div class="tbl-wrap">
+                                <table class="tbl">
                                     <thead>
                                         <tr>
-                                            <th class='d-none d-sm-table-cell'>#</th>
+                                            <th class='tw:hidden tw:sm:table-cell'>#</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
                                             <th>Stock</th>
@@ -68,16 +69,16 @@ $active = "productos";
                                             if ($estado == 1 && $estadoCategoria == 1) {
                                                 print("<tr>");
                                             } else {
-                                                print("<tr class='table-danger'>");
+                                                print("<tr class='tbl-row-alert'>");
                                             }
-                                            print("<td class='d-none d-sm-table-cell'>");
-                                            print("<img src='$imagen' width='50px' class='img-fluid'>");
+                                            print("<td class='tw:hidden tw:sm:table-cell'>");
+                                            print("<img src='$imagen' class='tw:h-10 tw:w-10'>");
                                             print("</td>");
                                             print("<td>");
                                             print($row['nombre']);
                                             print("</td>");
                                             print("<td>");
-                                            print($row['precio']);
+                                            print(number_format($row['precio'], 2) . " €");
                                             print("</td>");
                                             print("<td>");
                                             print($row['stock']);
@@ -97,7 +98,7 @@ $active = "productos";
                                             print("<td>");
                                             print("<a href='editarProducto.php?id=$id' class='btn btn-primary'>Editar</a>");
                                             print("</td>");
-                                            print("<td class='d-none d-md-table-cell'>");
+                                            print("<td class='tw:hidden tw:md:table-cell'>");
                                             if ($estado == 1) {
                                                 print("<a href='bloquearProducto.php?id=$id' class='btn btn-danger'>Bloquear</a>");
                                             } else {

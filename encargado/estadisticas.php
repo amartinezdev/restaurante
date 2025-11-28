@@ -20,6 +20,7 @@ include("seguridad.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -247,8 +248,8 @@ include("seguridad.php");
                                                 </form>
 
                                                 <!-- yabla de estadísticas -->
-                                                <div class="table-responsive">
-                                                    <table class="table table-dark table-striped table-hover">
+                                                <div class="tbl-wrap">
+                                                    <table class="tbl">
                                                         <thead>
                                                             <tr>
                                                                 <th>Fecha</th>

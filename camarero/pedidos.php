@@ -17,6 +17,7 @@ include("../components/conexion.php");
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -63,9 +64,9 @@ include("../components/conexion.php");
 
                         ?>
                             <!-- la tabla de los productos del pedido -->
-                            <div class="table-responsive">
+                            <div class="tbl-wrap">
                                 <form action="productoServido.php" method="POST">
-                                    <table class="table table-hover table-striped align-middle">
+                                    <table class="tbl">
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>

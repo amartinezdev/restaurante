@@ -23,6 +23,7 @@ $dni = $_SESSION["dni"];
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -73,11 +74,11 @@ $dni = $_SESSION["dni"];
                                 print("<div class='d-flex justify-content-between align-items-center mb-2'>");
                                 print("<h5 class='m-0'>Pedido #$idPedido</h5>");
                                 if ($estado == 2) {
-                                    print("<span class='badge text-bg-success'>Pagado</span>");
+                                    print("<span class='pill pill-success'>Pagado</span>");
                                 } else if ($estado == 1) {
-                                    print("<span class='badge text-bg-warning'>Servido</span>");
+                                    print("<span class='pill pill-warning'>Servido</span>");
                                 } else {
-                                    print("<span class='badge text-bg-secondary'>Pendiente</span>");
+                                    print("<span class='pill pill-neutral'>Pendiente</span>");
                                 }
 
                                 print("</div>");
@@ -87,8 +88,8 @@ $dni = $_SESSION["dni"];
                                 print("</div>");
                             ?>
                                 <!-- la tabla de los productos del pedido -->
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-striped align-middle">
+                                <div class="tbl-wrap">
+                                    <table class="tbl">
                                         <thead>
                                             <tr>
                                                 <th>Producto</th>

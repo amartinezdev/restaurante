@@ -43,6 +43,7 @@ if (isset($_SESSION["idPedido"])) {
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -89,8 +90,8 @@ if (isset($_SESSION["idPedido"])) {
                                     echo '  <div class="card-body text-center">';
                                     echo '      <img src="../img/mesa2.png" class="img-fluid mx-auto d-block mb-2" alt="Mesa ' . $mesa . '" loading="lazy">';
                                     echo '      <h2 class="h6 mb-1">Mesa ' . $mesa . '</h2>';
-                                    echo '      <p class="mb-3 text-success">Disponible</p>';
-                                    echo '      <a href="reserva.php?mesa=' . $mesa . '" class="btn btn-light btn-sm w-100" aria-label="Seleccionar mesa ' . $mesa . '">Elegir</a>';
+                                    echo '      <span class="pill pill-success mb-3">Disponible</span>';
+                                    echo '      <a href="reserva.php?mesa=' . $mesa . '" class="btn btn-light btn-sm w-100 mt-2" aria-label="Seleccionar mesa ' . $mesa . '">Elegir</a>';
                                     echo '  </div>';
                                     echo ' </article>';
                                     echo '</div>';
@@ -100,8 +101,8 @@ if (isset($_SESSION["idPedido"])) {
                                     echo '  <div class="card-body text-center">';
                                     echo '      <img src="../img/mesa2.png" class="img-fluid mx-auto d-block mb-2" alt="Mesa ' . $mesa . '" loading="lazy">';
                                     echo '      <h2 class="h6 mb-1">Mesa ' . $mesa . '</h2>';
-                                    echo '      <p class="mb-3 text-danger fw-semibold">No disponible</p>';
-                                    echo '      <button class="btn btn-secondary btn-sm w-100" disabled aria-disabled="true">Ocupada</button>';
+                                    echo '      <span class="pill pill-danger mb-3">No disponible</span>';
+                                    echo '      <button class="btn btn-secondary btn-sm w-100 mt-2" disabled aria-disabled="true">Ocupada</button>';
                                     echo '  </div>';
                                     echo ' </article>';
                                     echo '</div>';
