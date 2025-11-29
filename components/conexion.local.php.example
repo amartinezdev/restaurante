@@ -12,4 +12,8 @@ putenv('DB_USER=usuario_cpanel_bd');
 putenv('DB_PASS=contraseña_bd');
 putenv('DB_NAME=usuario_cpanel_restaurante');
 
+// Prefijo de la URL bajo el que vive la app en este hosting. Vacío si se
+// sirve en la raíz del dominio.
+putenv('APP_BASE_PATH=/restaurante');
+
 define('DEMO_MODE', true);

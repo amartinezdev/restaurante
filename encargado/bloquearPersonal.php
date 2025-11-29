@@ -15,5 +15,5 @@ $result = mysqli_query($conn, $consulta);
 
 mysqli_close($conn);
 
-header("LOCATION: /encargado/personal.php");
+header("LOCATION: " . BASE_PATH . "/encargado/personal.php");
 exit;

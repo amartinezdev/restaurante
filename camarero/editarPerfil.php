@@ -57,6 +57,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     $_SESSION["mensaje"] = "<p class='text-success infosuccess text-center'>Has cambiado los datos con éxito</p>";
-    header("LOCATION: /camarero/camarero.php");
+    header("LOCATION: " . BASE_PATH . "/camarero/camarero.php");
     exit;
 }

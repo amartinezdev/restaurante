@@ -61,5 +61,5 @@ if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] === 0) {
 
 mysqli_close($conn);
 
-header("LOCATION: /encargado/encargado.php");
+header("LOCATION: " . BASE_PATH . "/encargado/encargado.php");
 exit;

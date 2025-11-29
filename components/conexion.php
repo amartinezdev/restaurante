@@ -10,6 +10,16 @@ if (file_exists(__DIR__ . '/conexion.local.php')) {
     require __DIR__ . '/conexion.local.php';
 }
 
+// BASE_PATH: prefijo de la URL bajo el que vive la app. En Docker/XAMPP la
+// app se sirve en la raíz del host (BASE_PATH vacío); en cPanel vive bajo
+// /restaurante, así que las rutas absolutas (header LOCATION, href, src)
+// tienen que llevar este prefijo delante o apuntan al dominio equivocado.
+// Se define vía APP_BASE_PATH (putenv en conexion.local.php, igual que las
+// DB_*) para no tener el valor pegado en el código.
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', getenv('APP_BASE_PATH') ?: '');
+}
+
 // Las variables de entorno DB_* permiten sobreescribir estos valores al
 // ejecutar el proyecto con Docker (ver docker-compose.yml) o en cPanel (ver
 // conexion.local.php arriba). Si no existen, se usan los valores por defecto

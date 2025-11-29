@@ -32,6 +32,7 @@ jobs:
           putenv('DB_USER=${{ secrets.DEMO_DB_USER }}');
           putenv('DB_PASS=${{ secrets.DEMO_DB_PASS }}');
           putenv('DB_NAME=${{ secrets.DEMO_DB_NAME }}');
+          putenv('APP_BASE_PATH=/restaurante');
           define('DEMO_MODE', true);
           PHP
 

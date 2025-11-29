@@ -320,8 +320,8 @@ if (isset($_GET['limpiar'])) {
     <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/toast.js"></script>
-    <script src="/js/carrito.js"></script>
+    <script src="<?php echo BASE_PATH; ?>/js/toast.js"></script>
+    <script src="<?php echo BASE_PATH; ?>/js/carrito.js"></script>
 </body>
 
 </html>

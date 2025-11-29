@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     require_once __DIR__ . "/../components/demo.php";
     if (DEMO_MODE && demo_productos_creados($conn) >= DEMO_MAX_PRODUCTOS_NUEVOS) {
         demo_block('limite_productos');
-        header("LOCATION: /encargado/addProductos.php");
+        header("LOCATION: " . BASE_PATH . "/encargado/addProductos.php");
         exit;
     }
 
@@ -64,6 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     mysqli_close($conn);
 
-    header("LOCATION: /encargado/encargado.php");
+    header("LOCATION: " . BASE_PATH . "/encargado/encargado.php");
     exit;
 }

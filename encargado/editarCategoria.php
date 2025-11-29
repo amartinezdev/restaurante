@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $result2 = mysqli_query($conn, $consulta2);
 
-    header("LOCATION: /encargado/categorias.php");
+    header("LOCATION: " . BASE_PATH . "/encargado/categorias.php");
     exit;
 }
 

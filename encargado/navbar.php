@@ -26,16 +26,16 @@ include("seguridad.php");
                         Productos
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownProductos">
-                        <li><a class="dropdown-item" href="/encargado/encargado.php">Ver productos</a></li>
-                        <li><a class="dropdown-item" href="/encargado/addProductos.php">Añadir productos</a></li>
-                        <li><a class="dropdown-item" href="/encargado/categorias.php">Ver categorías</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/encargado/encargado.php">Ver productos</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/encargado/addProductos.php">Añadir productos</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/encargado/categorias.php">Ver categorías</a></li>
                     </ul>
                 </li>
 
                 <!-- Estadísticas -->
                 <li class="nav-item mx-3">
                     <a class="nav-link d-flex align-items-center justify-content-center text-white"
-                        href="/encargado/estadisticas.php">
+                        href="<?php echo BASE_PATH; ?>/encargado/estadisticas.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
                             <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z" />
                         </svg>&nbsp;
@@ -53,15 +53,15 @@ include("seguridad.php");
                         Personal
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-center" aria-labelledby="dropdownPersonal">
-                        <li><a class="dropdown-item" href="/encargado/personal.php">Ver personal</a></li>
-                        <li><a class="dropdown-item" href="/encargado/addPersonal.php">Añadir personal</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/encargado/personal.php">Ver personal</a></li>
+                        <li><a class="dropdown-item" href="<?php echo BASE_PATH; ?>/encargado/addPersonal.php">Añadir personal</a></li>
                     </ul>
                 </li>
 
                 <!-- Perfil -->
                 <li class="nav-item mx-3">
                     <a class="nav-link d-flex align-items-center justify-content-center text-white"
-                        href="/encargado/perfil.php">
+                        href="<?php echo BASE_PATH; ?>/encargado/perfil.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-person me-2" viewBox="0 0 16 16" aria-hidden="true">
                             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
@@ -72,7 +72,7 @@ include("seguridad.php");
 
                 <!-- Cerrar sesión -->
                 <li class="nav-item mx-3">
-                    <a class="nav-link d-flex align-items-center justify-content-center text-light" href="/encargado/cerrarSesion.php">
+                    <a class="nav-link d-flex align-items-center justify-content-center text-light" href="<?php echo BASE_PATH; ?>/encargado/cerrarSesion.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                             fill="currentColor" class="bi bi-box-arrow-left me-2" viewBox="0 0 16 16" aria-hidden="true">
                             <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z" />

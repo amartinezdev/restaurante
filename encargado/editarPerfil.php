@@ -53,6 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     mysqli_close($conn);
 
     $_SESSION["mensaje"] = "<p class='text-success infosuccess text-center'>Has cambiado los datos con éxito</p>";
-    header("LOCATION: /encargado/perfil.php");
+    header("LOCATION: " . BASE_PATH . "/encargado/perfil.php");
     exit;
 }
