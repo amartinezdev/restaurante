@@ -70,7 +70,7 @@ require_once __DIR__ . "/components/demo.php";
     <!-- SECTION -->
     <section class="d-flex flex-column flex-lg-row justify-content-center align-items-center align-items-lg-start gap-4 py-4 py-sm-5" style="min-height: 75vh;">
       <!-- MAIN -->
-      <main class="login col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 rounded-4 p-4 p-sm-5">
+      <main class="login col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4 p-sm-5">
         <div class="login-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <rect x="5" y="11" width="14" height="9" rx="2"></rect>
@@ -124,7 +124,7 @@ require_once __DIR__ . "/components/demo.php";
       </main>
 
       <?php if (DEMO_MODE): ?>
-        <div class="demo-credentials col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 rounded-4 p-4">
+        <div class="demo-credentials col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5 rounded-4 p-4">
           <div class="d-flex align-items-center gap-2 mb-3">
             <div class="demo-cred-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -139,31 +139,38 @@ require_once __DIR__ . "/components/demo.php";
             </div>
           </div>
 
-          <div class="demo-cred-list">
-            <div class="demo-cred-row">
-              <span class="pill pill-warning">Encargado</span>
-              <span class="demo-cred-value">
-                <span class="demo-cred-code">1</span> / <span class="demo-cred-code">1</span>
-              </span>
-            </div>
-            <div class="demo-cred-row">
-              <span class="pill pill-neutral">Camarero</span>
-              <span class="demo-cred-value">
-                <span class="demo-cred-code">2</span> / <span class="demo-cred-code">2</span>
-              </span>
-            </div>
-            <div class="demo-cred-row">
-              <span class="pill pill-success">Cliente</span>
-              <span class="demo-cred-value">
-                <span class="demo-cred-code">3</span> / <span class="demo-cred-code">3</span>
-              </span>
-            </div>
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Rol</th>
+                  <th>DNI</th>
+                  <th>Contraseña</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="pill pill-warning">Encargado</span></td>
+                  <td><span class="demo-cred-code">1</span></td>
+                  <td><span class="demo-cred-code">1</span></td>
+                </tr>
+                <tr>
+                  <td><span class="pill pill-neutral">Camarero</span></td>
+                  <td><span class="demo-cred-code">2</span></td>
+                  <td><span class="demo-cred-code">2</span></td>
+                </tr>
+                <tr>
+                  <td><span class="pill pill-success">Cliente</span></td>
+                  <td><span class="demo-cred-code">3</span></td>
+                  <td><span class="demo-cred-code">3</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <p class="text-muted small mt-3 mb-0">
-            También hay 2 clientes de prueba más:
-            <span class="demo-cred-code">4</span>/<span class="demo-cred-code">4</span> y
-            <span class="demo-cred-code">5</span>/<span class="demo-cred-code">5</span>.
+            También hay 2 clientes de prueba más, con la misma contraseña que el DNI:
+            <span class="demo-cred-code">4</span> y <span class="demo-cred-code">5</span>.
           </p>
         </div>
       <?php endif; ?>

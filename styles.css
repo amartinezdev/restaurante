@@ -209,33 +209,6 @@ button:focus-visible,
   color: var(--bs-warning);
 }
 
-.demo-cred-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.demo-cred-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.6rem 0;
-  border-top: 1px solid var(--panel-border);
-}
-
-.demo-cred-row:first-child {
-  border-top: none;
-  padding-top: 0.2rem;
-}
-
-.demo-cred-value {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-  color: color-mix(in srgb, var(--bs-body-color) 75%, transparent);
-}
-
 .demo-cred-code {
   font-family: var(--bs-font-monospace, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
   font-size: 0.85rem;
