@@ -124,7 +124,7 @@ require_once __DIR__ . "/components/demo.php";
       </main>
 
       <?php if (DEMO_MODE): ?>
-        <div class="demo-credentials col-12 col-sm-9 col-md-8 col-lg-6 col-xl-5 rounded-4 p-4">
+        <div class="demo-credentials col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4">
           <div class="d-flex align-items-center gap-2 mb-3">
             <div class="demo-cred-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">

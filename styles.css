@@ -197,6 +197,20 @@ button:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
+/* Más estrecha que el login (es contenido secundario): tabla compacta con
+   menos padding para que quepa cómoda sin necesitar tanto ancho. */
+@media (min-width: 992px) {
+  .demo-credentials {
+    max-width: 340px;
+  }
+}
+
+.demo-credentials .tbl thead th,
+.demo-credentials .tbl tbody td {
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+}
+
 .demo-cred-icon {
   flex: none;
   width: 2.1rem;
