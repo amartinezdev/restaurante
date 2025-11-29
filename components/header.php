@@ -11,10 +11,13 @@
 </header>
 
 <?php if (DEMO_MODE): ?>
-  <div class="demo-banner text-center small">
-    🎭 Esto es una <strong>demo pública</strong> de El Quinto Pino. Los datos se reinician automáticamente
-    cada día a las <strong>00:00h (hora de España)</strong>. No se pueden cambiar contraseñas de los
-    usuarios de prueba, y hay un límite de productos y cuentas nuevas por ciclo.
+  <div class="demo-banner text-center small d-flex align-items-center justify-content-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" class="flex-shrink-0">
+      <circle cx="12" cy="12" r="9"></circle>
+      <line x1="12" y1="10.5" x2="12" y2="16"></line>
+      <line x1="12" y1="7.5" x2="12.01" y2="7.5"></line>
+    </svg>
+    <span>Esto es una <strong>demo pública</strong> de El Quinto Pino. Los datos se reinician automáticamente cada día a las <strong>00:00h (hora de España)</strong>.</span>
   </div>
   <?php require_once __DIR__ . '/demoModal.php'; ?>
 <?php endif; ?>
