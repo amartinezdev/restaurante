@@ -165,7 +165,7 @@ Cerrar el proyecto con pruebas de usuario, documentación completa y revisión d
   - Comprobación de accesos no autorizados.
   - Revisión de gestión de sesiones y datos sensibles.
 
-**Estado del Sprint 5**: 🟡 En curso.
+**Estado del Sprint 5**: ✅ Completado.
 
 ---
 
