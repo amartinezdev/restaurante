@@ -22,6 +22,21 @@ if (!$esCli && !$tokenValido) {
 
 if (!$esCli) {
     header('Content-Type: text/plain; charset=utf-8');
+
+    // Cooldown de 10 minutos para el disparo manual por token: si el token
+    // se filtrara, esto evita que alguien resetee la demo en bucle. El cron
+    // por CLI no pasa por aquí (siempre corre una vez al día, no lo necesita).
+    $cooldownSegundos = 600;
+    $lockFile = __DIR__ . '/.reset-lock';
+    $ultimoReset = is_file($lockFile) ? filemtime($lockFile) : 0;
+    $restante = $cooldownSegundos - (time() - $ultimoReset);
+
+    if ($restante > 0) {
+        http_response_code(429);
+        exit('Espera ' . ceil($restante / 60) . " minuto(s) más antes de volver a reiniciar la demo.\n");
+    }
+
+    touch($lockFile);
 }
 
 // Seguro adicional: este script borra y recrea tablas enteras. Que solo
