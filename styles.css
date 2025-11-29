@@ -197,11 +197,18 @@ button:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
-/* Más estrecha que el login (es contenido secundario): pegada a su derecha,
-   separadas solo por el gap-4 (24px) de la sección. */
+/* Más estrecha que el login (es contenido secundario). A partir de lg se
+   saca del flujo con position:fixed a la derecha: así no compite por
+   espacio con el login, que queda libre para centrarse de verdad en la
+   página. */
 @media (min-width: 992px) {
   .demo-credentials {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
     width: 320px;
+    z-index: 20;
   }
 }
 

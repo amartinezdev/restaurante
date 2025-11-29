@@ -68,7 +68,59 @@ require_once __DIR__ . "/components/demo.php";
     ?>
 
     <!-- SECTION -->
-    <section class="d-flex flex-column flex-lg-row justify-content-center align-items-center align-items-lg-start gap-4 py-4 py-sm-5" style="min-height: 75vh;">
+    <section class="d-flex flex-column justify-content-center align-items-center gap-4 py-4 py-sm-5" style="min-height: 75vh;">
+      <?php if (DEMO_MODE): ?>
+        <div class="demo-credentials col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="demo-cred-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M21 2l-9.6 9.6"></path>
+                <path d="M15.5 7.5l3 3L22 7l-3-3"></path>
+                <circle cx="7.5" cy="15.5" r="5.5"></circle>
+              </svg>
+            </div>
+            <div>
+              <p class="fw-semibold mb-0">Credenciales de prueba</p>
+              <p class="text-muted small mb-0">Entra y prueba la app con cualquiera de estos accesos</p>
+            </div>
+          </div>
+
+          <div class="tbl-wrap">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Rol</th>
+                  <th>DNI</th>
+                  <th>Contraseña</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="pill pill-warning">Encargado</span></td>
+                  <td><span class="demo-cred-code">1</span></td>
+                  <td><span class="demo-cred-code">1</span></td>
+                </tr>
+                <tr>
+                  <td><span class="pill pill-neutral">Camarero</span></td>
+                  <td><span class="demo-cred-code">2</span></td>
+                  <td><span class="demo-cred-code">2</span></td>
+                </tr>
+                <tr>
+                  <td><span class="pill pill-success">Cliente</span></td>
+                  <td><span class="demo-cred-code">3</span></td>
+                  <td><span class="demo-cred-code">3</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="text-muted small mt-3 mb-0">
+            También hay 2 clientes de prueba más, con la misma contraseña que el DNI:
+            <span class="demo-cred-code">4</span> y <span class="demo-cred-code">5</span>.
+          </p>
+        </div>
+      <?php endif; ?>
+
       <!-- MAIN -->
       <main class="login col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4 p-sm-5">
         <div class="login-icon">
@@ -122,58 +174,6 @@ require_once __DIR__ . "/components/demo.php";
           </div>
         </form>
       </main>
-
-      <?php if (DEMO_MODE): ?>
-        <div class="demo-credentials col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4">
-          <div class="d-flex align-items-center gap-2 mb-3">
-            <div class="demo-cred-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M21 2l-9.6 9.6"></path>
-                <path d="M15.5 7.5l3 3L22 7l-3-3"></path>
-                <circle cx="7.5" cy="15.5" r="5.5"></circle>
-              </svg>
-            </div>
-            <div>
-              <p class="fw-semibold mb-0">Credenciales de prueba</p>
-              <p class="text-muted small mb-0">Entra y prueba la app con cualquiera de estos accesos</p>
-            </div>
-          </div>
-
-          <div class="tbl-wrap">
-            <table class="tbl">
-              <thead>
-                <tr>
-                  <th>Contraseña</th>
-                  <th>Rol</th>
-                  <th>DNI</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="demo-cred-code">1</span></td>
-                  <td><span class="pill pill-warning">Encargado</span></td>
-                  <td><span class="demo-cred-code">1</span></td>
-                </tr>
-                <tr>
-                  <td><span class="demo-cred-code">2</span></td>
-                  <td><span class="pill pill-neutral">Camarero</span></td>
-                  <td><span class="demo-cred-code">2</span></td>
-                </tr>
-                <tr>
-                  <td><span class="demo-cred-code">3</span></td>
-                  <td><span class="pill pill-success">Cliente</span></td>
-                  <td><span class="demo-cred-code">3</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="text-muted small mt-3 mb-0">
-            También hay 2 clientes de prueba más, con la misma contraseña que el DNI:
-            <span class="demo-cred-code">4</span> y <span class="demo-cred-code">5</span>.
-          </p>
-        </div>
-      <?php endif; ?>
     </section>
 
     <video class="video-fondo" autoplay muted loop playsinline>
