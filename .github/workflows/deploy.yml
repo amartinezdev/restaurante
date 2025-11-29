@@ -44,10 +44,11 @@ jobs:
           protocol: ftps
           local-dir: ./
           # Cuenta FTP = la cuenta principal de cPanel (usuario: alvaroma),
-          # cuya raíz por FTP es /home/alvaroma/. La app vive en
-          # /home/alvaroma/public_html/alvaromartinez.dev/restaurante, de ahí
-          # la ruta relativa completa.
-          server-dir: /public_html/alvaromartinez.dev/restaurante/
+          # cuya raíz por FTP es /home/alvaroma/. alvaromartinez.dev es el
+          # dominio principal de la cuenta (document root = public_html/
+          # directamente, sin subcarpeta de dominio), así que la app vive en
+          # /home/alvaroma/public_html/restaurante.
+          server-dir: /public_html/restaurante/
           exclude: |
             **/.git*
             **/.git*/**

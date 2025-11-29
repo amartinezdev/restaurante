@@ -106,12 +106,12 @@ La demo se despliega sola en cada push a `main` vía `.github/workflows/deploy.y
 ### Preparación única en cPanel (no se puede automatizar sin SSH)
 
 1. **MySQL® Databases**: crear la base de datos y un usuario con todos los privilegios sobre ella. Esos datos van en los secrets `DEMO_DB_*`.
-2. **Cuenta FTP**: se usa la cuenta principal de cPanel (usuario `alvaroma`), cuya raíz por FTP es `/home/alvaroma/`. Como la app vive en `/home/alvaroma/public_html/alvaromartinez.dev/restaurante`, `server-dir` en el workflow apunta a la ruta relativa completa: `/public_html/alvaromartinez.dev/restaurante/`.
+2. **Cuenta FTP**: se usa la cuenta principal de cPanel (usuario `alvaroma`), cuya raíz por FTP es `/home/alvaroma/`. `alvaromartinez.dev` es el dominio principal de la cuenta (document root = `public_html/` directamente), así que la app vive en `/home/alvaroma/public_html/restaurante`; `server-dir` en el workflow apunta a la ruta relativa: `/public_html/restaurante/`.
 3. **Cron Jobs**: nueva tarea programada para reiniciar la demo cada noche:
    - Minuto `0`, hora `0` (revisa antes la hora que usa el servidor en el propio cPanel; si no está en horario de España, ajusta la hora del cron en consecuencia).
-   - Comando: `php /home/alvaroma/public_html/alvaromartinez.dev/restaurante/demo/reset_demo.php >> /home/alvaroma/public_html/alvaromartinez.dev/restaurante/demo/reset.log 2>&1` (la ruta exacta al binario de PHP puede variar; la propia página de Cron Jobs de cPanel suele indicarla).
+   - Comando: `php /home/alvaroma/public_html/restaurante/demo/reset_demo.php >> /home/alvaroma/public_html/restaurante/demo/reset.log 2>&1` (la ruta exacta al binario de PHP puede variar; la propia página de Cron Jobs de cPanel suele indicarla).
    - `demo/reset_demo.php` solo se ejecuta por CLI (nunca por HTTP) y solo si `DEMO_MODE` está activo, así que no hay riesgo de que alguien lo dispare desde fuera ni de que borre una instalación que no sea la demo.
-4. **Dependencias de Composer (`vendor/`)**: excluida del deploy automático (tarda mucho por FTP y apenas cambia). Se sube **una vez a mano** por FTP a `/public_html/alvaromartinez.dev/restaurante/vendor/` — a partir de ahí el workflow no la toca ni la borra en los siguientes deploys.
+4. **Dependencias de Composer (`vendor/`)**: excluida del deploy automático (tarda mucho por FTP y apenas cambia). Se sube **una vez a mano** por FTP a `/public_html/restaurante/vendor/` — a partir de ahí el workflow no la toca ni la borra en los siguientes deploys.
 5. **Primera carga de datos**: tras el primer deploy, la BBDD está vacía hasta el primer reinicio programado. O se espera a la primera ejecución del cron, o se importa `bd/restaurante_08_con_datos.sql` una vez a mano desde phpMyAdmin para no esperar.
 
 ---
