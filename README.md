@@ -6,6 +6,29 @@ El desarrollo se organizó con un enfoque **ágil (Scrum)** en **5 sprints**, to
 
 ---
 
+## 🎭 Demo
+
+Hay una demo pública en **[alvaromartinez.dev/restaurante](https://alvaromartinez.dev/restaurante)**, desplegada automáticamente desde este repo (ver [🚀 Despliegue](#-despliegue)).
+
+Es la misma app, con los datos de `bd/restaurante_08_con_datos.sql`, y algunas diferencias solo activas en ese entorno (controladas por `DEMO_MODE`, ver `components/demo.php`):
+
+- **La base de datos se reinicia entera cada día a las 00:00h (hora de España)** — todo lo que se cree o modifique durante el día desaparece esa noche.
+- Las contraseñas de los usuarios de prueba **no se pueden cambiar** (el resto de campos del perfil sí se guardan).
+- Máximo **10 productos nuevos**, **4 cuentas nuevas** y **5 categorías nuevas** por ciclo de 24h — al llegar al límite se avisa y no se crea nada más hasta el siguiente reinicio.
+- El encargado sí puede bloquear/desbloquear personal con normalidad — si alguien bloquea la cuenta de prueba del camarero, basta con volver a entrar como encargado (`1`/`1`) para desbloquearla, y el reinicio diario lo arregla igualmente.
+
+### 🔑 Credenciales de prueba de la demo
+
+| Rol | DNI | Contraseña |
+|-----|-----|------------|
+| Encargado | `1` | `1` |
+| Camarero | `2` | `2` |
+| Cliente | `3`, `4` o `5` | igual al DNI |
+
+(Las mismas credenciales aparecen directamente en la pantalla de login de la demo.)
+
+---
+
 ## 📋 Funcionalidades por rol
 
 ### 👤 Cliente
@@ -45,11 +68,50 @@ El desarrollo se organizó con un enfoque **ágil (Scrum)** en **5 sprints**, to
 |------|------------|
 | Backend | PHP (mysqli) |
 | Base de datos | MySQL / MariaDB |
-| Frontend | HTML5, CSS3, Bootstrap |
-| Dependencias | Composer |
+| Frontend | HTML5, CSS3, Bootstrap, [Tailwind CSS](https://tailwindcss.com) v4 (solo tablas y pastillas de estado) |
+| Dependencias | Composer, npm (solo build de CSS) |
 | PDFs | [`mpdf/mpdf`](https://github.com/mpdf/mpdf) ^8.2 |
 | Impresión de tickets | [`mike42/escpos-php`](https://github.com/mike42/escpos-php) ^4.0 (ESC/POS por red) |
-| Entorno de desarrollo | XAMPP |
+| Entorno de desarrollo | XAMPP / Docker |
+| Despliegue | GitHub Actions (FTPS a cPanel) |
+
+---
+
+## 🎨 Tailwind CSS
+
+Las tablas y las pastillas de estado (`.pill`) de toda la app usan Tailwind CSS, con el prefijo `tw:` en cada clase para no chocar con Bootstrap (ambos frameworks comparten nombres de clase — `.collapse`, `.container`, `.gap-3`… — con significados distintos). Se compila una sola vez a un CSS estático (`tailwind/tailwind.css`); no hay build en tiempo de request.
+
+```bash
+npm install          # una vez
+npm run build:css    # tras tocar clases tw: en el PHP, o el archivo tailwind/input.css
+npm run watch:css     # opcional, recompila en cada cambio mientras desarrollas
+```
+
+---
+
+## 🚀 Despliegue
+
+La demo se despliega sola en cada push a `main` vía `.github/workflows/deploy.yml`: compila el CSS de Tailwind, genera `components/conexion.local.php` a partir de secrets de GitHub y sube el proyecto por FTPS a cPanel con [`SamKirkland/FTP-Deploy-Action`](https://github.com/SamKirkland/FTP-Deploy-Action).
+
+### Secrets del repo (Settings → Secrets and variables → Actions)
+
+| Secret | Para qué |
+|---|---|
+| `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD` | Cuenta FTP de cPanel |
+| `DEMO_DB_HOST` | Host de la BBDD (normalmente `localhost` en cPanel) |
+| `DEMO_DB_USER`, `DEMO_DB_PASS`, `DEMO_DB_NAME` | BBDD de MySQL creada en cPanel para la demo |
+
+`components/conexion.local.php` (generado por el workflow, nunca commiteado) hace de puente entre esos secrets y `components/conexion.php`; el formato exacto está documentado en `components/conexion.local.php.example`.
+
+### Preparación única en cPanel (no se puede automatizar sin SSH)
+
+1. **MySQL® Databases**: crear la base de datos y un usuario con todos los privilegios sobre ella. Esos datos van en los secrets `DEMO_DB_*`.
+2. **Cuentas FTP**: comprobar el directorio raíz de la cuenta FTP que se vaya a usar — si es `public_html/`, `server-dir` en el workflow debe ser `/restaurante/`; si ya apunta a `public_html/restaurante/`, debe ser `/`.
+3. **Cron Jobs**: nueva tarea programada para reiniciar la demo cada noche:
+   - Minuto `0`, hora `0` (revisa antes la hora que usa el servidor en el propio cPanel; si no está en horario de España, ajusta la hora del cron en consecuencia).
+   - Comando: `php /home/USUARIO/public_html/restaurante/demo/reset_demo.php >> /home/USUARIO/public_html/restaurante/demo/reset.log 2>&1` (la ruta exacta al binario de PHP puede variar; la propia página de Cron Jobs de cPanel suele indicarla).
+   - `demo/reset_demo.php` solo se ejecuta por CLI (nunca por HTTP) y solo si `DEMO_MODE` está activo, así que no hay riesgo de que alguien lo dispare desde fuera ni de que borre una instalación que no sea la demo.
+4. **Primera carga de datos**: tras el primer deploy, la BBDD está vacía hasta el primer reinicio programado. O se espera a la primera ejecución del cron, o se importa `bd/restaurante_08_con_datos.sql` una vez a mano desde phpMyAdmin para no esperar.
 
 ---
 
@@ -61,12 +123,19 @@ restaurante/
 ├── registro.php         # Registro de nuevos clientes
 ├── styles.css           # Estilos globales
 ├── components/          # Conexión a BD, header y navbar comunes
-│   └── conexion.php     # Configuración de la conexión MySQL
+│   ├── conexion.php     # Configuración de la conexión MySQL
+│   ├── demo.php         # Config y helpers del modo demo (DEMO_MODE, límites)
+│   └── demoModal.php    # Modal compartida para acciones bloqueadas en demo
 ├── cliente/             # Vistas y lógica del rol cliente
 ├── camarero/            # Vistas y lógica del rol camarero
 ├── encargado/           # Vistas y lógica del rol encargado
 ├── bd/                  # Scripts SQL (versiones incrementales)
-│   └── restaurante_08_con_datos.sql   # ⭐ Versión final, con datos de prueba
+│   ├── restaurante_08_con_datos.sql   # ⭐ Versión final, con datos de prueba
+│   └── demo_reset.sql   # Misma semilla, sin DROP/CREATE DATABASE (reinicio diario)
+├── demo/
+│   └── reset_demo.php   # Reinicio diario de la BBDD de demo (solo CLI, vía cron)
+├── .github/workflows/
+│   └── deploy.yml       # Despliegue automático a cPanel por FTPS
 ├── img/                 # Imágenes de la aplicación
 ├── img_productos/       # Imágenes de los productos de la carta
 ├── memoria/             # Documentación del proyecto (memoria, manuales)
@@ -91,11 +160,12 @@ restaurante/
    git clone git@github.com:amartinezdev/restaurante.git
    ```
 
-2. **Instala las dependencias** (solo necesario si no existe la carpeta `vendor/`):
+2. **Instala las dependencias** (solo necesario si no existen `vendor/` o `tailwind/tailwind.css`):
 
    ```bash
    cd restaurante
    composer install
+   npm install && npm run build:css
    ```
 
 3. **Importa la base de datos**: crea una BD llamada `restaurante` en phpMyAdmin e importa el script final:
