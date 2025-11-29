@@ -197,18 +197,49 @@ button:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
-/* Más estrecha que el login (es contenido secundario). A partir de lg se
-   saca del flujo con position:fixed a la derecha: así no compite por
-   espacio con el login, que queda libre para centrarse de verdad en la
-   página. */
+/* .login-stage envuelve la tarjeta de credenciales + el login. En móvil es
+   una simple columna (orden del DOM: credenciales primero). A partir de lg,
+   la tarjeta de credenciales se saca del flujo con position:absolute,
+   anclada al propio .login-stage (que mide lo mismo que el login, al ser
+   su único hijo en flujo): así el login se centra de verdad en la página
+   sin necesidad de position:fixed, y las credenciales quedan pegadas a su
+   derecha con un margen fijo, en vez de ancladas al borde del viewport. */
+.login-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  /* Igual de ancho que .section debajo de lg, para que los col-12/col-sm-7/
+     col-md-6 (%) de sus hijos tengan un contenedor con ancho definido del
+     que calcular su porcentaje. */
+  width: 100%;
+}
+
 @media (min-width: 992px) {
+  .login-stage {
+    position: relative;
+    /* Sin ancho propio: se encoge al ancho real del login (su único hijo en
+       flujo, las credenciales pasan a position:absolute), así el ancla de
+       las credenciales (left:100%) cae justo en el borde derecho del login
+       y no en el borde derecho de todo el .login-stage. */
+    width: auto;
+  }
+
+  .login {
+    /* Ancho fijo en vez del 33% (col-lg-4) de Bootstrap: con .login-stage
+       encogiéndose a su contenido, un ancho en % aquí crearía una
+       dependencia circular (el padre se encoge al hijo, el hijo depende
+       del ancho del padre) que colapsaba la tarjeta entera. */
+    width: 460px;
+  }
+
   .demo-credentials {
-    position: fixed;
-    right: 2rem;
+    position: absolute;
     top: 50%;
+    left: 100%;
     transform: translateY(-50%);
+    margin-left: 28px;
     width: 320px;
-    z-index: 20;
   }
 }
 
@@ -216,6 +247,7 @@ button:focus-visible,
 .demo-credentials .tbl tbody td {
   padding-left: 0.65rem;
   padding-right: 0.65rem;
+  text-align: center;
 }
 
 .demo-cred-icon {
@@ -281,14 +313,6 @@ button:focus-visible,
   @starting-style {
     opacity: 0;
     transform: translateY(18px) scale(0.97);
-  }
-}
-
-/* ~55px más estrecho que el col-lg-4 por defecto, para que no le quite
-   tanto protagonismo a la tarjeta de credenciales de al lado. */
-@media (min-width: 992px) {
-  .login {
-    max-width: 460px;
   }
 }
 

@@ -68,7 +68,8 @@ require_once __DIR__ . "/components/demo.php";
     ?>
 
     <!-- SECTION -->
-    <section class="d-flex flex-column justify-content-center align-items-center gap-4 py-4 py-sm-5" style="min-height: 75vh;">
+    <section class="d-flex flex-column justify-content-center align-items-center py-4 py-sm-5" style="min-height: 75vh;">
+      <div class="login-stage">
       <?php if (DEMO_MODE): ?>
         <div class="demo-credentials col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4">
           <div class="d-flex align-items-center gap-2 mb-3">
@@ -174,6 +175,7 @@ require_once __DIR__ . "/components/demo.php";
           </div>
         </form>
       </main>
+      </div>
     </section>
 
     <video class="video-fondo" autoplay muted loop playsinline>
