@@ -1,0 +1,62 @@
+name: Deploy a cPanel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependencias de Tailwind
+        run: npm ci
+
+      - name: Compilar CSS (tailwind/tailwind.css)
+        run: npm run build:css
+
+      - name: Generar components/conexion.local.php desde secrets
+        run: |
+          cat > components/conexion.local.php <<PHP
+          <?php
+          // Generado automáticamente por .github/workflows/deploy.yml — no editar a mano.
+          putenv('DB_HOST=${{ secrets.DEMO_DB_HOST }}');
+          putenv('DB_USER=${{ secrets.DEMO_DB_USER }}');
+          putenv('DB_PASS=${{ secrets.DEMO_DB_PASS }}');
+          putenv('DB_NAME=${{ secrets.DEMO_DB_NAME }}');
+          define('DEMO_MODE', true);
+          PHP
+
+      - name: Desplegar por FTPS a cPanel
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./
+          # Si la cuenta FTP ya tiene como raíz public_html/restaurante,
+          # cambia esto a "/". Ver plans/2025-11-29-demo-deploy.md (Fase 9).
+          server-dir: /restaurante/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .claude/**
+            .agents/**
+            plans/**
+            node_modules/**
+            docker/**
+            Dockerfile
+            docker-compose.yml
+            .dockerignore
+            skills-lock.json
+            components/conexion.local.php.example

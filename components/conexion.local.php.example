@@ -1,0 +1,15 @@
+<?php
+// Plantilla de components/conexion.local.php — el archivo real NO se
+// commitea (está en .gitignore). En el despliegue de cPanel lo genera el
+// workflow de GitHub Actions (.github/workflows/deploy.yml) a partir de los
+// secrets del repo, sustituyendo estos placeholders por los valores reales.
+//
+// Si alguna vez necesitas probar el modo demo en local, copia este archivo
+// como components/conexion.local.php y rellena tus propios valores.
+
+putenv('DB_HOST=localhost');
+putenv('DB_USER=usuario_cpanel_bd');
+putenv('DB_PASS=contraseña_bd');
+putenv('DB_NAME=usuario_cpanel_restaurante');
+
+define('DEMO_MODE', true);

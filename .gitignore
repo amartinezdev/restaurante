@@ -1,0 +1,12 @@
+node_modules/
+
+# Herramientas de asistencia (skills), no forman parte de la app
+.claude/
+.agents/
+skills-lock.json
+
+# Documentos de planificación internos, no forman parte de la app
+/plans/
+
+# Credenciales/config de despliegue generadas por CI, nunca en el repo
+components/conexion.local.php
