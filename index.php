@@ -68,7 +68,7 @@ require_once __DIR__ . "/components/demo.php";
     ?>
 
     <!-- SECTION -->
-    <section class="d-flex flex-column flex-lg-row justify-content-center align-items-center align-items-lg-start gap-4 py-4 py-sm-5" style="min-height: 75vh;">
+    <section class="d-flex flex-column justify-content-center align-items-center gap-4 py-4 py-sm-5" style="min-height: 75vh;">
       <!-- MAIN -->
       <main class="login col-12 col-sm-7 col-md-6 col-lg-4 rounded-4 p-4 p-sm-5">
         <div class="login-icon">
@@ -143,25 +143,25 @@ require_once __DIR__ . "/components/demo.php";
             <table class="tbl">
               <thead>
                 <tr>
+                  <th>Contraseña</th>
                   <th>Rol</th>
                   <th>DNI</th>
-                  <th>Contraseña</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td><span class="demo-cred-code">1</span></td>
                   <td><span class="pill pill-warning">Encargado</span></td>
                   <td><span class="demo-cred-code">1</span></td>
-                  <td><span class="demo-cred-code">1</span></td>
                 </tr>
                 <tr>
+                  <td><span class="demo-cred-code">2</span></td>
                   <td><span class="pill pill-neutral">Camarero</span></td>
                   <td><span class="demo-cred-code">2</span></td>
-                  <td><span class="demo-cred-code">2</span></td>
                 </tr>
                 <tr>
-                  <td><span class="pill pill-success">Cliente</span></td>
                   <td><span class="demo-cred-code">3</span></td>
+                  <td><span class="pill pill-success">Cliente</span></td>
                   <td><span class="demo-cred-code">3</span></td>
                 </tr>
               </tbody>
