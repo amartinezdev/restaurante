@@ -15,7 +15,10 @@
 
 @font-face {
   font-family: Adumu;
-  src: url(/fonts/Adumu.ttf);
+  /* Ruta relativa (no /fonts/...): styles.css se sirve siempre desde la raíz
+     del sitio, así que se resuelve bien tanto en local (raíz "/") como en
+     cPanel (bajo "/restaurante/") sin depender de BASE_PATH. */
+  src: url(fonts/Adumu.ttf);
 }
 
 h1 {
@@ -23,7 +26,7 @@ h1 {
 }
 
 body {
-  background-image: url(/img/background02.jpg);
+  background-image: url(img/background02.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -194,8 +197,61 @@ button:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
-/* Banner de modo demo (components/header.php) */
+.demo-cred-icon {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bs-warning) 20%, transparent);
+  color: var(--bs-warning);
+}
+
+.demo-cred-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-cred-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--panel-border);
+}
+
+.demo-cred-row:first-child {
+  border-top: none;
+  padding-top: 0.2rem;
+}
+
+.demo-cred-value {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--bs-body-color) 75%, transparent);
+}
+
+.demo-cred-code {
+  font-family: var(--bs-font-monospace, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: color-mix(in srgb, white 6%, transparent);
+  border: 1px solid var(--panel-border);
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.45rem;
+}
+
+/* Banner de modo demo (components/header.php) — a ancho completo, saltándose
+   el padding del .container-fluid en el que vive header.php (si no, se ve
+   un hueco oscuro a cada lado del color de fondo del aviso). */
 .demo-banner {
+  margin-left: calc(var(--bs-gutter-x, 1.5rem) * -0.5);
+  margin-right: calc(var(--bs-gutter-x, 1.5rem) * -0.5);
   padding: 0.5rem 1rem;
   background-color: color-mix(in srgb, var(--bs-warning) 16%, var(--bs-dark) 84%);
   color: color-mix(in srgb, var(--bs-warning) 70%, white);

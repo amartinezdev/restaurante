@@ -17,6 +17,7 @@ require_once __DIR__ . "/components/demo.php";
   <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -67,9 +68,9 @@ require_once __DIR__ . "/components/demo.php";
     ?>
 
     <!-- SECTION -->
-    <section class="row justify-content-center align-items-center h-75">
+    <section class="d-flex flex-column flex-lg-row justify-content-center align-items-center align-items-lg-start gap-4 py-4 py-sm-5" style="min-height: 75vh;">
       <!-- MAIN -->
-      <main class="login col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 col-xxl-3 rounded-4 p-4 p-sm-5">
+      <main class="login col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 rounded-4 p-4 p-sm-5">
         <div class="login-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
             <rect x="5" y="11" width="14" height="9" rx="2"></rect>
@@ -123,38 +124,47 @@ require_once __DIR__ . "/components/demo.php";
       </main>
 
       <?php if (DEMO_MODE): ?>
-        <div class="w-100"></div>
-        <div class="demo-credentials col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 col-xxl-3 rounded-4 p-3 mt-3">
-          <p class="text-center text-muted small mb-2">Credenciales de prueba — entra y prueba la app</p>
-          <div class="tbl-wrap">
-            <table class="tbl">
-              <thead>
-                <tr>
-                  <th>Rol</th>
-                  <th>DNI</th>
-                  <th>Contraseña</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Encargado</td>
-                  <td>1</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Camarero</td>
-                  <td>2</td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>Cliente</td>
-                  <td>3</td>
-                  <td>3</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="demo-credentials col-12 col-sm-8 col-md-7 col-lg-5 col-xl-4 rounded-4 p-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="demo-cred-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M21 2l-9.6 9.6"></path>
+                <path d="M15.5 7.5l3 3L22 7l-3-3"></path>
+                <circle cx="7.5" cy="15.5" r="5.5"></circle>
+              </svg>
+            </div>
+            <div>
+              <p class="fw-semibold mb-0">Credenciales de prueba</p>
+              <p class="text-muted small mb-0">Entra y prueba la app con cualquiera de estos accesos</p>
+            </div>
           </div>
-          <p class="text-center text-muted small mt-2 mb-0">También hay 2 clientes de prueba más: 4 / 4 y 5 / 5.</p>
+
+          <div class="demo-cred-list">
+            <div class="demo-cred-row">
+              <span class="pill pill-warning">Encargado</span>
+              <span class="demo-cred-value">
+                <span class="demo-cred-code">1</span> / <span class="demo-cred-code">1</span>
+              </span>
+            </div>
+            <div class="demo-cred-row">
+              <span class="pill pill-neutral">Camarero</span>
+              <span class="demo-cred-value">
+                <span class="demo-cred-code">2</span> / <span class="demo-cred-code">2</span>
+              </span>
+            </div>
+            <div class="demo-cred-row">
+              <span class="pill pill-success">Cliente</span>
+              <span class="demo-cred-value">
+                <span class="demo-cred-code">3</span> / <span class="demo-cred-code">3</span>
+              </span>
+            </div>
+          </div>
+
+          <p class="text-muted small mt-3 mb-0">
+            También hay 2 clientes de prueba más:
+            <span class="demo-cred-code">4</span>/<span class="demo-cred-code">4</span> y
+            <span class="demo-cred-code">5</span>/<span class="demo-cred-code">5</span>.
+          </p>
         </div>
       <?php endif; ?>
     </section>
