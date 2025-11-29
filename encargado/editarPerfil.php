@@ -18,6 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $dni = $_SESSION["dni"];
 
+    require_once __DIR__ . "/../components/demo.php";
+    if (DEMO_MODE) {
+        $actual = mysqli_fetch_assoc(mysqli_query($conn, "SELECT password FROM usuario WHERE dni = '$dni'"))["password"];
+        if ($pw !== $actual) {
+            demo_block('password');
+        }
+        $pw = $actual;
+    }
 
     if ($direccion == null) {
         $consulta = "UPDATE usuario
@@ -45,6 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     mysqli_close($conn);
 
     $_SESSION["mensaje"] = "<p class='text-success infosuccess text-center'>Has cambiado los datos con éxito</p>";
-    header("LOCATION: /restaurante/encargado/perfil.php");
+    header("LOCATION: /encargado/perfil.php");
     exit;
 }

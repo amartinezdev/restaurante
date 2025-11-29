@@ -7,6 +7,13 @@ include("seguridad.php");
 
 // funcionalidad para añadir el producto a la base de datos
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    require_once __DIR__ . "/../components/demo.php";
+    if (DEMO_MODE && demo_productos_creados($conn) >= DEMO_MAX_PRODUCTOS_NUEVOS) {
+        demo_block('limite_productos');
+        header("LOCATION: /encargado/addProductos.php");
+        exit;
+    }
+
     $nombre = $_POST["nombre"];
     $precio = $_POST["precio"];
     $stock = $_POST["stock"];
@@ -29,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $estadoCat = $row["estado"];
 
     // añado el producto a la base de datos
-    $consulta = "INSERT INTO producto (nombre, precio, stock, estado, categoria, estado_categoria)
-                             VALUES('$nombre', '$precio', '$stock', '$bloqueado', '$cat', '$estadoCat')";
+    $consulta = "INSERT INTO producto (nombre, precio, stock, estado, categoria, estado_categoria, imagen)
+                             VALUES('$nombre', '$precio', '$stock', '$bloqueado', '$cat', '$estadoCat', '')";
 
 
     $result = mysqli_query($conn, $consulta);
@@ -57,6 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     mysqli_close($conn);
 
-    header("LOCATION: /restaurante/encargado/encargado.php");
+    header("LOCATION: /encargado/encargado.php");
     exit;
 }

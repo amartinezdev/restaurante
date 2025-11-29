@@ -7,6 +7,13 @@ include("seguridad.php");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
+    require_once __DIR__ . "/../components/demo.php";
+    if (DEMO_MODE && demo_cuentas_creadas($conn) >= DEMO_MAX_CUENTAS_NUEVAS) {
+        demo_block('limite_cuentas');
+        header("LOCATION: /encargado/addPersonal.php");
+        exit;
+    }
+
     $dni = $_POST["dni"];
     $nombre = $_POST["nombre"];
     $apellido = $_POST["apellido"];

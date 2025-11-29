@@ -7,11 +7,17 @@ include("seguridad.php");
 
 $active = "productos";
 
+require_once __DIR__ . "/../components/demo.php";
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nombreCat = $_POST["categ"];
 
-    $consulta = "INSERT INTO categoria (nombre) VALUES('$nombreCat')";
-    $result = mysqli_query($conn, $consulta);
+    if (DEMO_MODE && demo_categorias_creadas($conn) >= DEMO_MAX_CATEGORIAS_NUEVAS) {
+        demo_block('limite_categorias');
+    } else {
+        $consulta = "INSERT INTO categoria (nombre, estado) VALUES('$nombreCat', 1)";
+        $result = mysqli_query($conn, $consulta);
+    }
 }
 
 ?>
@@ -27,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../tailwind/tailwind.css" />
 </head>
 
 <body>
@@ -49,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </header>
 
                         <section class="row justify-content-center">
-                            <div class="col-10 table-responsive">
-                                <table class="table text-start text-md-center table-hover table-striped">
+                            <div class="col-10 tbl-wrap">
+                                <table class="tbl">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
@@ -67,7 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                         while ($row = mysqli_fetch_array($result)) {
                                             $id = $row['id'];
                                             $estado = $row['estado'];
-                                            print("<tr>");
+                                            if ($estado == 1) {
+                                                print("<tr>");
+                                            } else {
+                                                print("<tr class='tbl-row-alert'>");
+                                            }
                                             print("<td>");
                                             print($row['nombre']);
                                             print("</td>");
@@ -116,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                                             type="submit"
                                             name="addCat"
                                             id="addCat"
-                                            class="btn btn-primary" value="Añadir categoría">
+                                            class="btn btn-success" value="Añadir categoría">
                                         </input>
                                     </div>
                                 </form>
