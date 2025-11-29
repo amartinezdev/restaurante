@@ -355,11 +355,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`dni`, `password`, `nombre`, `apellido`, `rol`, `email`, `telefono`, `direccion`, `estado`) VALUES
-('1', '1', 'Álvaro', 'Martínez', 2, 'alvaro@elquintopino.com', '666666666', NULL, 0),
-('2', '2', 'Pedro', 'El camarero', 1, '2@gmail.com', '2', NULL, 0),
+('1', '1', 'Encargado', 'Demo', 2, 'admin@elquintopino.com', '1', NULL, 0),
+('2', '2', 'Camarero', 'Demo', 1, 'camarero@elquintopino.com', '2', NULL, 0),
 ('3', '3', 'Cliente01', 'Prueba01', 0, 'cliprueb01@quintopino.com', '3', NULL, 0),
 ('4', '4', 'Cliente02', 'Prueba02', 0, 'cliprueb02@quintopino.com', '4', NULL, 0),
-('5', '5', 'Cliente03', 'Prueba03', 0, 'cliprueb03@quintopino.com', '9871', 'C/ goku, 3c', 0);
+('5', '5', 'Cliente03', 'Prueba03', 0, 'cliprueb03@quintopino.com', '9871', 'C/ goku, 2h', 0);
 
 --
 -- Índices para tablas volcadas
