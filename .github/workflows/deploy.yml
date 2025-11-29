@@ -43,9 +43,11 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: ./
-          # Si la cuenta FTP ya tiene como raíz public_html/restaurante,
-          # cambia esto a "/". Ver plans/2025-11-29-demo-deploy.md (Fase 9).
-          server-dir: /restaurante/
+          # Cuenta FTP = la cuenta principal de cPanel (usuario: alvaroma),
+          # cuya raíz por FTP es /home/alvaroma/. La app vive en
+          # /home/alvaroma/public_html/alvaromartinez.dev/restaurante, de ahí
+          # la ruta relativa completa.
+          server-dir: /public_html/alvaromartinez.dev/restaurante/
           exclude: |
             **/.git*
             **/.git*/**
@@ -60,3 +62,4 @@ jobs:
             .dockerignore
             skills-lock.json
             components/conexion.local.php.example
+            vendor/**
