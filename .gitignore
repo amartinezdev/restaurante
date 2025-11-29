@@ -13,3 +13,5 @@ components/conexion.local.php
 
 # Marca de tiempo del cooldown del reset manual (demo/reset_demo.php)
 demo/.reset-lock
+
+**.txt

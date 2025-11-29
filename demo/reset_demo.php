@@ -70,4 +70,18 @@ if (mysqli_errno($conn)) {
     exit(1);
 }
 
-echo '[' . date('c') . "] Base de datos de demo reiniciada correctamente.\n";
+// El reinicio de la BBDD ya deja la tabla `producto` solo con la semilla
+// (ids 1-30), pero las imágenes que alguien haya subido para productos
+// nuevos (encargado/addProductos02.php) se quedan en disco si no se borran
+// aparte — si no, se acumularían fotos (potencialmente inapropiadas) día
+// tras día aunque el producto que las usaba ya no exista.
+$fotosBorradas = 0;
+foreach (glob(__DIR__ . '/../img_productos/*') as $archivo) {
+    if (preg_match('/^0*(\d+)\.\w+$/', basename($archivo), $m) && (int) $m[1] > DEMO_SEED_PRODUCTO_MAX_ID) {
+        if (unlink($archivo)) {
+            $fotosBorradas++;
+        }
+    }
+}
+
+echo '[' . date('c') . "] Base de datos de demo reiniciada correctamente ($fotosBorradas foto(s) de producto fuera de la semilla borradas).\n";
