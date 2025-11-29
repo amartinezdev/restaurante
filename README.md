@@ -57,7 +57,7 @@ Construir la base del sistema: autenticación, roles de usuario y estructura ini
 - Carpeta `cliente/` – Vistas y lógica del cliente.
 - Carpeta `camarero/` – Vistas y lógica del camarero.
 - Carpeta `encargado/` – Vistas y lógica del encargado.
-- Carpeta `bd/` – Scripts SQL (por ejemplo, `restaurante.sql`).
+- Carpeta `bd/` – Base de datos funcional, la versión `restaurante_08` es la final.
 
 **Estado del Sprint 1**: ✅ Completado.
 
@@ -105,7 +105,7 @@ Completar el flujo de pedidos hasta el pago y cierre de mesa.
 
 - ✅ Generación automática de **cuentas en PDF** con el consumo total de la mesa.
     - El usuario puede generar la factura en `pedidos.php` una vez que el pedido esté pagado.
--  ✅Opción de marcar la mesa como **“pagada”**:
+- ✅ Opción de marcar la mesa como **“pagada”**:
      - La mesa desaparece de la vista de mesas activas para el camarero.
 - ✅ **Impresión de tickets** de la cuenta en la máquina de tickets.
   - El camarero puede imprimir el ticket de la mesa completa.
@@ -150,17 +150,17 @@ Cerrar el proyecto con pruebas de usuario, documentación completa y revisión d
 
 **Tareas planificadas**
 
-- **Pruebas de usuario** (internas):
+- ✅ **Pruebas de usuario** (internas):
   - Verificar la funcionalidad de cada rol.
   - Recoger feedback y aplicar mejoras.
-- **Memoria del proyecto**:
+- ✅ **Memoria del proyecto**:
   - Portada.
   - Índice.
   - Modelo de datos (diagrama y explicación).
   - Manuales de usuario (cliente, camarero, encargado).
   - Problemas encontrados y soluciones adoptadas.
   - Propuestas de mejora futura.
-- **Revisión final de seguridad**:
+- ✅ **Revisión final de seguridad**:
   - Validación de roles y permisos.
   - Comprobación de accesos no autorizados.
   - Revisión de gestión de sesiones y datos sensibles.
