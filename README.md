@@ -100,6 +100,7 @@ La demo se despliega sola en cada push a `main` vía `.github/workflows/deploy.y
 | `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD` | Cuenta FTP de cPanel |
 | `DEMO_DB_HOST` | Host de la BBDD (normalmente `localhost` en cPanel) |
 | `DEMO_DB_USER`, `DEMO_DB_PASS`, `DEMO_DB_NAME` | BBDD de MySQL creada en cPanel para la demo |
+| `DEMO_RESET_TOKEN` | Token para poder forzar un reinicio manual desde el navegador (ver más abajo) |
 
 `components/conexion.local.php` (generado por el workflow, nunca commiteado) hace de puente entre esos secrets y `components/conexion.php`; el formato exacto está documentado en `components/conexion.local.php.example`.
 
@@ -110,7 +111,8 @@ La demo se despliega sola en cada push a `main` vía `.github/workflows/deploy.y
 3. **Cron Jobs**: nueva tarea programada para reiniciar la demo cada noche:
    - Minuto `0`, hora `0` (revisa antes la hora que usa el servidor en el propio cPanel; si no está en horario de España, ajusta la hora del cron en consecuencia).
    - Comando: `php /home/alvaroma/public_html/restaurante/demo/reset_demo.php >> /home/alvaroma/public_html/restaurante/demo/reset.log 2>&1` (la ruta exacta al binario de PHP puede variar; la propia página de Cron Jobs de cPanel suele indicarla).
-   - `demo/reset_demo.php` solo se ejecuta por CLI (nunca por HTTP) y solo si `DEMO_MODE` está activo, así que no hay riesgo de que alguien lo dispare desde fuera ni de que borre una instalación que no sea la demo.
+   - `demo/reset_demo.php` solo se ejecuta por CLI o con el token correcto (nunca sin él), y solo si `DEMO_MODE` está activo, así que no hay riesgo de que alguien lo dispare desde fuera ni de que borre una instalación que no sea la demo.
+   - **Reinicio manual sin consola**: visita `https://alvaromartinez.dev/restaurante/demo/reset_demo.php?token=TU_DEMO_RESET_TOKEN` (el mismo valor que pusiste en el secret) — resetea al momento. Puedes guardarlo en favoritos. Alternativa sin tocar nada de esto: reimportar `bd/demo_reset.sql` a mano desde phpMyAdmin (Importar → elegir archivo → Go), igual que la primera carga de datos.
 4. **Dependencias de Composer (`vendor/`)**: excluida del deploy automático (tarda mucho por FTP y apenas cambia). Se sube **una vez a mano** por FTP a `/public_html/restaurante/vendor/` — a partir de ahí el workflow no la toca ni la borra en los siguientes deploys.
 5. **Primera carga de datos**: tras el primer deploy, la BBDD está vacía hasta el primer reinicio programado. O se espera a la primera ejecución del cron, o se importa `bd/restaurante_08_con_datos.sql` una vez a mano desde phpMyAdmin para no esperar.
 

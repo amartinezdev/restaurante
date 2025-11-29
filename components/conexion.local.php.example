@@ -17,3 +17,9 @@ putenv('DB_NAME=usuario_cpanel_restaurante');
 putenv('APP_BASE_PATH=/restaurante');
 
 define('DEMO_MODE', true);
+
+// Token para forzar un reinicio manual de la demo visitando
+// demo/reset_demo.php?token=... desde el navegador, sin acceso a consola.
+// Genera el tuyo (ej. `php -r "echo bin2hex(random_bytes(24));"`) y guárdalo
+// también como secret DEMO_RESET_TOKEN en GitHub.
+define('DEMO_RESET_TOKEN', 'cambia-esto-por-un-token-largo-y-aleatorio');

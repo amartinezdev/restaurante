@@ -34,6 +34,7 @@ jobs:
           putenv('DB_NAME=${{ secrets.DEMO_DB_NAME }}');
           putenv('APP_BASE_PATH=/restaurante');
           define('DEMO_MODE', true);
+          define('DEMO_RESET_TOKEN', '${{ secrets.DEMO_RESET_TOKEN }}');
           PHP
 
       - name: Desplegar por FTPS a cPanel
