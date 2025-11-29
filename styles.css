@@ -197,25 +197,30 @@ button:focus-visible,
   box-shadow: var(--shadow-md);
 }
 
-/* .login-stage envuelve la tarjeta de credenciales + el login. En móvil es
-   una simple columna (orden del DOM: credenciales primero). A partir de lg,
-   la tarjeta de credenciales se saca del flujo con position:absolute,
-   anclada al propio .login-stage (que mide lo mismo que el login, al ser
-   su único hijo en flujo): así el login se centra de verdad en la página
-   sin necesidad de position:fixed, y las credenciales quedan pegadas a su
-   derecha con un margen fijo, en vez de ancladas al borde del viewport. */
+/* .login-stage envuelve la tarjeta de credenciales + el login. En móvil/
+   tablet es una simple columna (orden del DOM: credenciales primero). A
+   partir de 1150px, la tarjeta de credenciales se saca del flujo con
+   position:absolute, anclada al propio .login-stage (que mide lo mismo que
+   el login, al ser su único hijo en flujo): así el login se centra de
+   verdad en la página sin necesidad de position:fixed, y las credenciales
+   quedan pegadas a su derecha con un margen fijo, en vez de ancladas al
+   borde del viewport.
+   El corte se fija en 1150px (no en el lg de Bootstrap, 992px) porque el
+   layout de escritorio necesita sitio para login (460px) + margen (28px) +
+   credenciales (320px) ≈ 808px sin contar el padding del contenedor: entre
+   992 y 1150px no cabía y la página se rompía (overflow horizontal). */
 .login-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  /* Igual de ancho que .section debajo de lg, para que los col-12/col-sm-7/
-     col-md-6 (%) de sus hijos tengan un contenedor con ancho definido del
-     que calcular su porcentaje. */
+  /* Igual de ancho que .section por debajo del corte, para que los
+     col-12/col-sm-7/col-md-6 (%) de sus hijos tengan un contenedor con
+     ancho definido del que calcular su porcentaje. */
   width: 100%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1150px) {
   .login-stage {
     position: relative;
     /* Sin ancho propio: se encoge al ancho real del login (su único hijo en
