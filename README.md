@@ -1,194 +1,152 @@
 # 🍽️ Proyecto Restaurante
 
-Aplicación web en PHP para la gestión de pedidos de un restaurante mediante distintos roles de usuario (**cliente, camarero y encargado**).  
-El sistema permite gestionar mesas, carta, stock, pedidos por rondas, cobros, tickets e informes.
+Aplicación web en **PHP** para la gestión integral de pedidos de un restaurante mediante tres roles de usuario: **cliente**, **camarero** y **encargado**. El sistema cubre todo el flujo de trabajo: gestión de mesas, carta dinámica según stock, pedidos por rondas, cobros, generación de facturas en PDF, impresión de tickets (comanda de cocina y cuenta) e informes de rendimiento.
+
+El desarrollo se organizó con un enfoque **ágil (Scrum)** en **5 sprints**, todos completados. ✅
 
 ---
 
-## Descripción general
+## 📋 Funcionalidades por rol
 
-Este proyecto implementa un flujo completo de trabajo en un restaurante:
+### 👤 Cliente
+- Registro e inicio de sesión.
+- Selección de mesa y número de comensales.
+- Carta dinámica: solo se muestran productos **con stock disponible**, con buscador por nombre.
+- Pedidos por **rondas acumulativas** (se pueden añadir productos a un pedido ya iniciado).
+- **Notas por producto** ("sin azúcar", "extra picante"…).
+- Cancelación de productos mientras no se hayan enviado a cocina; una vez enviados, el pedido queda bloqueado.
+- **Bloqueo de mesa**: aunque cierre sesión, el cliente no puede cambiar de mesa hasta que esté pagada y liberada.
+- Descarga de la factura en **PDF** una vez pagado el pedido.
 
-- Los **clientes** pueden registrarse, iniciar sesión, seleccionar mesa, ver la carta según el stock disponible, hacer pedidos y añadir notas a los productos.
-- Los **camareros** gestionan las mesas, marcan productos como servidos y cierran las cuentas.
-- Los **encargados** administran el personal, el menú, el stock y los informes del restaurante.
+### 🤵 Camarero
+- Visualización y gestión de todas las mesas activas.
+- Cambio de estado de productos de *pedido* a *servido*.
+- Cobro de mesas: al marcarlas como **pagadas**, desaparecen de la vista de mesas activas.
+- **Impresión del ticket** de la cuenta completa en la impresora de tickets.
+- Gestión de su propio perfil.
 
-El desarrollo se organiza siguiendo un enfoque **ágil** basado en **Scrum**, dividido en **5 Sprints**.
+### 👔 Encargado
+- Alta, baja, modificación y bloqueo de **categorías** y **productos** (con control de stock).
+- Gestión del **personal**: registro, edición y suspensión/bloqueo de camareros.
+- **Informes de rendimiento**: ingresos por periodo, número de comensales, mesas atendidas…
+- Envío de pedidos a cocina con impresión automática de la comanda.
 
----
-
-### 📅 Planificación de Sprints
-
-| Sprint  | Fecha fin       | Objetivo principal                                      |
-|--------:|-----------------|---------------------------------------------------------|
-| Sprint 1 | 9 noviembre 2025  | Fundamentos del sistema y roles                         |
-| Sprint 2 | 16 noviembre 2025 | Gestión de mesas y toma de pedidos                     |
-| Sprint 3 | 23 noviembre 2025 | Generación de cuentas y cierre de mesas (camarero)     |
-| Sprint 4 | 30 noviembre 2025 | Funciones administrativas y gestión avanzada del menú  |
-| Sprint 5 | 5 diciembre 2025  | Pruebas finales, documentación y revisión de seguridad |
-
----
-
-## Roadmap por Sprints
-
-### Sprint 1 – Fundamentos del sistema y roles (09/11/2025)
-
-**Objetivo**  
-Construir la base del sistema: autenticación, roles de usuario y estructura inicial de la aplicación y la base de datos.
-
-**Alcance funcional**
-
-- ✅ Crear la estructura básica en **HTML5** con diseño **responsive** (Bootstrap).
-- ✅ Crear la **base de datos** con sus tablas, relaciones y atributos necesarios.
-- ✅ Crear la pantalla de **inicio** y sistema de **autenticación y registro**:
-  - `index.php` permite el inicio de sesión.
-  - `registro.php` permite el registro de nuevos clientes.
-  - Una vez logueado, el sistema redirige al usuario según su **rol**.
-- ✅ Implementar **medidas de seguridad** básicas y **cierre de sesión**.
-- ✅ Crear sistema de:
-  - Alta, baja y modificación de **categorías**.
-  - Alta, baja y modificación de **productos** y su **stock** (rol encargado).
-
-**Archivos clave**
-
-- `index.php` – Pantalla de inicio y login.
-- `registro.php` – Registro de clientes.
-- `components/conexion.php` – Conexión a la base de datos.
-- Carpeta `cliente/` – Vistas y lógica del cliente.
-- Carpeta `camarero/` – Vistas y lógica del camarero.
-- Carpeta `encargado/` – Vistas y lógica del encargado.
-- Carpeta `bd/` – Base de datos funcional, la versión `restaurante_08` es la final.
-
-**Estado del Sprint 1**: ✅ Completado.
+### ⚙️ Sistema
+- Control de stock en tiempo real: al confirmar un pedido se descuenta el stock y se valida que haya cantidad suficiente.
+- Redirección automática según el rol tras el login.
+- Control de acceso por rol en cada sección (`seguridad.php`).
+- Historial de pedidos persistido en BD para auditorías.
 
 ---
 
-### Sprint 2 – Gestión de mesas y toma de pedidos (16/11/2025)
+## 🛠️ Tecnologías
 
-**Objetivo**  
-Permitir a los clientes seleccionar mesa, realizar pedidos (con stock controlado y rondas) y facilitar al camarero la gestión de esos pedidos.
-
-**Alcance funcional**
-
-- ✅ **Selección de mesa y número de comensales** por parte del cliente.
-- ✅ **Carta dinámica según stock**:
-  - Si no hay stock de un producto, **no aparece** en la carta.
-- ✅ **Control de stock en tiempo real**:
-  - Al confirmar un pedido, se descuenta automáticamente del stock la cantidad pedida.
-  - Se comprueba que haya stock suficiente antes de confirmar; en caso contrario, se muestra un mensaje de error/advertencia.
-- ✅ **Múltiples rondas de pedido** (segunda, tercera, cuarta…):
-  - El cliente puede añadir nuevos productos a un pedido ya iniciado.
-  - Las nuevas rondas se **acumulan** al pedido anterior sin sobrescribirlo.
-- ✅ **Notas por producto**:
-  - Posibilidad de añadir notas como “sin azúcar”, “extra picante”, etc.
-- ✅ **Buscador en la carta**:
-  - Campo de búsqueda para filtrar productos por nombre o palabra clave.
-- ✅ **Gestión de mesas por el camarero**:
-  - Visualización de todas las mesas.
-  - Cambio de estado de productos de *“pedido”* a *“servido”*.
-- ✅ **Envío/cancelación de productos pendientes**:
-  - Se pueden cancelar productos mientras no hayan sido enviados a cocina.
-  - Una vez enviados, el pedido queda bloqueado para modificaciones.
-- ✅ **Bloqueo de mesa**:
-  - Aunque el cliente cierre sesión, no puede cambiar de mesa hasta que ésta esté **pagada y liberada**.
-
-**Estado del Sprint 2**: ✅ Completado.
+| Capa | Tecnología |
+|------|------------|
+| Backend | PHP (mysqli) |
+| Base de datos | MySQL / MariaDB |
+| Frontend | HTML5, CSS3, Bootstrap |
+| Dependencias | Composer |
+| PDFs | [`mpdf/mpdf`](https://github.com/mpdf/mpdf) ^8.2 |
+| Impresión de tickets | [`mike42/escpos-php`](https://github.com/mike42/escpos-php) ^4.0 (ESC/POS por red) |
+| Entorno de desarrollo | XAMPP |
 
 ---
 
-### Sprint 3 – Generación de cuentas y cierre de mesas (rol Camarero) (23/11/2025)
+## 📁 Estructura del proyecto
 
-**Objetivo**  
-Completar el flujo de pedidos hasta el pago y cierre de mesa.
-
-**Funcionalidades planificadas**
-
-- ✅ Generación automática de **cuentas en PDF** con el consumo total de la mesa.
-    - El usuario puede generar la factura en `pedidos.php` una vez que el pedido esté pagado.
-- ✅ Opción de marcar la mesa como **“pagada”**:
-     - La mesa desaparece de la vista de mesas activas para el camarero.
-- ✅ **Impresión de tickets** de la cuenta en la máquina de tickets.
-  - El camarero puede imprimir el ticket de la mesa completa.
-- ✅ Persistencia de los datos de cada mesa y sus cuentas:
-  - Historial almacenado en la BD para auditorías futuras en la tabla `Pedidos`.
-
-**Librerías previstas**
-
-- `mpdf/mpdf` para generación de PDFs.
-- `mike42/escpos-php` para impresión en impresoras de tickets (ESC/POS).
-
-**Estado del Sprint 3**: ✅ Completado.
+```
+restaurante/
+├── index.php            # Pantalla de inicio y login
+├── registro.php         # Registro de nuevos clientes
+├── styles.css           # Estilos globales
+├── components/          # Conexión a BD, header y navbar comunes
+│   └── conexion.php     # Configuración de la conexión MySQL
+├── cliente/             # Vistas y lógica del rol cliente
+├── camarero/            # Vistas y lógica del rol camarero
+├── encargado/           # Vistas y lógica del rol encargado
+├── bd/                  # Scripts SQL (versiones incrementales)
+│   └── restaurante_08_con_datos.sql   # ⭐ Versión final, con datos de prueba
+├── img/                 # Imágenes de la aplicación
+├── img_productos/       # Imágenes de los productos de la carta
+├── memoria/             # Documentación del proyecto (memoria, manuales)
+└── vendor/              # Dependencias de Composer
+```
 
 ---
 
-### Sprint 4 – Funciones administrativas y gestión del menú (rol Encargado) (30/11/2025)
+## 🚀 Instalación y configuración
 
-**Objetivo**  
-Dotar al encargado de herramientas avanzadas para gestionar pedidos, personal, menú e informes.
+### Requisitos
 
-**Funcionalidades planificadas**
+- XAMPP (o equivalente: Apache + PHP + MySQL/MariaDB).
+- Composer.
 
-- ✅ Sistema de **envío de pedidos a cocina** con impresión automática en la máquina de tickets.
-  - Cuando un usuario realiza un pedido, aparece un ticket de cocina.
-- ✅ Gestión de **perfiles de camareros**:
-  - Registro de nuevos camareros.
-  - Suspensión/bloqueo de camareros.
-- ✅ Sistema de **informes de rendimiento**:
-  - Ingresos por periodo.
-  - Número de comensales.
-  - Mesas atendidas, etc.
+### Pasos
 
+1. **Clona el proyecto** dentro de `htdocs` (XAMPP):
 
-**Estado del Sprint 4**: ✅ Completado.
-
----
-
-### Sprint 5 – Pruebas finales y documentación (05/12/2025)
-
-**Objetivo**  
-Cerrar el proyecto con pruebas de usuario, documentación completa y revisión de seguridad.
-
-**Tareas planificadas**
-
-- ✅ **Pruebas de usuario** (internas):
-  - Verificar la funcionalidad de cada rol.
-  - Recoger feedback y aplicar mejoras.
-- ✅ **Memoria del proyecto**:
-  - Portada.
-  - Índice.
-  - Modelo de datos (diagrama y explicación).
-  - Manuales de usuario (cliente, camarero, encargado).
-  - Problemas encontrados y soluciones adoptadas.
-  - Propuestas de mejora futura.
-- ✅ **Revisión final de seguridad**:
-  - Validación de roles y permisos.
-  - Comprobación de accesos no autorizados.
-  - Revisión de gestión de sesiones y datos sensibles.
-
-**Estado del Sprint 5**: ✅ Completado.
-
----
-
-## Tecnologías utilizadas
-
-- **Backend**: PHP
-- **Base de datos**: MySQL
-- **Frontend**: HTML5, CSS3, Bootstrap
-- **Gestión de dependencias**: Composer
-- **Librerías utilizadas**:
-  - `mpdf/mpdf` – generación de PDFs.
-  - `mike42/escpos-php` – impresión de tickets.
-- **Servidor**: XAMPP.
-
----
-
-## Instalación y configuración
-
-1. **Clona el proyecto**
    ```bash
+   cd C:/xampp/htdocs
    git clone git@github.com:amartinezdev/restaurante.git
-2. **Importa la base de datos en XAMPP**
-3. **⚠️ El proyecto dará fallo si no tienes en rango la IP de la impresora de tickets.**
-    ```bash 
-    192.168.36.170
-4. Para evitar el fallo, cambia el `header(LOCATION:)` de `carta.php` a `pedidos.php`
+   ```
+
+2. **Instala las dependencias** (solo necesario si no existe la carpeta `vendor/`):
+
+   ```bash
+   cd restaurante
+   composer install
+   ```
+
+3. **Importa la base de datos**: crea una BD llamada `restaurante` en phpMyAdmin e importa el script final:
+
+   ```
+   bd/restaurante_08_con_datos.sql
+   ```
+
+4. **Revisa la conexión a la BD** en [`components/conexion.php`](components/conexion.php) (por defecto: `localhost`, usuario `root`, sin contraseña, BD `restaurante`).
+
+5. **Configura la impresora de tickets** ⚠️
+
+   El proyecto imprime tickets por red en la IP `192.168.36.170`. Si no tienes una impresora ESC/POS accesible en esa IP, el flujo de pedidos fallará. Tienes dos opciones:
+
+   - **Con impresora**: cambia la IP en estos dos archivos por la de tu impresora:
+     - [`cliente/ticketCocina.php`](cliente/ticketCocina.php) (comanda de cocina)
+     - [`camarero/imprimirTicket.php`](camarero/imprimirTicket.php) (ticket de cuenta)
+   - **Sin impresora**: en [`cliente/carta.php`](cliente/carta.php), cambia la redirección `header("LOCATION: ticketCocina.php?idPedido=$idPedido")` por `header("LOCATION: pedidos.php")` para saltarte la impresión.
+
+6. **Accede a la aplicación**: `http://localhost/restaurante/`
+
+### 🔑 Usuarios de prueba
+
+El script `restaurante_08_con_datos.sql` incluye usuarios ya creados (se accede con DNI y contraseña):
+
+| Rol | DNI | Contraseña |
+|-----|-----|------------|
+| Encargado | `1` | `1` |
+| Camarero | `2` | `2` |
+| Cliente | `3` | `3` |
+
+---
+
+## 📅 Historial de sprints
+
+| Sprint | Fecha fin | Objetivo | Estado |
+|-------:|-----------|----------|:------:|
+| 1 | 09/11/2025 | Fundamentos: autenticación, roles, BD y gestión de categorías/productos | ✅ |
+| 2 | 16/11/2025 | Gestión de mesas, carta según stock, pedidos por rondas y notas | ✅ |
+| 3 | 23/11/2025 | Cuentas en PDF, cobro y cierre de mesas, impresión de tickets | ✅ |
+| 4 | 30/11/2025 | Comandas a cocina, gestión de personal e informes de rendimiento | ✅ |
+| 5 | 05/12/2025 | Pruebas finales, memoria del proyecto y revisión de seguridad | ✅ |
+
+---
+
+## 📖 Documentación
+
+En la carpeta [`memoria/`](memoria/) se encuentra la documentación completa del proyecto: memoria con el modelo de datos, manuales de usuario por rol, problemas encontrados y propuestas de mejora.
+
+---
+
+## ✍️ Autor
+
+**Álvaro Martínez** — [@amartinezdev](https://github.com/amartinezdev)
