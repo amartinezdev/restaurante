@@ -48,5 +48,10 @@ if (!mysqli_select_db($conn, $basededatos)) {
     die('No se ha podido seleccionar la base de datos "' . htmlspecialchars($basededatos) . '": ' . htmlspecialchars(mysqli_error($conn)));
 }
 
+// Sin esto mysqli usa el charset por defecto del cliente (normalmente
+// latin1) en vez del utf8 de las tablas, y las tildes/ñ salen mal aunque
+// el HTML declare UTF-8.
+mysqli_set_charset($conn, 'utf8mb4');
+
 // Imprimimos si hay algún error
 echo mysqli_error($conn);
